@@ -196,3 +196,11 @@ SSTag_-Blackhat SEO Dropper-_|\$resurl="story\.php\?hl={urlkey}"|\$b=curlOpen\(\
 SSTag_-Malicious Wordpress Plugin-_|\$[A-Za-z0-9]+\s*=\s*create_function\(null,\s*hex2asc\(\$[A-Za-z0-9]+\)\);
 SSTag_-Malicious xcalendar Wordpress Plugin-_|require_once\(ABSPATH\.'wp-content/plugins/xcalendar/xcalendar\.php'\);|\$instance = xcalendarWPBase::getInstance\(\);
 SSTag_-Malicious PHP-_|\${"\\x47\\x4c\\x4fB\\x41\\x4c\\x53"}
+SSTag_-Uploader-_|else if\(\$action=='UploadOne'\)
+SSTag_-Malicious PHP-_|\$[a-zA-Z0-9]+ = str_replace\("j","","sjtrj_jrjejpljajcje"\);|preg_replace\("\\043\\056\\052\\043\\145"
+SSTag_-Malicious PHP-_|\$[a-zA-Z0-9]+=\$[a-zA-Z0-9]+\(\$[a-zA-Z0-9]+\[[a-zA-Z0-9]+\]\);\$[a-zA-Z0-9]+=\$[a-zA-Z0-9]+\(\$[a-zA-Z0-9]+\[[a-zA-Z0-9]+\]\);
+SSTag_-Malicious PHP GLOBALS-_|\$GLOBALS\['[a-zA-Z0-9]+'\];global\$[a-zA-Z0-9]+;\$[a-zA-Z0-9]+=\$GLOBALS;
+SSTag_-PHP Shell-_|if \(\!empty\(\$_GET\['check'\]\) AND \$_GET\['check'\] == \$_passssword\)
+SSTag_-Malicious Content Injector-_|public function setLinksToDbJm\(\)|public function setLinksToDbWp\(\)
+SSTag_-Encoded Files Man-_|rWmyiKgsTxaGZCk38vaTJn4q2PNPnwLODL3EkOj06lRampZBZZPfN8CBQXXo9of
+SSTag_-Simple Uploader-_|if\(\$action\=\=\"\"\|\|\$password\=\=\"\"\|\|\$filename\=\=\"\"\|\|\$body\=\=\"\"\)
