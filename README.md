@@ -21,10 +21,16 @@ Options..
 * -c for current directory
 * -u for scan username
 
+* DETECT ONLY
 ```sh
 python <(curl -ks https://raw.githubusercontent.com/bashcode/Pyscan/master/pyscan.py)
 ```
 
+* CLEAN MALWARE
+
+```sh
+python <(curl -ks https://raw.githubusercontent.com/bashcode/Pyscan/master/removeinjections.py)
+```
 
 ### Usage Windows
 ```sh
