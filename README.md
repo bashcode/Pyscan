@@ -13,6 +13,7 @@ Pyscan - A fast malware scanner using ShellScannerPatterns.
 * _CloudLinux 5/6/7_
 * _Windows with https://msys2.github.io_
 * cPanel - Plesk - Directadmin (other control panels not tested.)
+* Any cms.
 
 ### Usage Linux
 
