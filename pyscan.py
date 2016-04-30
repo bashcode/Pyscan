@@ -213,8 +213,8 @@ def main(argv):
         logging.error('Specified directory not found!')
         sys.exit(1)
 
-    patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns')
-    ilerminaty_patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/IlerminatyPatterns')
+      patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns')
+      ilerminaty_patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/IlerminatyPatterns')
 
     for pattern in ilerminaty_patterns:
         pattern = pattern.strip()
@@ -295,4 +295,3 @@ if __name__ == '__main__':
     main(sys.argv[1:])
     time_taken = time.time() - start_time
     logging.info('Ran in: ~~~ %s seconds ~~~', time_taken)
-
