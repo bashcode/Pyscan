@@ -208,3 +208,5 @@ SSTag_-GET Packer-_|if\ \(isset\(\$\_GET\[str\_rot13\(pack\(\"H\*\"
 SSTag_-Obfuscated Shell API-_|\<\?php\ eval\(\"\?\>\"\ \.\ base64\_decode\(\"PD9waHANCmhlYWRlcignQ29udGVud
 SSTag_-Victim Mailer-_|victim\_email\ \=\ \$\_POST\[\"email
 SSTag_-Blackhole Tag-_|/\*[a-zA-Z0-9]{32}\*/;window
+SSTag_-Hidden Comment Include-_|\*/\s*include\s*/\*
+SSTag_-Malicious Injection Javascript-_|<script>var a='';setTimeout\([0-9]+\);if\(document\.referrer\.indexOf
