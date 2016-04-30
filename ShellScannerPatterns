@@ -204,3 +204,7 @@ SSTag_-PHP Shell-_|if \(\!empty\(\$_GET\['check'\]\) AND \$_GET\['check'\] == \$
 SSTag_-Malicious Content Injector-_|public function setLinksToDbJm\(\)|public function setLinksToDbWp\(\)
 SSTag_-Encoded Files Man-_|rWmyiKgsTxaGZCk38vaTJn4q2PNPnwLODL3EkOj06lRampZBZZPfN8CBQXXo9of
 SSTag_-Simple Uploader-_|if\(\$action\=\=\"\"\|\|\$password\=\=\"\"\|\|\$filename\=\=\"\"\|\|\$body\=\=\"\"\)
+SSTag_-GET Packer-_|if\ \(isset\(\$\_GET\[str\_rot13\(pack\(\"H\*\"
+SSTag_-Obfuscated Shell API-_|\<\?php\ eval\(\"\?\>\"\ \.\ base64\_decode\(\"PD9waHANCmhlYWRlcignQ29udGVud
+SSTag_-Victim Mailer-_|victim\_email\ \=\ \$\_POST\[\"email
+SSTag_-Blackhole Tag-_|/\*[a-zA-Z0-9]{32}\*/;window
