@@ -21,7 +21,7 @@ Options..
 * -u for scan username
 
 ```sh
-perl <(GET https://raw.githubusercontent.com/bashcode/Pyscan/master/pyscan.py) 
+python <(curl -ks https://raw.githubusercontent.com/bashcode/Pyscan/master/pyscan.py)
 ```
 
 
