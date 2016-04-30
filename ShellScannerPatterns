@@ -191,3 +191,8 @@ SSTag_-Malicious Injection: POLYMORPH-_|if\s*\(\s*isset\s*\(\s*\${\s*\$[a-zA-Z0-
 SSTag_-Malicious PHP-_|if\(isset\(\$_POST\['_'\]\)\s*&&\s*isset\(\$_POST\['__'\]\)\){\$_=\$_POST\['_'\]
 SSTag_-Malicious PHP-_|\) { break; } } return; } if \(isset\(\$GLOBALS
 SSTag_-Malicious PHP-_|if\(empty\(\$r\["qs"\]\)\)die\(\);if\(\$b\)die\(\);header\(
+SSTag_-Malicious PHP-_|\$check\s*=\s*\$ver\{18\}\s*\.\s*\$ver\{19\}\s*\.\s*\$ver\{17\}\s*\.\s*["']_["']\s*\.\s*\$ver\{17\}\s*\.\s*\$ver\{4\}\s*\.\s*\$ver\{15\}\s*\.\s*\$ver\{11\}\s*\.\s*\$ver\{0\}\s*\.\s*\$ver\{2\}\s*\.\s*\$ver\{4\};|\$[0-9A-Za-z_]+\s*=\s*\$ver\{1\}\s*\.\s* \$ver\{0\}\s*\.\s*\$ver\{18\}\s*\.\s*\$ver\{4\}\s*\.\s*\(16\*4\)\s*\.\s*["']_["']\s*\.\s*\$ver\{3\}\s*\.\s*\$ver\{4\}\s*\.\s*\$ver\{2\}\s*\.\s*\$ver\{14\}\s*\.\s*\$ver\{3\}\s*\.\s*\$ver\{4\};
+SSTag_-Blackhat SEO Dropper-_|\$resurl="story\.php\?hl={urlkey}"|\$b=curlOpen\(\$remote_path\.\$param_value\);|\$newPath=\$rootPath\.'/'\.\$folderpath\.'/'\.\$filename;
+SSTag_-Malicious Wordpress Plugin-_|\$[A-Za-z0-9]+\s*=\s*create_function\(null,\s*hex2asc\(\$[A-Za-z0-9]+\)\);
+SSTag_-Malicious xcalendar Wordpress Plugin-_|require_once\(ABSPATH\.'wp-content/plugins/xcalendar/xcalendar\.php'\);|\$instance = xcalendarWPBase::getInstance\(\);
+SSTag_-Malicious PHP-_|\${"\\x47\\x4c\\x4fB\\x41\\x4c\\x53"}
