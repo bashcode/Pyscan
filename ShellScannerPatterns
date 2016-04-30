@@ -214,3 +214,5 @@ SSTag_-Encoded var=base64_decode-_|\$[a-zA-Z0-9]+\s*=\s*(sprintf\(["']\!?)?((["'
 SSTag_-PHP Shell-_|\$shellname=\\''\.\$shellname\.'\\';\$myurl=\\''\.\$myurl\.'\\';
 SSTag_-Malicious File-_|function WriteToUTF\(\$savefullpath,\$Str,\$CharSet\)
 SSTag_-Malicious Redirect-_|if\(\$_GET\['mod'\]\){if\(\$_GET\['mod'\]=='0XX' OR \$_GET\['mod'\]=='00X'\){\$g_sch=file_get_contents
+SSTag_-Malicious Base64 String-_|pTjpdqLY1v/zFMT4tRqjgohDp6mOIuCICOJUXWEBMojIKATprnf/DmpSVirVt\+66\+WHOsKez581NpcLKU
+SSTag_-Malicious Redirector-_|mycode\(\$lnks_s,\s*\$lnks,\s*\$red_template,\s*\$ip\);
