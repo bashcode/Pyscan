@@ -1,9 +1,10 @@
 """Pyscan - A fast malware scanner using ShellScannerPatterns
 
+This version is still in testing/prototype stage.
+
 """
 
 __version__ = '1.12'
-
 
 #!/usr/bin/env python
 
@@ -221,8 +222,8 @@ def main(argv):
         logging.error('Specified directory not found!')
         sys.exit(1)
 
-        patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns')
-        ilerminaty_patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/IlerminatyPatterns')
+    patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns')
+    ilerminaty_patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/IlerminatyPatterns')
 
     for pattern in ilerminaty_patterns:
         pattern = pattern.strip()
