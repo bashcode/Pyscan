@@ -184,3 +184,10 @@ SSTag_-PHP Mailer-_|(e|chr\(101\)|\\x65)[\."]*(v|chr\(118\)|\\x76)[\."]*(a|chr\(
 SSTag_-Malicious Injection: GLOBALS-_|<\?(php)?\s+\$GLOBALS\['[a-zA-Z0-9]+'\];.*=\$_COOKIE;.*\);}exit\(\);} \?>
 SSTag_-Malicious Injection: Javascript-_|String\.fromCharCode\(a\.charCodeAt\(i\)\^2\)}c=unescape\(b\);document\.write\(c\);</script>
 SSTag_-PHP Mailer-_|\$smtp_errors\s*=\s*"421,422,431,432,441,442,446,447,449,450,451,452,471,500,501,502,503,504,510,511,512,513,523,530,541,550,551,552,553,554";
+SSTag_-PHP Mailer-_|\$to\s*=\s*\$_REQUEST\[["']emaillist["']\];
+SSTag_-Malicious File-_|\$ipforcloack\s*=\s*explode\("\.", \$ip\);
+SSTag_-PUP: Instant Redirector-_|<meta HTTP-EQUIV="REFRESH" content="0; url=http://
+SSTag_-Malicious Injection: POLYMORPH-_|if\s*\(\s*isset\s*\(\s*\${\s*\$[a-zA-Z0-9]+\s*}\s*\[\s*['"][a-zA-Z0-9]+['"]\s*\]\s*\)\s*\)\s*{\s*eval\s*\(\s*(\$[a-zA-Z0-9]+\s*\()?\s*\${\s*\$[a-zA-Z0-9]+\s*}\s*\[\s*['"][a-zA-Z0-9]+['"]\s*\]\s*\)\s*(\)\s*)?;\s*}
+SSTag_-Malicious PHP-_|if\(isset\(\$_POST\['_'\]\)\s*&&\s*isset\(\$_POST\['__'\]\)\){\$_=\$_POST\['_'\]
+SSTag_-Malicious PHP-_|\) { break; } } return; } if \(isset\(\$GLOBALS
+SSTag_-Malicious PHP-_|if\(empty\(\$r\["qs"\]\)\)die\(\);if\(\$b\)die\(\);header\(
