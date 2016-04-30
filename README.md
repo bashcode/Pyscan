@@ -5,7 +5,7 @@ Pyscan - A fast malware scanner using ShellScannerPatterns.
 ==
 
 ### Version
-1.12
+* 1.12
 
 ### Supported Platforms
 
