@@ -208,7 +208,7 @@ SSTag_-GET Packer-_|if\ \(isset\(\$\_GET\[str\_rot13\(pack\(\"H\*\"
 SSTag_-Obfuscated Shell API-_|\<\?php\ eval\(\"\?\>\"\ \.\ base64\_decode\(\"PD9waHANCmhlYWRlcignQ29udGVud
 SSTag_-Victim Mailer-_|victim\_email\ \=\ \$\_POST\[\"email
 SSTag_-Blackhole Tag-_|/\*[a-zA-Z0-9]{32}\*/;window
-SSTag_-Hidden Comment Include-_|\*/\s*include\s*/\*
+SSTag_-Hidden Comment Include-_|\*/\s*include\s*/\* 
 SSTag_-Malicious Injection Javascript-_|<script>var a='';setTimeout\([0-9]+\);if\(document\.referrer\.indexOf
 SSTag_-Encoded var=base64_decode-_|\$[a-zA-Z0-9]+\s*=\s*(sprintf\(["']\!?)?((["']?e["']?|chr\(101\))\s*\.?\s*(""\.)*(["']?v["']?|chr\(118\))\s*\.?\s*(""\.)*(["']?a["']?|chr\(97\))\s*\.?\s*(""\.)*(["']?l["']?|chr\(108\))\s*\.?\s*(""\.)*(["']?\(["']?|chr\(40\)))?(""\.)*(["']?b["']?|chr\(98\))\s*\.?\s*(""\.)*(["']?a["']?|chr\(97\))\s*\.?\s*(""\.)*(["']?s["']?|chr\(115\))\s*\.?\s*(""\.)*(["']?e["']?|chr\(101\))\s*\.?\s*(""\.)*(["']?6["']?|chr\(54\))\s*\.?\s*(""\.)*(["']?4["']?|chr\(52\))\s*\.?\s*(""\.)*(["']?_["']?|chr\(95\))\s*\.?\s*(""\.)*(["']?d["']?|chr\(100\))\s*\.?\s*(""\.)*(["']?e["']?|chr\(101\))\s*\.?\s*(""\.)*(["']?c["']?|chr\(99\))\s*\.?\s*(""\.)*(["']?o["']?|chr\(111\))\s*\.?\s*(""\.)*(["']?d["']?|chr\(100\))\s*\.?\s*(""\.)*(["']?e["']|chr\(101\))
 SSTag_-PHP Shell-_|\$shellname=\\''\.\$shellname\.'\\';\$myurl=\\''\.\$myurl\.'\\';
@@ -216,3 +216,4 @@ SSTag_-Malicious File-_|function WriteToUTF\(\$savefullpath,\$Str,\$CharSet\)
 SSTag_-Malicious Redirect-_|if\(\$_GET\['mod'\]\){if\(\$_GET\['mod'\]=='0XX' OR \$_GET\['mod'\]=='00X'\){\$g_sch=file_get_contents
 SSTag_-Malicious Base64 String-_|pTjpdqLY1v/zFMT4tRqjgohDp6mOIuCICOJUXWEBMojIKATprnf/DmpSVirVt\+66\+WHOsKez581NpcLKU
 SSTag_-Malicious Redirector-_|mycode\(\$lnks_s,\s*\$lnks,\s*\$red_template,\s*\$ip\);
+SSTag_-Blackhat SEO Spam-_|if\s*\(\s*stripos\s*\(\s*\$_SERVER\['HTTP_USER_AGENT'\]\s*,\s*'Googlebot'\)\s*\!==\s*false\){
