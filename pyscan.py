@@ -4,6 +4,7 @@
 
 __version__ = '1.12'
 
+
 #!/usr/bin/env python
 
 import os
@@ -13,6 +14,8 @@ import getopt
 import time
 import urllib2
 import logging
+import hashlib
+import datetime
 from threading import Timer
 if sys.version_info >= (2, 6, 0):
     from multiprocessing.pool import Pool
@@ -49,6 +52,7 @@ def find_all_files(desired_path):
             fullpath = os.path.join(dirpath, file_name)
             size = os.stat(fullpath).st_size # in bytes
             if size < 2000000:
+                logging.debug('Found file: %s', fullpath)
                 files.append(fullpath)
     return files
 
@@ -77,7 +81,7 @@ def explore_path(dir_queue, file_queue):
                 elif (os.path.isfile(full_name) and not
                     os.path.islink(full_name) and
                     os.lstat(full_name).st_size < 2000000):
-
+                    logging.debug('Found file: %s', full_name)
                     file_queue_put(full_name)
 
 
@@ -90,9 +94,10 @@ def manager_process(dir_queue, file_queue, out_queue):
     logging.info('Gathering Files...')
     pool.apply(explore_path, (dir_queue, file_queue))
     logging.info('Files gathered. Scanning %s files...', file_queue.qsize())
+    logging.info('Starting %s scan processes', cpu_count())
     print '~' * 79
     print_status(file_queue.qsize(), file_queue)
-    for _ in range(cpu_count()):
+    for _ in range(6):
         pool.apply_async(parallel_scan, (file_queue, out_queue))
     pool.close()
     pool.join()
@@ -138,16 +143,19 @@ def file_scan(file_name):
     """Scans a single file and returns the results.
 
     """
-    file_name = file_name.strip()
+    file_name = file_name.lstrip()
     try:
+        logging.debug('Opening file: %s', file_name)
         file_contents = open(file_name).read()
+        file_hash = hashlib.md5(file_contents).hexdigest()
+        logging.debug('File %s: MD5 %s', file_name, file_hash)
     except IOError, io_error:
         return 'I/O error({0}): {1}: File:{2}'.format(io_error.errno, io_error.strerror, file_name)
     for malware_sig in compiled:
         found_malware = malware_sig.search(file_contents)
         if found_malware:
             index = compiled.index(malware_sig)
-            return 'Malware' + ':' + regex_names[index] + ':' +  file_name
+            return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.stat(file_name).st_ctime)) + '::' + repr(file_name)
 
 
 def print_status(prev_files_left, file_queue):
@@ -213,8 +221,8 @@ def main(argv):
         logging.error('Specified directory not found!')
         sys.exit(1)
 
-      patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns')
-      ilerminaty_patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/IlerminatyPatterns')
+        patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns')
+        ilerminaty_patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/IlerminatyPatterns')
 
     for pattern in ilerminaty_patterns:
         pattern = pattern.strip()
@@ -226,6 +234,12 @@ def main(argv):
     for pattern in reversed(patterns.readlines()):
         pattern = pattern.strip()
         logging.debug('Loading Pattern:%s', pattern)
+
+        # Code to skip an extremely slow rule.
+        #if pattern.split('_-')[1].split('-_')[0] == "Attacker Names":
+        #    logging.info('Skipping Attacker Names')
+        #    continue
+
         regex_list.append(pattern.split('|', 1)[1])
         regex_names.append(pattern.split('_-')[1].split('-_')[0])
 
