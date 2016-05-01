@@ -1,6 +1,5 @@
 # Pyscan
 Pyscan - A fast malware scanner using ShellScannerPatterns.
-> Coded by Felipe Montes and Gerardo Smith
 
 ==
 
