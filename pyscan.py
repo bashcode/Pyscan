@@ -9,23 +9,28 @@ __version__ = '1.12'
 #!/usr/bin/env python
 
 import os
+import stat
 import sys
 import atexit
-import getopt
 import time
 import urllib2
 import logging
 import hashlib
 import datetime
+import thread
+import optparse
 from threading import Timer
-if sys.version_info >= (2, 6, 0):
-    from multiprocessing.pool import Pool
-    from multiprocessing import cpu_count, Process, Manager, active_children
+from stat import *
+
 try:
     import re2 as re
 except ImportError:
     import re
-
+try:
+    from multiprocessing.pool import Pool
+    from multiprocessing import cpu_count, Process, Manager, active_children
+except ImportError:
+    pass
 
 regex_list = []
 regex_names = []
@@ -73,16 +78,25 @@ def explore_path(dir_queue, file_queue):
             break
         else:
             ep_path = dir_queue_get()
+
+            if ep_path in [ os.path.abspath(x) for x in options.exclude_dir ]:
+                logging.info('Directory %s in excluded list! Skipping...', ep_path)
+                continue
+
             for file_name in os.listdir(ep_path):
                 full_name = os.path.join(ep_path, file_name)
-                if os.path.islink(full_name):
-                    logging.info('Symlink:%s', file_name)
-                if os.path.isdir(full_name) and not os.path.islink(full_name):
+                file_stat = os.stat(full_name)
+                file_mode = file_stat.st_mode
+                if S_ISLNK(file_mode):
+                    logging.info('Symlink:%s. Skipping..', file_name)
+                elif S_ISDIR(file_mode):
                     dir_queue_put(full_name)
-                elif (os.path.isfile(full_name) and not
-                    os.path.islink(full_name) and
-                    os.lstat(full_name).st_size < 2000000):
+                elif (S_ISREG(file_mode) and file_stat.st_size < 2000000):
                     logging.debug('Found file: %s', full_name)
+                    if options.exclude_locked:
+                        if file_stat.st_uid == 0 and file_stat.st_gid == 0:
+                           logging.debug('File %s owned to root. Skipping..', full_name)
+                           pass
                     file_queue_put(full_name)
 
 
@@ -97,7 +111,7 @@ def manager_process(dir_queue, file_queue, out_queue):
     logging.info('Files gathered. Scanning %s files...', file_queue.qsize())
     logging.info('Starting %s scan processes', cpu_count())
     print '~' * 79
-    print_status(file_queue.qsize(), file_queue)
+    thread.start_new_thread(print_status, (file_queue,))
     for _ in range(6):
         pool.apply_async(parallel_scan, (file_queue, out_queue))
     pool.close()
@@ -159,68 +173,67 @@ def file_scan(file_name):
             return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.stat(file_name).st_ctime)) + '::' + repr(file_name)
 
 
-def print_status(prev_files_left, file_queue):
+def print_status(file_queue):
     """Prints how many files are left to scan as well as the estimated speed.
 
     """
-    cur_files_left = file_queue.qsize()
-    print('Files(remain): '),
-    print(str(cur_files_left)),
-    print(' Speed(files/s): '),
-    scan_speed = prev_files_left - cur_files_left
-    prev_files_left = cur_files_left
-    print(str(scan_speed)),
-    print('\r'),
-    sys.stdout.flush()
-    if file_queue.qsize() == 0:
-        return 0
-    Timer(1.0, print_status, (prev_files_left, file_queue)).start()
+    prev_time = time.time()
+    prev_files_left = file_queue.qsize()
+    while file_queue.qsize() > 0:
+
+        cur_time = time.time()
+        delta_time = cur_time - prev_time
+
+        cur_files_left = file_queue.qsize()
+    	delta_files_left = prev_files_left - cur_files_left
+
+        scan_speed = int(round(delta_files_left / delta_time))
+        prev_files_left = cur_files_left
+        prev_time = cur_time
 
 
-def print_help():
-    """Prints the usage table.
+	print('Files(remain): '),
+    	print(str(cur_files_left)),
+    	print(' Speed(files/s): '),
+    	print(str(scan_speed)),
+    	print('\r'),
+    	sys.stdout.flush()
+        time.sleep(1)
 
-    """
-    print 'Usage: ./pyscan.py [options]'
-    print '-h, --help: This text.'
-    print '-u [username], --user=[username]: Specifies a user to scan.'
-    print '-c, --current: Specifies to scan the current directory.'
-
-    sys.exit(1)
-
+def parse_args():
+    parser = optparse.OptionParser(version=__version__)
+    parser.add_option('-p', '--path', action='append', type='string', dest='include_dir', default=[])
+    parser.add_option('-u', '--user', action='append', type='string', dest='include_user', default=[])
+    parser.add_option('--exclude-dir', action='append', type='string', dest='exclude_dir', default=[])
+    parser.add_option('-x','--exclude-locked', action='store_true', dest='exclude_locked')
+    global options
+    (options, args) = parser.parse_args()
 
 def main(argv):
     """Entry point.
 
     """
-    try:
-        opts, _ = getopt.getopt(argv, 'hu:cp', ['help', 'user=', 'current'])
-    except getopt.GetoptError:
-        print_help()
-        sys.exit(1)
-    desired_path = None
-    for opt, arg in opts:
-        if opt in ('-h', '--help'):
-            print_help()
-            sys.exit(1)
-        elif opt in ('-u', '--user'):
-            desired_path = os.path.expanduser('~' + arg) + '/public_html/'
-        elif opt in ('-c', '--current'):
-            desired_path = os.getcwd()
-        elif opt in ('-p', '--path'):
-            desired_path = arg
+    parse_args()
 
-    if desired_path is None:
-        print 'No path (-u or -c) option specified.'
-        print_help()
-        sys.exit(1)
+    logging.basicConfig(level=logging.INFO
+                        , filename=os.path.expanduser('~') + '/found_shells.log'
+                        , filemode='a')
 
-    if os.path.exists(desired_path):
-        logging.info('Scanning %s', desired_path)
+    # define a Handler which writes INFO messages or higher to the sys.stderr
+    console = logging.StreamHandler()
+    console.setLevel(logging.INFO)
 
+    # add the handler to the root logger
+    logging.getLogger('').addHandler(console)
+
+    if 're2' in sys.modules:
+        logging.info('Loaded re2 module!')
+    if 'multiprocessing' in sys.modules:
+        logging.info('Loaded multiprocessing module!')
     else:
-        logging.error('Specified directory not found!')
-        sys.exit(1)
+        logging.info('Multiprocessing not loaded!')
+    logging.info('Using version %s', __version__)
+    logging.info('For file name extraction, pipe list of detected files into: awk -F"::" \'{print $4}\'')
 
     patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns')
     ilerminaty_patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/IlerminatyPatterns')
@@ -236,30 +249,39 @@ def main(argv):
         pattern = pattern.strip()
         logging.debug('Loading Pattern:%s', pattern)
 
-        # Code to skip an extremely slow rule.
-        #if pattern.split('_-')[1].split('-_')[0] == "Attacker Names":
-        #    logging.info('Skipping Attacker Names')
-        #    continue
-
         regex_list.append(pattern.split('|', 1)[1])
         regex_names.append(pattern.split('_-')[1].split('-_')[0])
 
     test_regex(regex_list)
-    for injection in regex_list:
-        compiled.append(re.compile(injection, re.MULTILINE | re.UNICODE))
+    for signature in regex_list:
+        compiled.append(re.compile(signature, re.MULTILINE | re.UNICODE))
 
     # Parallel mode
-    if sys.version_info >= (2, 6, 0):
+    if 'multiprocessing' in sys.modules:
         logging.info('Using parallel processes...')
         resource_manager = Manager()
         unsearched = resource_manager.Queue()
         unscanned = resource_manager.Queue()
         output_queue = resource_manager.Queue()
-        unsearched.put(desired_path)
+
+        for path in options.include_dir:
+            path = os.path.abspath(path)
+            if os.path.exists(path):
+                logging.info('Scanning %s', path)
+                unsearched.put(path)
+            else:
+                logging.info('Path %s not found! Skipping..', path)
+        for user in  options.include_user:
+            if os.path.exists(user):
+                logging.info('Scanning %s', user)
+                unsearched.put(os.path.expanduser('~' + user) + '/public_html/')
+            else:
+               logging.info('User %s not found! Skipping..', user)
+
+
         manager = Process(target=manager_process, args=(unsearched, unscanned, output_queue))
         manager.start()
         atexit.register(at_exit_main, manager)
-
         output_queue_get = output_queue.get
         while 1:
             results = output_queue_get()
@@ -292,21 +314,6 @@ def main(argv):
 
 if __name__ == '__main__':
     start_time = time.time()
-
-    logging.basicConfig(level=logging.INFO
-                        , filename=os.path.expanduser('~') + '/found_shells.log'
-                        , filemode='a')
-
-    # define a Handler which writes INFO messages or higher to the sys.stderr
-    console = logging.StreamHandler()
-    console.setLevel(logging.INFO)
-
-    # add the handler to the root logger
-    logging.getLogger('').addHandler(console)
-
-    if 're2' in sys.modules:
-        logging.info('Loaded re2 module!')
-    logging.info('Using version %s', __version__)
     main(sys.argv[1:])
     time_taken = time.time() - start_time
-    logging.info('Ran in: ~~~ %s seconds ~~~', time_taken)
+    print 'Ran in ' + str(time_taken) +  ' seconds.'
