@@ -27,6 +27,9 @@ https://raw.githubusercontent.com/bashcode/Pyscan/master/scan_example.png
 Options..
 * -c for current directory
 * -u for scan username
+* -p for custom path
+* --exclude for exclude custom dir
+* -D for debug mode
 
 * DETECT ONLY
 ```sh
