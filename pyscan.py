@@ -4,7 +4,7 @@ This version is still in testing/prototype stage.
 
 """
 
-__version__ = '1.12'
+__version__ = '1.14'
 
 #!/usr/bin/env python
 
@@ -15,7 +15,6 @@ import atexit
 import time
 import urllib2
 import logging
-import hashlib
 import datetime
 import thread
 import optparse
@@ -93,7 +92,7 @@ def explore_path(dir_queue, file_queue):
                     dir_queue_put(full_name)
                 elif (S_ISREG(file_mode) and file_stat.st_size < 2000000):
                     logging.debug('Found file: %s', full_name)
-                    if options.exclude_locked:
+                    if options.exclude_root_owner:
                         if file_stat.st_uid == 0 and file_stat.st_gid == 0:
                            logging.debug('File %s owned to root. Skipping..', full_name)
                            pass
@@ -162,8 +161,6 @@ def file_scan(file_name):
     try:
         logging.debug('Opening file: %s', file_name)
         file_contents = open(file_name).read()
-        file_hash = hashlib.md5(file_contents).hexdigest()
-        logging.debug('File %s: MD5 %s', file_name, file_hash)
     except IOError, io_error:
         return 'I/O error({0}): {1}: File:{2}'.format(io_error.errno, io_error.strerror, file_name)
     for malware_sig in compiled:
@@ -205,7 +202,7 @@ def parse_args():
     parser.add_option('-p', '--path', action='append', type='string', dest='include_dir', default=[])
     parser.add_option('-u', '--user', action='append', type='string', dest='include_user', default=[])
     parser.add_option('--exclude-dir', action='append', type='string', dest='exclude_dir', default=[])
-    parser.add_option('-x','--exclude-locked', action='store_true', dest='exclude_locked')
+    parser.add_option('-x','--exclude-root-owner', action='store_true', dest='exclude_root_owner')
     global options
     (options, args) = parser.parse_args()
 
