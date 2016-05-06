@@ -25,3 +25,4 @@ SSTag_-INJECTION.CookieSlicer-_|join\(array\_slice\(\$\_COOKIE\,count\(\$\_COOKI
 SSTag_-INJECTION.UberGeek-_|function\ zonen\_bointon\_ubergeek\_hv1
 SSTag_-INJECTION.HelloDolly.Awku-_|\$G\_gohy\=base64\_decode\(\$Awk\_u\)\;
 SSTag_-Malicious Base64 Encrypted-_|E7DsuED2N0n2FEMpjQA1NnYTSo6i
+SStag_-INJECTION.CookieCommander-_|if\ \(isset\(\$\_COOKIE\[\"id\"\]\)\)\ \@\$\_COOKIE\[\"user\"\]\(\$\_COOKIE\[\"id\"\]\)\;
