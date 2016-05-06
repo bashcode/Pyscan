@@ -160,14 +160,18 @@ def file_scan(file_name):
     file_name = file_name.lstrip()
     try:
         logging.debug('Opening file: %s', file_name)
-        file_contents = open(file_name).read()
+        f = open(file_name)
+        file_contents = f.read()
+        f.close()
     except IOError, io_error:
         return 'I/O error({0}): {1}: File:{2}'.format(io_error.errno, io_error.strerror, file_name)
+    logging.debug('Scanning file: %s', file_name)
     for malware_sig in compiled:
         found_malware = malware_sig.search(file_contents)
         if found_malware:
             index = compiled.index(malware_sig)
             return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.stat(file_name).st_ctime)) + '::' + repr(file_name)
+    logging.debug('Done scanning file: %s', file_name)
 
 
 def print_status(file_queue):
@@ -197,12 +201,18 @@ def print_status(file_queue):
     	sys.stdout.flush()
         time.sleep(1)
 
+def append_args_from_file(option, opt_str, value, parser):
+    args = [arg.strip() for arg in open(value)]
+    parser.values.include_dir.extend(args)
+
 def parse_args():
     parser = optparse.OptionParser(version=__version__)
     parser.add_option('-p', '--path', action='append', type='string', dest='include_dir', default=[])
     parser.add_option('-u', '--user', action='append', type='string', dest='include_user', default=[])
-    parser.add_option('--exclude-dir', action='append', type='string', dest='exclude_dir', default=[])
+    parser.add_option('--exclude', action='append', type='string', dest='exclude_dir', default=[])
     parser.add_option('-x','--exclude-root-owner', action='store_true', dest='exclude_root_owner')
+    parser.add_option('--include-from-file', action='callback', type='string', callback=append_args_from_file )
+    parser.add_option('-D', '--debug', action='store_true', dest='debug', default=False)
     global options
     (options, args) = parser.parse_args()
 
@@ -212,13 +222,18 @@ def main(argv):
     """
     parse_args()
 
-    logging.basicConfig(level=logging.INFO
+    if options.debug:
+        log_level = logging.DEBUG
+    else:
+        log_level = logging.INFO
+
+    logging.basicConfig(level=log_level
                         , filename=os.path.expanduser('~') + '/found_shells.log'
                         , filemode='a')
 
     # define a Handler which writes INFO messages or higher to the sys.stderr
     console = logging.StreamHandler()
-    console.setLevel(logging.INFO)
+    console.setLevel(log_level)
 
     # add the handler to the root logger
     logging.getLogger('').addHandler(console)
