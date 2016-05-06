@@ -217,3 +217,4 @@ SSTag_-Malicious Redirect-_|if\(\$_GET\['mod'\]\){if\(\$_GET\['mod'\]=='0XX' OR 
 SSTag_-Malicious Base64 String-_|pTjpdqLY1v/zFMT4tRqjgohDp6mOIuCICOJUXWEBMojIKATprnf/DmpSVirVt\+66\+WHOsKez581NpcLKU
 SSTag_-Malicious Redirector-_|mycode\(\$lnks_s,\s*\$lnks,\s*\$red_template,\s*\$ip\);
 SSTag_-Blackhat SEO Spam-_|if\s*\(\s*stripos\s*\(\s*\$_SERVER\['HTTP_USER_AGENT'\]\s*,\s*'Googlebot'\)\s*\!==\s*false\){
+SSTag_-Malicious Uploader-_|\$sc\s*=\s*\(empty\(\$_POST\['security_code'\]\)\)\s*\?\s*'\.'\s*:\s*\$_POST\['security_code'\];
