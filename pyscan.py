@@ -103,15 +103,15 @@ def manager_process(dir_queue, file_queue, out_queue):
     """Dispatches and manages path and scanning workers.
 
     """
-    pool = Pool()
+    pool = Pool(options.num_threads)
     atexit.register(at_exit_manager, pool)
     logging.info('Gathering Files...')
     pool.apply(explore_path, (dir_queue, file_queue))
     logging.info('Files gathered. Scanning %s files...', file_queue.qsize())
-    logging.info('Starting %s scan processes', cpu_count())
+    logging.info('Starting %s scan processes', options.num_threads)
     print '~' * 79
     thread.start_new_thread(print_status, (file_queue,))
-    for _ in range(6):
+    for _ in range(options.num_threads):
         pool.apply_async(parallel_scan, (file_queue, out_queue))
     pool.close()
     pool.join()
@@ -206,15 +206,31 @@ def append_args_from_file(option, opt_str, value, parser):
     parser.values.include_dir.extend(args)
 
 def parse_args():
+
+    num_cpus = cpu_count()
+
     parser = optparse.OptionParser(version=__version__)
-    parser.add_option('-p', '--path', action='append', type='string', dest='include_dir', default=[])
-    parser.add_option('-u', '--user', action='append', type='string', dest='include_user', default=[])
-    parser.add_option('--exclude', action='append', type='string', dest='exclude_dir', default=[])
-    parser.add_option('-x','--exclude-root-owner', action='store_true', dest='exclude_root_owner')
-    parser.add_option('--include-from-file', action='callback', type='string', callback=append_args_from_file )
-    parser.add_option('-D', '--debug', action='store_true', dest='debug', default=False)
+    parser.add_option('-p', '--path', action='append', type='string', dest='include_dir', metavar='PATH',
+            help='Include given directory for scanning.')
+    parser.add_option('-u', '--user', action='append', type='string', dest='include_user', metavar='USERNAME',
+            help='Include given user\'s public_html path for scanning.')
+    parser.add_option('--exclude', action='append', type='string', dest='exclude_dir', metavar='PATH',
+            help='Exclude given directory from scanning.')
+    parser.add_option('-x','--exclude-root-owner', action='store_true', dest='exclude_root_owner',
+            help='Exclude files owned by root from scanning.')
+    parser.add_option('--include-from-file', action='callback', type='string', callback=append_args_from_file, metavar='FILE',
+            help='Include list of directory for scanning from FILE')
+    parser.add_option('-D', '--debug', action='store_true', dest='debug',
+            help='Print debugging info.')
+    parser.add_option('-t', '--threads', action='store', type='int', dest='num_threads', metavar='THREADS',
+            help='Set number of threads to use for file scanning.')
+    parser.set_defaults(include_dir=[], num_threads=num_cpus, exclude_dir=[], debug=False, include_user=[])
     global options
     (options, args) = parser.parse_args()
+
+    #Hacky default setting.
+    if not options.include_dir:
+        options.include_dir = [os.getcwd()]
 
 def main(argv):
     """Entry point.
