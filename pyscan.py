@@ -18,6 +18,7 @@ import logging
 import datetime
 import thread
 import optparse
+import base64
 from threading import Timer
 from stat import *
 
@@ -342,6 +343,11 @@ def main(argv):
 
 if __name__ == '__main__':
     start_time = time.time()
+    print base64.b64decode("""X19fX19fX19fX19fXyAgX19fX19fX19fX19fX19fX19fX18g
+            X19fX19fXw0KX19fICBfXyBcXyAgLyAvIC9fICBfX18vICBfX18vICBfXyBgL18gIF
+            9fIFwNCl9fICAvXy8gLyAgL18vIC9fKF9fICApLyAvX18gLyAvXy8gL18gIC8gLyAv
+            DQpfICAuX19fL19cX18sIC8gL19fX18vIFxfX18vIFxfXyxfLyAvXy8gL18vDQovXy
+            8gICAgIC9fX19fLw==""")
     main(sys.argv[1:])
     time_taken = time.time() - start_time
     print 'Ran in ' + str(time_taken) +  ' seconds.'
