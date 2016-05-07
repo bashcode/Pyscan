@@ -23,6 +23,14 @@ Pyscan - A fast malware scanner using ShellScannerPatterns.
 https://raw.githubusercontent.com/bashcode/Pyscan/master/scan_example.png
 
 ### Usage Linux
+Add these to your BASH functions. 'sf' will filter out just the filenames from a piped input or argument of the logfile. 'tsf' will filter the filename and timestamps
+which can then be piped into a 'sort' to get the earliest 'ctime'.:
+```
+alias pyscan='bash <(curl -ks https://raw.githubusercontent.com/bashcode/Pyscan/master/run-pyscan.sh) "$@"'
+
+# pyscan filters
+alias sf='awk -F"::" '\''{ print $4 }'\'''
+alias tsf='awk -F"::" '\''{ print $3"::"$4; }'\'''
 
 Options..
 * -c for current directory
@@ -32,6 +40,7 @@ Options..
 * -D for debug mode
 
 * DETECT ONLY
+
 ```sh
 python <(curl -ks https://raw.githubusercontent.com/bashcode/Pyscan/master/pyscan.py)
 ```
