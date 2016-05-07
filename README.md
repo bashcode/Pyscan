@@ -60,6 +60,8 @@ python <(curl -ks https://raw.githubusercontent.com/bashcode/Pyscan/master/pysca
 python <(curl -ks https://raw.githubusercontent.com/bashcode/Pyscan/master/removeinjections.py)
 ```
 
+Use `rev hits.txt | cut -d: -f1 | rev` to extract a list of files. Logs will always be found at `~/found_shells.log`. 
+
 ### Usage Windows
 ```sh
 Download, install, and run MSYS2
