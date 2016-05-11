@@ -78,7 +78,7 @@ def explore_path(dir_queue, file_queue):
             break
         else:
             ep_path = dir_queue_get()
-
+            
             if ep_path in [ os.path.abspath(x) for x in options.exclude_dir ]:
                 logging.info('Directory %s in excluded list! Skipping...', ep_path)
                 continue
@@ -88,15 +88,15 @@ def explore_path(dir_queue, file_queue):
                 file_stat = os.stat(full_name)
                 file_mode = file_stat.st_mode
                 if S_ISLNK(file_mode):
-                    logging.info('Symlink:%s. Skipping..', file_name)
+                    logging.info('Symlink:%s. Skipping..', file_name) 
                 elif S_ISDIR(file_mode):
                     dir_queue_put(full_name)
                 elif (S_ISREG(file_mode) and file_stat.st_size < 2000000):
                     logging.debug('Found file: %s', full_name)
                     if options.exclude_root_owner:
                         if file_stat.st_uid == 0 and file_stat.st_gid == 0:
-                           logging.debug('File %s owned to root. Skipping..', full_name)
-                           pass
+                            logging.debug('File %s owned to root. Skipping..', full_name)
+                            continue                   
                     file_queue_put(full_name)
 
 
@@ -105,7 +105,7 @@ def manager_process(dir_queue, file_queue, out_queue):
 
     """
     pool = Pool(options.num_threads)
-    atexit.register(at_exit_manager, pool)
+    atexit.register(at_exit_manager, pool)    
     logging.info('Gathering Files...')
     pool.apply(explore_path, (dir_queue, file_queue))
     logging.info('Files gathered. Scanning %s files...', file_queue.qsize())
@@ -120,7 +120,7 @@ def manager_process(dir_queue, file_queue, out_queue):
 
 def at_exit_main(manager):
     """Handles keyboard interrupts and ensures the manager process is properly terminated.
-
+ 
     """
     print 'Shutting down main process...'
     manager.terminate()
@@ -171,7 +171,7 @@ def file_scan(file_name):
         found_malware = malware_sig.search(file_contents)
         if found_malware:
             index = compiled.index(malware_sig)
-            return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.stat(file_name).st_ctime)) + '::' + repr(file_name)
+            return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.stat(file_name).st_ctime)) + '::' + file_name
     logging.debug('Done scanning file: %s', file_name)
 
 
@@ -182,17 +182,17 @@ def print_status(file_queue):
     prev_time = time.time()
     prev_files_left = file_queue.qsize()
     while file_queue.qsize() > 0:
-
+        
         cur_time = time.time()
         delta_time = cur_time - prev_time
-
+     
         cur_files_left = file_queue.qsize()
     	delta_files_left = prev_files_left - cur_files_left
 
         scan_speed = int(round(delta_files_left / delta_time))
         prev_files_left = cur_files_left
         prev_time = cur_time
-
+        
 
 	print('Files(remain): '),
     	print(str(cur_files_left)),
@@ -216,7 +216,7 @@ def parse_args():
     parser.add_option('-u', '--user', action='append', type='string', dest='include_user', metavar='USERNAME',
             help='Include given user\'s public_html path for scanning.')
     parser.add_option('--exclude', action='append', type='string', dest='exclude_dir', metavar='PATH',
-            help='Exclude given directory from scanning.')
+            help='Exclude given directory from scanning.') 
     parser.add_option('-x','--exclude-root-owner', action='store_true', dest='exclude_root_owner',
             help='Exclude files owned by root from scanning.')
     parser.add_option('--include-from-file', action='callback', type='string', callback=append_args_from_file, metavar='FILE',
@@ -232,7 +232,7 @@ def parse_args():
     #Hacky default setting.
     if not options.include_dir:
         options.include_dir = [os.getcwd()]
-
+    
 def main(argv):
     """Entry point.
 
@@ -292,7 +292,7 @@ def main(argv):
         unsearched = resource_manager.Queue()
         unscanned = resource_manager.Queue()
         output_queue = resource_manager.Queue()
-
+        
         for path in options.include_dir:
             path = os.path.abspath(path)
             if os.path.exists(path):
@@ -306,7 +306,7 @@ def main(argv):
                 unsearched.put(os.path.expanduser('~' + user) + '/public_html/')
             else:
                logging.info('User %s not found! Skipping..', user)
-
+ 
 
         manager = Process(target=manager_process, args=(unsearched, unscanned, output_queue))
         manager.start()
