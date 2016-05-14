@@ -89,6 +89,7 @@ def explore_path(dir_queue, file_queue):
                 file_mode = file_stat.st_mode
                 if S_ISLNK(file_mode):
                     logging.info('Symlink:%s. Skipping..', file_name) 
+		    continue
                 elif S_ISDIR(file_mode):
                     dir_queue_put(full_name)
                 elif (S_ISREG(file_mode) and file_stat.st_size < 2000000):
@@ -171,7 +172,7 @@ def file_scan(file_name):
         found_malware = malware_sig.search(file_contents)
         if found_malware:
             index = compiled.index(malware_sig)
-            return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.stat(file_name).st_ctime)) + '::' + file_name
+            return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.stat(file_name).st_ctime)) + '::' + repr(file_name)
     logging.debug('Done scanning file: %s', file_name)
 
 
