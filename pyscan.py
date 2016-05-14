@@ -56,7 +56,7 @@ def find_all_files(desired_path):
     for (dirpath, _, filenames) in os.walk(desired_path):
         for file_name in filenames:
             fullpath = os.path.join(dirpath, file_name)
-            size = os.stat(fullpath).st_size # in bytes
+            size = os.lstat(fullpath).st_size # in bytes
             if size < 2000000:
                 logging.debug('Found file: %s', fullpath)
                 files.append(fullpath)
@@ -85,7 +85,7 @@ def explore_path(dir_queue, file_queue):
 
             for file_name in os.listdir(ep_path):
                 full_name = os.path.join(ep_path, file_name)
-                file_stat = os.stat(full_name)
+                file_stat = os.lstat(full_name)
                 file_mode = file_stat.st_mode
                 if S_ISLNK(file_mode):
                     logging.info('Symlink:%s. Skipping..', file_name) 
@@ -172,7 +172,7 @@ def file_scan(file_name):
         found_malware = malware_sig.search(file_contents)
         if found_malware:
             index = compiled.index(malware_sig)
-            return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.stat(file_name).st_ctime)) + '::' + repr(file_name)
+            return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)) + '::' + repr(file_name)
     logging.debug('Done scanning file: %s', file_name)
 
 
