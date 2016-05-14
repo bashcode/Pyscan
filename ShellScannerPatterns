@@ -218,5 +218,5 @@ SSTag_-Malicious Base64 String-_|pTjpdqLY1v/zFMT4tRqjgohDp6mOIuCICOJUXWEBMojIKAT
 SSTag_-Malicious Redirector-_|mycode\(\$lnks_s,\s*\$lnks,\s*\$red_template,\s*\$ip\);
 SSTag_-Blackhat SEO Spam-_|if\s*\(\s*stripos\s*\(\s*\$_SERVER\['HTTP_USER_AGENT'\]\s*,\s*'Googlebot'\)\s*\!==\s*false\){
 SSTag_-Malicious Uploader-_|\$sc\s*=\s*\(empty\(\$_POST\['security_code'\]\)\)\s*\?\s*'\.'\s*:\s*\$_POST\['security_code'\];
-SSTag_-INJECTION.Comment.Block-_|^.*\*/.*(GET|POST|REQUEST|COOKIE|SESSION|FILES|upload|eval|system|passthru|shell_exec|include).*\/\*.*$
+SSTag_-INJECTION.Comment.Block-_|^.*\*/.{0,25}(GET|POST|REQUEST|COOKIE|SESSION|FILES|upload|eval|system|passthru|shell_exec|include).{0,25}\/\*.*$
 SSTag_-Malicious PHP-_|eval\(BbblL\("Jb3nrutakq35AAXUOyQu6kcmi
