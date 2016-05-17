@@ -4,7 +4,7 @@ SSTag_-Mass Mailer-_|(InboX|KONDAMNE)[ \t]*(BeyOsTaR|Mass)?[ \t]*Maill?er
 SSTag_-Mass Mailer-_|(INB0X |SerVar.*)?PHP[ -]Mailer|<title>Xsender</title>
 SSTag_-Mass Mailer-_|M[a4][iI][lL]3r
 SSTag_-Mass Mailer-_|PHP Send Mails|PHP eMailer is created by Purisangeh
-SSTag_-Shell names-_|(Dark Shell|Loader'z WEB|Xactlysin|ly0kha|[mM]unra( [Ss]imple)?|Ve_cENx|r57|BLaCk|C99|dz)[ \t]*[Ss][Hh}[Ee][Ll][Ll](\.SQL)?|.CyBeRz .JavaHack|SimAttacker|HbT Explorer|ConnectBack|ZenCart Pwnage|inQontrol|Killer Hack|w4ck1ng|[yY]ogyacarderlink|webadmin\.php|by oRb|F(["']\.["'])?i(["']\.["'])?l(["']\.["'])?e(["']\.["'])?s(["']\.["'])?M(["']\.["'])?a(["']\.["'])?n|FilesMa"\."n"|b374k m1n1 1\.01|Cpanel By BLACK Script Name|JooMla serv3r ScaNN3r|Sec4Ever Users Update|SN0X SHELL|SeCret HaCk Privat Sh3ll|Loader'z WEB shell|ZoomB X|PRO Mailer V2
+SSTag_-Shell names-_|(Dark Shell|Loader'z WEB|Xactlysin|ly0kha|[mM]unra( [Ss]imple)?|Ve_cENx|r57|BLaCk|C99|dz)[ \t]*[Ss][Hh}[Ee][Ll][Ll](\.SQL)?|.CyBeRz .JavaHack|SimAttacker|HbT Explorer|ConnectBack|ZenCart Pwnage|inQontrol|Killer Hack|w4ck1ng|[yY]ogyacarderlink|webadmin\.php|by oRb|F(["']\.["'])?i(["']\.["'])?l(["']\.["'])?e(["']\.["'])?s(["']\.["'])?M(["']\.["'])?a(["']\.["'])?n|FilesMa"\."n"|b374k m1n1 1\.01|Cpanel By BLACK Script Name|JooMla serv3r ScaNN3r|Sec4Ever Users Update|SN0X SHELL|SeCret HaCk Privat Sh3ll|Loader'z WEB shell|ZoomB X|PRO Mailer V2|Auto shell Finder Dz H3x|By Noureddine ElmGhreBi
 SSTag_-Flood Scripts-_|[Ff]lood.*?[Cc]ompleted.*((MB|packets)[ \t]*per[ \t]*second|MB.*?PPS)|FagsIP|name="act" value="phptools"|[uU]sage:?[ \t]*\b<?[Ii][Pp]>?\b.*\b<?[Pp][Oo][Rr][Tt]>?\b|PHP D[oO]S, Coded|fsockopen[ \t]*\([ \t]*["']udp://\$ip['"][ \t]*,[ \t]*['"]80['"]
 SSTag_-Unknown baddie-_|.21.0.15.0.242.4.0.231.231.231.377.377.377.0.0.0.314.0.0.377.377.377.0.0.0.0.0.0.0.0.0..371.4.1.350.3.4.0
 SSTag_-Generic Micro-shell-_|\b([Ii][Nn][Cc][Ll][Uu][Dd][Ee]|[Ss][Yy][Ss][Tt][Ee][Mm]|[Ee][Vv][Aa][Ll]|[Aa][Ss][Ss][Ee][Rr][Tt]|[Pp][Aa][Ss][Ss][Tt][Hh][Rr][Oo][Uu][Gg][Hh]|[Ss][Hh][Ee][Ll][Ll]_[Ee][Xx][Ee][Cc])\b.*?\([ \t]*\$_(GET|POST|REQUEST|COOKIE|SESSION)
@@ -218,5 +218,6 @@ SSTag_-Malicious Base64 String-_|pTjpdqLY1v/zFMT4tRqjgohDp6mOIuCICOJUXWEBMojIKAT
 SSTag_-Malicious Redirector-_|mycode\(\$lnks_s,\s*\$lnks,\s*\$red_template,\s*\$ip\);
 SSTag_-Blackhat SEO Spam-_|if\s*\(\s*stripos\s*\(\s*\$_SERVER\['HTTP_USER_AGENT'\]\s*,\s*'Googlebot'\)\s*\!==\s*false\){
 SSTag_-Malicious Uploader-_|\$sc\s*=\s*\(empty\(\$_POST\['security_code'\]\)\)\s*\?\s*'\.'\s*:\s*\$_POST\['security_code'\];
-SSTag_-INJECTION.Comment.Block-_|^.*\*/.{0,25}(GET|POST|REQUEST|COOKIE|SESSION|FILES|upload|eval|system|passthru|shell_exec|include).{0,25}\/\*.*$
 SSTag_-Malicious PHP-_|eval\(BbblL\("Jb3nrutakq35AAXUOyQu6kcmi
+SSTag_-INJECTION.Comment.Block-_|\*/.{0,25}(GET|POST|REQUEST|COOKIE|SESSION|FILES|upload|eval|system|passthru|shell_exec|include).{0,25}\/\*
+SSTag_-Zip Uploader-_|Simple script to upload a zip file to the webserver and have it unzipped|<title>Unzip a zip file to the webserver</title>
