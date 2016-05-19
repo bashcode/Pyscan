@@ -221,3 +221,17 @@ SSTag_-Malicious Uploader-_|\$sc\s*=\s*\(empty\(\$_POST\['security_code'\]\)\)\s
 SSTag_-Malicious PHP-_|eval\(BbblL\("Jb3nrutakq35AAXUOyQu6kcmi
 SSTag_-INJECTION.Comment.Block-_|\*/.{0,25}(GET|POST|REQUEST|COOKIE|SESSION|FILES|upload|eval|system|passthru|shell_exec|include).{0,25}\/\*
 SSTag_-Zip Uploader-_|Simple script to upload a zip file to the webserver and have it unzipped|<title>Unzip a zip file to the webserver</title>
+IRTag_-INJECTION.PCT.V1-_|<[\?]php\s+\$sF=\"PCT[0-9]BA[0-9]ODSE\_\";\$s[0-9]+=strtolower\(\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\]\);\$s[0-9]+=\$.strtoupper\(\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\]\).\['[a-zA-Z0-9]*'\];if\(isset\(\$s[0-9]+\)\).[a-z]+\(\$s[0-9]+\(\$s[0-9]+\)\);\}\?>
+IRTag_-INJECTION.PCT.V2-_|<\?php\s+\$sF=\"PCT[0-9]BA[0-9]ODSE\_\";\$s[0-9]+=strtolower\(\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\]\);\$s[0-9]+=strtoupper\(\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\].\$sF\[[0-9]+\]\).if.\(isset\(\$.\$s20.\[.[0-9a-z]{7}.\]\)\)..[a-z]+\(\$s21\(\$.\$s20.\[.[0-9a-z]{7}.\]\)\);\}\?>
+IRTag_-INJECTION.QV-_|<\?php\s+\$qV=\"stop_\";\$s[0-9]+=strtoupper\(\$qV\[[0-9]+\].\$qV\[[0-9]+\].\$qV\[[0-9]+\].\$qV\[[0-9]+\].\$qV\[[0-9]+\]\);if\(isset\(\$.\$s[0-9]+.\['[0-9a-z]{7}'\]\)\).[a-z]+\(\$.\$s[0-9]+.\['[0-9a-z]{7}'\]\);\}\?>
+IRTag_-INJECTION.POSTVAR-_|<\?php\s\$post_var = \"req\"; if\(isset\(\$_REQUEST\[\$post_var\]\)\) \{ eval\(stripslashes\(\$_REQUEST\[\$post_var\]\)\); exit\(\); \}; \?>
+IRTag_-INJECTION.EVAL-_|<\?php\s+eval\(base64_decode\(\$_POST\['[0-9a-z]{7}'\]\)\);\?>
+IRTag_-INJECTION.CH-_|<\?php\serror_reporting\(0\);eval\(\"if\(isset\(\\\$_REQUEST\['ch'\]\) && \(md5\(\\\$_REQUEST\['ch'\]\) == '[a-z0-9]{32}'\) && isset\(\\\$_REQUEST\['php_code'\]\)\) \{ eval\(stripslashes\(\\\$_REQUEST\['php_code'\]\)\); exit\(\); \}\"\); \?>
+IRTag_-INJECTION.PREG_REPLACE-_|\@preg_replace\('/\(\.\*\)/e', \@._POST\['[a-z]+'\], ''\);
+IRTag_-INJECTION.GLOBALS-_|<\?(php)?\s+\$GLOBALS\['[a-zA-Z0-9]+'\];.*?=\$_COOKIE;.*?\);}exit\(\);} \?>
+IRTag_-INJECTION.GLOBALS.V2-_|<\?php if\(\!isset\(\$GLOBALS\["\\x61\\156\\x75\\156\\x61"\]\)\).*sizeof\(.*?-1; \?>
+IRTag_-INJECTION.POLYMORPH-_|<\?php\s*\$[a-z0-9]+\s*=\s*\"[a-z0-9]*_[a-z0-9]*\"\s*;(?:\s*\$[a-zA-Z0-9]+\s*=\s*(?:[\$a-zA-Z0-9]*\s*\(){0,1}\s*(?:\$[a-zA-Z0-9]+\[[0-9]+\][\.\s\)]*)+;\s*)+if\s*\(\s*isset\s*\(\s*\$\s*\{\s*\$\s*[a-zA-Z0-9]+\s*\}\s*\[\s*'\s*[a-zA-Z0-9]+\s*'\s*\]\s*\)\s*\)\s*\{\s*eval\s*\(\s*(?:\$[a-zA-Z0-9]+\s*\(){0,1}\s*\$\s*\{\s*\$[a-zA-Z0-9]+\s*\}\s*\[\s*'\s*[a-zA-Z0-9]+\s*'\s*\][\)\s]*;\s*[\}\s]*\?>\s*
+IRTag_-INJECTION.REQUEST-_|if \(isset\(\$_REQUEST\[\"[a-zA-Z0-9]+\"\]\)\) {(?:/\*[a-zA-Z0-9]+\*/)?@preg_replace\('/\(\.\*\)/e', @\$_REQUEST\['[a-zA-Z0-9]+'\], ''\);(?:/\*[a-zA-Z0-9]+\*/)?}
+IRTag_-INJECTION.UPLOAD-_|if \([\$]_FILES\['F1l3'\]\) {move_uploaded_file\([\$]_FILES\['F1l3'\]\['tmp_name'\], [\$]_POST\['Name'\]\); echo 'OK'; Exit;}
+IRTag_-INJECTION.VAR.A-_|\s*<script>var a='';\s*setTimeout\([0-9]+\);if\(document\.referrer\.indexOf.*?script>'\);}</script>
+IRTag_-INJECTION.XCALENDAR-_|\nrequire_once\(ABSPATH\.'wp-content/plugins/xcalendar/xcalendar.php'\);\n
