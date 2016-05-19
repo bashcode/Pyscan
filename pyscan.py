@@ -32,6 +32,7 @@ try:
 except ImportError:
     pass
 
+regex_tags = []
 regex_list = []
 regex_names = []
 compiled = []
@@ -78,7 +79,7 @@ def explore_path(dir_queue, file_queue):
             break
         else:
             ep_path = dir_queue_get()
-            
+
             if ep_path in [ os.path.abspath(x) for x in options.exclude_dir ]:
                 logging.info('Directory %s in excluded list! Skipping...', ep_path)
                 continue
@@ -88,8 +89,8 @@ def explore_path(dir_queue, file_queue):
                 file_stat = os.lstat(full_name)
                 file_mode = file_stat.st_mode
                 if S_ISLNK(file_mode):
-                    logging.info('Symlink:%s. Skipping..', file_name) 
-		    continue
+                    logging.info('Symlink:%s. Skipping..', file_name)
+                    continue
                 elif S_ISDIR(file_mode):
                     dir_queue_put(full_name)
                 elif (S_ISREG(file_mode) and file_stat.st_size < 2000000):
@@ -97,7 +98,7 @@ def explore_path(dir_queue, file_queue):
                     if options.exclude_root_owner:
                         if file_stat.st_uid == 0 and file_stat.st_gid == 0:
                             logging.debug('File %s owned to root. Skipping..', full_name)
-                            continue                   
+                            continue
                     file_queue_put(full_name)
 
 
@@ -106,7 +107,7 @@ def manager_process(dir_queue, file_queue, out_queue):
 
     """
     pool = Pool(options.num_threads)
-    atexit.register(at_exit_manager, pool)    
+    atexit.register(at_exit_manager, pool)
     logging.info('Gathering Files...')
     pool.apply(explore_path, (dir_queue, file_queue))
     logging.info('Files gathered. Scanning %s files...', file_queue.qsize())
@@ -121,7 +122,7 @@ def manager_process(dir_queue, file_queue, out_queue):
 
 def at_exit_main(manager):
     """Handles keyboard interrupts and ensures the manager process is properly terminated.
- 
+
     """
     print 'Shutting down main process...'
     manager.terminate()
@@ -172,8 +173,32 @@ def file_scan(file_name):
         found_malware = malware_sig.search(file_contents)
         if found_malware:
             index = compiled.index(malware_sig)
-            return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)) + '::' + repr(file_name)
+            if regex_tags[index] == "SSTag":
+                return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)) + '::' + repr(file_name)
+            elif regex_tags[index] == "IRTag":
+                 remove_results = remove_injection(file_contents, file_name, malware_sig)
+                 return remove_results + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)) + '::' + repr(file_name)
     logging.debug('Done scanning file: %s', file_name)
+
+
+def remove_injection(file_contents, file_name, injection):
+    """Takes in current file contents, the file name, and the compiled injection.
+       Removes this injection from the file if the '-i' option is being used.
+
+    """
+    if options.remove_injections:
+        logging.debug('Injection Remover Called: %s', file_name)
+        new_contents = injection.sub('', file_contents)
+
+        try:
+            openFile = open(file_name, 'w')
+            openFile.write(new_contents)
+            openFile.close()
+            return 'INJECTION REMOVED'
+        except IOError:
+            return 'INJECTION REMOVAL FAILED'
+    else:
+        return 'INJECTION FOUND'
 
 
 def print_status(file_queue):
@@ -183,24 +208,24 @@ def print_status(file_queue):
     prev_time = time.time()
     prev_files_left = file_queue.qsize()
     while file_queue.qsize() > 0:
-        
+
         cur_time = time.time()
         delta_time = cur_time - prev_time
-     
+
         cur_files_left = file_queue.qsize()
-    	delta_files_left = prev_files_left - cur_files_left
+        delta_files_left = prev_files_left - cur_files_left
 
         scan_speed = int(round(delta_files_left / delta_time))
         prev_files_left = cur_files_left
         prev_time = cur_time
-        
 
-	print('Files(remain): '),
-    	print(str(cur_files_left)),
-    	print(' Speed(files/s): '),
-    	print(str(scan_speed)),
-    	print('\r'),
-    	sys.stdout.flush()
+
+        print('Files(remain): '),
+        print(str(cur_files_left)),
+        print(' Speed(files/s): '),
+        print(str(scan_speed)),
+        print('\r'),
+        sys.stdout.flush()
         time.sleep(1)
 
 def append_args_from_file(option, opt_str, value, parser):
@@ -217,7 +242,7 @@ def parse_args():
     parser.add_option('-u', '--user', action='append', type='string', dest='include_user', metavar='USERNAME',
             help='Include given user\'s public_html path for scanning.')
     parser.add_option('--exclude', action='append', type='string', dest='exclude_dir', metavar='PATH',
-            help='Exclude given directory from scanning.') 
+            help='Exclude given directory from scanning.')
     parser.add_option('-x','--exclude-root-owner', action='store_true', dest='exclude_root_owner',
             help='Exclude files owned by root from scanning.')
     parser.add_option('--include-from-file', action='callback', type='string', callback=append_args_from_file, metavar='FILE',
@@ -226,6 +251,8 @@ def parse_args():
             help='Print debugging info.')
     parser.add_option('-t', '--threads', action='store', type='int', dest='num_threads', metavar='THREADS',
             help='Set number of threads to use for file scanning.')
+    parser.add_option('-i','--injection', action='store_true', dest='remove_injections',
+            help='Tells the scanner to remove known injections found.')
     parser.set_defaults(include_dir=[], num_threads=num_cpus, exclude_dir=[], debug=False, include_user=[])
     global options
     (options, args) = parser.parse_args()
@@ -233,7 +260,7 @@ def parse_args():
     #Hacky default setting.
     if not options.include_dir:
         options.include_dir = [os.getcwd()]
-    
+
 def main(argv):
     """Entry point.
 
@@ -273,6 +300,7 @@ def main(argv):
         logging.debug('Loading Pattern:%s', pattern)
         regex_list.append(pattern.split('|', 1)[1])
         regex_names.append(pattern.split('_-')[1].split('-_')[0])
+        regex_tags.append(pattern.split('_-')[0])
 
     # Reversed pattern order to match the new signatures first.
     for pattern in reversed(patterns.readlines()):
@@ -281,6 +309,7 @@ def main(argv):
 
         regex_list.append(pattern.split('|', 1)[1])
         regex_names.append(pattern.split('_-')[1].split('-_')[0])
+        regex_tags.append(pattern.split('_-')[0])
 
     test_regex(regex_list)
     for signature in regex_list:
@@ -293,7 +322,7 @@ def main(argv):
         unsearched = resource_manager.Queue()
         unscanned = resource_manager.Queue()
         output_queue = resource_manager.Queue()
-        
+
         for path in options.include_dir:
             path = os.path.abspath(path)
             if os.path.exists(path):
@@ -307,7 +336,7 @@ def main(argv):
                 unsearched.put(os.path.expanduser('~' + user) + '/public_html/')
             else:
                logging.info('User %s not found! Skipping..', user)
- 
+
 
         manager = Process(target=manager_process, args=(unsearched, unscanned, output_queue))
         manager.start()
