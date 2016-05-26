@@ -1,0 +1,2 @@
+origin	git@github.com:bashcode/Pyscan.git (fetch)
+origin	git@github.com:bashcode/Pyscan.git (push)
