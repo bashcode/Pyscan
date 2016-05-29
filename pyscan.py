@@ -209,6 +209,7 @@ def print_status(file_queue):
     prev_files_left = file_queue.qsize()
     while file_queue.qsize() > 0:
 
+        time.sleep(1)
         cur_time = time.time()
         delta_time = cur_time - prev_time
 
@@ -226,7 +227,6 @@ def print_status(file_queue):
         print(str(scan_speed)),
         print('\r'),
         sys.stdout.flush()
-        time.sleep(1)
 
 def append_args_from_file(option, opt_str, value, parser):
     args = [arg.strip() for arg in open(value)]
