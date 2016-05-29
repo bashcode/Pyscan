@@ -246,7 +246,7 @@ def parse_args():
     parser.add_option('-x','--exclude-root-owner', action='store_true', dest='exclude_root_owner',
             help='Exclude files owned by root from scanning.')
     parser.add_option('--include-from-file', action='callback', type='string', callback=append_args_from_file, metavar='FILE',
-            help='Include list of directory for scanning from FILE')
+	    help='Include list of directories for scanning from FILE')
     parser.add_option('-D', '--debug', action='store_true', dest='debug',
             help='Print debugging info.')
     parser.add_option('-t', '--threads', action='store', type='int', dest='num_threads', metavar='THREADS',
