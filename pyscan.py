@@ -258,7 +258,7 @@ def parse_args():
     (options, args) = parser.parse_args()
 
     #Hacky default setting.
-    if not options.include_dir:
+    if not options.include_dir and not options.include_user:
         options.include_dir = [os.getcwd()]
 
 def main(argv):
