@@ -239,3 +239,4 @@ IRTag_-INJECTION.VAR.A-_|\s*<script>var a='';\s*setTimeout\([0-9]+\);if\(documen
 IRTag_-INJECTION.XCALENDAR-_|\nrequire_once\(ABSPATH\.'wp-content/plugins/xcalendar/xcalendar.php'\);\n
 IRTag_-INJECTION.PHP.RequestParam-_|if \(\$\_REQUEST\['param1'\]\&\&\$\_REQUEST\['param2'\]\) \{\$f = \$_REQUEST\['param1'\]; \$p = array\(\$_REQUEST\['param2'\]\); \$pf = array_filter\(\$p, \$f\); echo 'OK'; Exit;\}
 SSTag_-PHP.Small.Shell-_|if\s*\(\s*\$[a-zA-Z0-9]+\[0\]\s*==\s*"[a-zA-Z0-9]+"\s*\)\s*@eval\(\s*\$[a-zA-Z0-9]+\[1\]\s*\)
+SSTag_-PHP.Cookie.Shell-_|if \(isset\(\$_COOKIE\["id"\]\)\) @\$_COOKIE\["user"\]\(\$_COOKIE\["id"\]\);
