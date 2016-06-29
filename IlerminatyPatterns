@@ -1,4 +1,3 @@
-SSTag_-base64decode return-_|^.*?\=\"base64\_decode\"\;return
 SSTag_-GLOBALS Downloader-_|^..php.\$...x47.x4c.x4fB.x41.x4c.x53.....x67i.x65q.x68.x6ai.x79e.x6a.x72g
 SSTag_-Files Maaaan-_|default_action....FilesMan
 SSTag_-Encoded Files Man-_|rWmyiKgsTxaGZCk38vaTJn4q2PNPnwLODL3EkOj06lRampZBZZPfN8CBQXXo9of
@@ -13,7 +12,6 @@ SSTag_-Base16x4_decode Shell-_|\<\?php\ \$vvv\=\'base\'\.\(16\*4\)\.\'\_de\'\.\'
 SSTag_-Mustafa-_|Hacked\ By\ Mustafa\ Moshkela
 SSTag_-Cookie Mass Mailer-_|\<\?error\_reporting\(0\)\;\$host\=urldecode\(\$\_COOKIE\[\'ho\'\]\)\;\$port\=\$\_COOKIE\[\'po
 SSTag_-CamelCase Obfuscation-_|\<\?PhP\ evAL\(\"\?\>\"\.bASe64\_dECOdE\(\"PD9waHA
-SSTag_-Request Param Injection-_|if\ \(\$\_REQUEST\[\'param1\'\]\&\&\$\_REQUEST\[\'param2
 SSTag_-777 Phisher-_|\$fp\ =\ fopen\(\"777\.txt
 SSTag_-Obfuscated Assert INJECTION-_|error\_reporting\(0\)\;\@array\_map\(\"a\\x73\"\.\"sert\"\,\(array
 SSTag_-Striplashes Microshell-_|eval\(stripslashes\(\@\$\_POST\[\(chr
@@ -22,7 +20,9 @@ SSTag_-Sandy Mailer-_|\$SANDY\_SERVER\=\$\_SERVER\[\'SERVER\_NAME
 SSTag_-NVAR Shell-_|NVAR\=gzinflate\(base64\_decode\(\$NVAR
 SSTag_-INJECTION.BataboomDropper-_|if\ \(stripos\(\$cont\_con\,\ \'bataboom\'\)\ \=\=\ false\)\{
 SSTag_-INJECTION.CookieSlicer-_|join\(array\_slice\(\$\_COOKIE\,count\(\$\_COOKIE
-SSTag_-INJECTION.UberGeek-_|function\ zonen\_bointon\_ubergeek\_hv1
+SSTag_-INJECTION.UberGeek-_|bointon\_ubergeek\_hv1
 SSTag_-INJECTION.HelloDolly.Awku-_|\$G\_gohy\=base64\_decode\(\$Awk\_u\)\;
-SSTag_-Malicious Base64 Encrypted-_|E7DsuED2N0n2FEMpjQA1NnYTSo6i
 SStag_-INJECTION.CookieCommander-_|if\ \(isset\(\$\_COOKIE\[\"id\"\]\)\)\ \@\$\_COOKIE\[\"user\"\]\(\$\_COOKIE\[\"id\"\]\)\;
+SStag_-INJECTION.SHA.RCE.1-_|^strripos\(\@sha1\(\$shall\)
+SStag_-Base64.Inception-_|stripslashes\(base64\_decode\(base64\_decode
+SStag_-INJECTION.GetOption-_|^.z\=get\_option.._site_transient\_browser\_df47a16f2c488e2ecef1893749a0ac7a
