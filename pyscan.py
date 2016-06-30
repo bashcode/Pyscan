@@ -209,7 +209,7 @@ def print_status(file_queue):
     prev_files_left = file_queue.qsize()
     while file_queue.qsize() > 0:
 
-        time.sleep(1)
+        time.sleep(3)
         cur_time = time.time()
         delta_time = cur_time - prev_time
 
