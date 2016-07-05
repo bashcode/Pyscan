@@ -14,3 +14,13 @@ md5sum:e13f215da998e64edf76b886f5a245ca
 md5sum:e3237f0c35e46db2b6cf5aa46a033a32
 md5sum:e62de919c29cba15565ab04466add451
 md5sum:fbef119cf310d6b0b40af7e486416f82
+md5sum:87e45a6465b79cf2c1b7dfcdd3c663b2 # PHP Wordpress Exploit for sketch sketch
+md5sum:7ba8bae8769ffc3de124680353516bf7 # PHP Wordpress Exploit for sketch sketch
+md5sum:c03cd2ec7cbdf90d487f89d27668b364 # PHP Obfuscation Exploit for Hello Dolly plugin
+md5sum:065611a8aed9b9a390893fd0642e6ef2 # PHP Obfuscation Exploit for wp-xm-ll plugin
+md5sum:95faefd894ea3abca32c51ee5260d4ad # PHP Exploit - 0056ad.php
+md5sum:0466e87d307d969a3104fa32c5e43864	# PHP Shell Exploit - search.php
+md5sum:e7030995cbc8a7040db8c4f07a3e3f62 # PHP Shell Exploit - inc.php 
+md5sum:23048386c184f3440888e547221d374b # PHP Shell Exploit - javascript.php
+md5sum:b291e356a498ac9bab040338d65e37d8 # PHP Upload script - theme-uploader.php
+md5sum:d6daee4e32f28e5d9e0522ed6b107b68 # PHP Upload script - plugin-uploader.php 
