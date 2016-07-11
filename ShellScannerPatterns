@@ -241,3 +241,6 @@ IRTag_-INJECTION.PHP.RequestParam-_|if \(\$\_REQUEST\['param1'\]\&\&\$\_REQUEST\
 SSTag_-PHP.Small.Shell-_|if\s*\(\s*\$[a-zA-Z0-9]+\[0\]\s*==\s*"[a-zA-Z0-9]+"\s*\)\s*@eval\(\s*\$[a-zA-Z0-9]+\[1\]\s*\)
 IRTag_-INECTION.Cookie.Shell-_|if \(isset\(\$_COOKIE\["id"\]\)\) @\$_COOKIE\["user"\]\(\$_COOKIE\["id"\]\);
 IRTag_-INJECTION.PHP.GJD-_|<\?php\s*\$gjdwwpyod = 'ofmy%,3,j%>.*?=explode\(chr\(\(743-623\)\).*?; \$gjdwwpyod=\$dfkdujyx-1; \?>
+SSTag_-PHP.Shell-_|function cve\(\$str,\$key\)
+SSTag_-PHP.Shell-_|= str_replace\("ti","","tistittirti_rtietipltiatice"\);
+
