@@ -249,4 +249,4 @@ SSTag_-PHP.Malicious Base64-_|vAsKJ2GJ37kRjsWMMQV3rHhZbAx/55VhYhpCW997b3/FjipIP0
 SSTag_-PHP.eStore plugin-_|\$instance = estore::getInstance\(\);
 IRTag_-INJECTION.PHP.estore plugin-_|require_once\(ABSPATH\.'wp-content/plugins/estore/estore.php'\);
 IRTag_-INJECTION.JS.realstatistics-_|<script language="JavaScript" type="text/JavaScript" src="http://realstatistics\.[a-z]+/js/analytics\.php\?id=[0-9]+"></script>
-
+IRTag_-INJECTION.PHP.Request_File_Dropper-_|<\?php\s+\$[A-Za-z0-9]+ = "[A-Za-z0-9]{32}"; if\(isset\(\$_REQUEST\['[A-Za-z0-9]+'\]\)\) \{ \$[A-Za-z0-9]+ = \$_REQUEST\['[A-Za-z0-9]+'\]; eval\(\$[A-Za-z0-9]+\); exit\(\); \} if\(isset\(\$_REQUEST\['[A-Za-z0-9]+'\]\)\) \{ \$[A-Za-z0-9]+ = \$_REQUEST\['[A-Za-z0-9]+'\]; \$[A-Za-z0-9]+ = \$_REQUEST\['[A-Za-z0-9]+'\]; \$[A-Za-z0-9]+ = fopen\(\$[A-Za-z0-9]+, 'w'\); \$[A-Za-z0-9]+ = fwrite\(\$[A-Za-z0-9]+, \$[A-Za-z0-9]+\); fclose\(\$[A-Za-z0-9]+\); echo \$[A-Za-z0-9]+; exit\(\); \} \?>
