@@ -247,4 +247,5 @@ SSTag_-PHP.Fake 404 Shell-_|if\(!\$_POST\['handle'\]\){header\('HTTP/1.1 404 Not
 SSTag_-PHP.Shell Injection-_|if \(!empty\(\$_POST\)\) {extract\(\$_POST\); \$h=\$d\(
 SSTag_-PHP.Malicious Base64-_|vAsKJ2GJ37kRjsWMMQV3rHhZbAx/55VhYhpCW997b3/FjipIP0IZuAbOnfrx\+bkx|8t/h/W6KaTgiBG1oC8TeA4gOCuN9gQ/vlehaJClW1nw3quQp66xV9UfE\+27
 SSTag_-PHP.eStore plugin-_|\$instance = estore::getInstance\(\);
+IRTag_-INJECTION.PHP.estore plugin-_|require_once\(ABSPATH\.'wp-content/plugins/estore/estore.php'\);
 IRTag_-INJECTION.JS.realstatistics-_|<script language="JavaScript" type="text/JavaScript" src="http://realstatistics\.[a-z]+/js/analytics\.php\?id=[0-9]+"></script>
