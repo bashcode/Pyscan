@@ -243,4 +243,8 @@ IRTag_-INECTION.Cookie.Shell-_|if \(isset\(\$_COOKIE\["id"\]\)\) @\$_COOKIE\["us
 IRTag_-INJECTION.PHP.GJD-_|<\?php\s*\$gjdwwpyod = 'ofmy%,3,j%>.*?=explode\(chr\(\(743-623\)\).*?; \$gjdwwpyod=\$dfkdujyx-1; \?>
 SSTag_-PHP.Shell-_|function cve\(\$str,\$key\)
 SSTag_-PHP.Shell-_|= str_replace\("ti","","tistittirti_rtietipltiatice"\);
-
+SSTag_-PHP.Fake 404 Shell-_|if\(!\$_POST\['handle'\]\){header\('HTTP/1.1 404 Not Found'\); exit\(\);
+SSTag_-PHP.Shell Injection-_|if \(!empty\(\$_POST\)\) {extract\(\$_POST\); \$h=\$d\(
+SSTag_-PHP.Malicious Base64-_|vAsKJ2GJ37kRjsWMMQV3rHhZbAx/55VhYhpCW997b3/FjipIP0IZuAbOnfrx\+bkx|8t/h/W6KaTgiBG1oC8TeA4gOCuN9gQ/vlehaJClW1nw3quQp66xV9UfE\+27
+SSTag_-PHP.eStore plugin-_|\$instance = estore::getInstance\(\);
+IRTag_-INJECTION.JS.realstatistics-_|<script language="JavaScript" type="text/JavaScript" src="http://realstatistics\.[a-z]+/js/analytics\.php\?id=[0-9]+"></script>
