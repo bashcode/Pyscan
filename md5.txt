@@ -24,3 +24,5 @@ md5sum:e7030995cbc8a7040db8c4f07a3e3f62 # PHP Shell Exploit - inc.php
 md5sum:23048386c184f3440888e547221d374b # PHP Shell Exploit - javascript.php
 md5sum:b291e356a498ac9bab040338d65e37d8 # PHP Upload script - theme-uploader.php
 md5sum:d6daee4e32f28e5d9e0522ed6b107b68 # PHP Upload script - plugin-uploader.php 
+md5sum:229a4a39371b473707f18337bd8ac9d8 # PHP Remote code execution - login_wall.php
+md5sum:7342aab49cb7b97432e1a119d490decf # PHP Upload script - tmp.php
