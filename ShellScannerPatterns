@@ -246,7 +246,8 @@ SSTag_-PHP.Shell-_Score:10|= str_replace\("ti","","tistittirti_rtietipltiatice"\
 SSTag_-PHP.Fake 404 Shell-_Score:10|if\(!\$_POST\['handle'\]\)\{header\('HTTP/1.1 404 Not Found'\); exit\(\);
 SSTag_-PHP.Shell Injection-_Score:10|if \(!empty\(\$_POST\)\) \{extract\(\$_POST\); \$h=\$d\(
 SSTag_-PHP.Malicious Base64-_Score:10|vAsKJ2GJ37kRjsWMMQV3rHhZbAx/55VhYhpCW997b3/FjipIP0IZuAbOnfrx\+bkx|8t/h/W6KaTgiBG1oC8TeA4gOCuN9gQ/vlehaJClW1nw3quQp66xV9UfE\+27
-SSTag_-PHP.eStore plugin-_|\$instance = estore[0-9]?::getInstance\(\);
-IRTag_-INJECTION.PHP.estore plugin-_|require_once\(ABSPATH\.'wp-content/plugins/estore[0-9]?/estore[0-9]?.php'\);
+SSTag_-PHP.eStore plugin-_Score:10|\$instance = estore[0-9]?::getInstance\(\);
+IRTag_-INJECTION.PHP.estore plugin-_Score:-10|require_once\(ABSPATH\.'wp-content/plugins/estore[0-9]?/estore[0-9]?.php'\);
 IRTag_-INJECTION.JS.realstatistics-_Score:-10|<script language="JavaScript" type="text/JavaScript" src="http://realstatistics\.[a-z]+/js/analytics\.php\?id=[0-9]+"></script>
 IRTag_-INJECTION.PHP.Request_File_Dropper-_Score:-10|<\?php\s+\$[A-Za-z0-9]+ = "[A-Za-z0-9]{32}"; if\(isset\(\$_REQUEST\['[A-Za-z0-9]+'\]\)\) \{ \$[A-Za-z0-9]+ = \$_REQUEST\['[A-Za-z0-9]+'\]; eval\(\$[A-Za-z0-9]+\); exit\(\); \} if\(isset\(\$_REQUEST\['[A-Za-z0-9]+'\]\)\) \{ \$[A-Za-z0-9]+ = \$_REQUEST\['[A-Za-z0-9]+'\]; \$[A-Za-z0-9]+ = \$_REQUEST\['[A-Za-z0-9]+'\]; \$[A-Za-z0-9]+ = fopen\(\$[A-Za-z0-9]+, 'w'\); \$[A-Za-z0-9]+ = fwrite\(\$[A-Za-z0-9]+, \$[A-Za-z0-9]+\); fclose\(\$[A-Za-z0-9]+\); echo \$[A-Za-z0-9]+; exit\(\); \} \?>
+
