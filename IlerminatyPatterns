@@ -1,28 +1,4 @@
-SSTag_-GLOBALS Downloader-_|^..php.\$...x47.x4c.x4fB.x41.x4c.x53.....x67i.x65q.x68.x6ai.x79e.x6a.x72g
-SSTag_-Files Maaaan-_|default_action....FilesMan
-SSTag_-Encoded Files Man-_|rWmyiKgsTxaGZCk38vaTJn4q2PNPnwLODL3EkOj06lRampZBZZPfN8CBQXXo9of
-SSTag_-Simple Uploader-_|if\(\$action\=\=\"\"\|\|\$password\=\=\"\"\|\|\$filename\=\=\"\"\|\|\$body\=\=\"\"\)
-SSTag_-GET Packer-_|if\ \(isset\(\$\_GET\[str\_rot13\(pack\(\"H\*\"
-SSTag_-Obfuscated Shell API-_|\<\?php\ eval\(\"\?\>\"\ \.\ base64\_decode\(\"PD9waHANCmhlYWRlcignQ29udGVud
-SSTag_-Victim Mailer-_|victim\_email\ \=\ \$\_POST\[\"email
-SSTag_-Remote Shell Includer-_|\$filenames\ \=\ array\(\ \'configuration\'\,\ \'pagenews\'\,\ \'contacts\'\,\ \'redirecter\'\,\ \'languager\'\,\ \'userloader\'\,\ \'controll\' \,\ \'routepath\'\,\ \'viewme
-SSTag_-SMTP Mailer-_|CaZaNoVa163\ SMTP\ Mailer
-SSTag_-File Uploader-_|if\(isset\(\$\_GET\[fymaht
-SSTag_-Base16x4_decode Shell-_|\<\?php\ \$vvv\=\'base\'\.\(16\*4\)\.\'\_de\'\.\'code\'\;\$vvv\=\$vvv
-SSTag_-Mustafa-_|Hacked\ By\ Mustafa\ Moshkela
-SSTag_-Cookie Mass Mailer-_|\<\?error\_reporting\(0\)\;\$host\=urldecode\(\$\_COOKIE\[\'ho\'\]\)\;\$port\=\$\_COOKIE\[\'po
-SSTag_-CamelCase Obfuscation-_|\<\?PhP\ evAL\(\"\?\>\"\.bASe64\_dECOdE\(\"PD9waHA
-SSTag_-777 Phisher-_|\$fp\ =\ fopen\(\"777\.txt
-SSTag_-Obfuscated Assert INJECTION-_|error\_reporting\(0\)\;\@array\_map\(\"a\\x73\"\.\"sert\"\,\(array
-SSTag_-Striplashes Microshell-_|eval\(stripslashes\(\@\$\_POST\[\(chr
-SSTag_-Obfuscated Mailer-_|\<\?php\ \$code\=base64\_decode\(\"XCRf
-SSTag_-Sandy Mailer-_|\$SANDY\_SERVER\=\$\_SERVER\[\'SERVER\_NAME
-SSTag_-NVAR Shell-_|NVAR\=gzinflate\(base64\_decode\(\$NVAR
-SSTag_-INJECTION.BataboomDropper-_|if\ \(stripos\(\$cont\_con\,\ \'bataboom\'\)\ \=\=\ false\)\{
-SSTag_-INJECTION.CookieSlicer-_|join\(array\_slice\(\$\_COOKIE\,count\(\$\_COOKIE
-SSTag_-INJECTION.UberGeek-_|bointon\_ubergeek\_hv1
-SSTag_-INJECTION.HelloDolly.Awku-_|\$G\_gohy\=base64\_decode\(\$Awk\_u\)\;
-SStag_-INJECTION.CookieCommander-_|if\ \(isset\(\$\_COOKIE\[\"id\"\]\)\)\ \@\$\_COOKIE\[\"user\"\]\(\$\_COOKIE\[\"id\"\]\)\;
-SStag_-INJECTION.SHA.RCE.1-_|^strripos\(\@sha1\(\$shall\)
-SStag_-Base64.Inception-_|stripslashes\(base64\_decode\(base64\_decode
-SStag_-INJECTION.GetOption-_|^.z\=get\_option.._site_transient\_browser\_df47a16f2c488e2ecef1893749a0ac7a
+IRTag_-INJECTION.PHP.ObfuscatedAssert-_|if..md5....COOKIE.ssid.....f700b6626a2a290299f11a7ac73ad359....error.reporting.0...array.map..a.x73...sert...array....SERVER.HTTP.X....
+IRTag_-INJECTION.PHP.PostDropper-_|if\ \(.empty\(.\_POST\)\)\ \{extract\(.\_POST\)\;\ .h..d\(...\ .f\(.s\(.c..\ ...\ .m\)\)\)\;\ .h\(\)\;\}
+SSTag_-PHP.Shell.Base64_Filesman-_|\$default\_action\ \=\ base64\_decode\(.RmlsZXNNYW4\=.\)\;
+
