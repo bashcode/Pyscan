@@ -183,6 +183,9 @@ def file_scan(file_name):
                 remove_results = remove_injection(file_contents, file_name, malware_sig)
                 output += '%s::%s::%s::%s::HITSCORE_%d' % (remove_results, regex_names[index], str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)), repr(file_name), regex_score[index])
 
+                if options.remove_injections:
+                    return output
+
             if options.remove_score:
                 return output
             else:
