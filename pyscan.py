@@ -178,10 +178,21 @@ def file_scan(file_name):
             index = compiled.index(malware_sig)
             score = score + regex_score[index]
             if regex_tags[index] == "SSTag":
-                output += 'FOUND::%s::%s::%s::HITSCORE_%d' % (regex_names[index], str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)), repr(file_name), regex_score[index])
+                output += 'FOUND::%s::%s::%s::HITSCORE_%d' % (
+                    regex_names[index], 
+                    str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)), 
+                    repr(file_name), 
+                    regex_score[index]
+                )
             elif regex_tags[index] == "IRTag":
                 remove_results = remove_injection(file_contents, file_name, malware_sig)
-                output += '%s::%s::%s::%s::HITSCORE_%d' % (remove_results, regex_names[index], str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)), repr(file_name), regex_score[index])
+                output += '%s::%s::%s::%s::HITSCORE_%d' % (
+                    remove_results, 
+                    regex_names[index], 
+                    str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)), 
+                    repr(file_name), 
+                    regex_score[index]
+                )
 
                 if options.remove_injections:
                     return output
