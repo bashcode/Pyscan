@@ -32,6 +32,7 @@ try:
 except ImportError:
     pass
 
+regex_score = []
 regex_tags = []
 regex_list = []
 regex_names = []
@@ -169,15 +170,38 @@ def file_scan(file_name):
     except IOError, io_error:
         return 'I/O error({0}): {1}: File:{2}'.format(io_error.errno, io_error.strerror, file_name)
     logging.debug('Scanning file: %s', file_name)
+    score = 0
+    output = ""
     for malware_sig in compiled:
         found_malware = malware_sig.search(file_contents)
         if found_malware:
             index = compiled.index(malware_sig)
+            score = score + regex_score[index]
             if regex_tags[index] == "SSTag":
-                return 'FOUND' + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)) + '::' + repr(file_name)
+                output += 'FOUND::%s::%s::%s::HITSCORE_%d' % (regex_names[index], str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)), repr(file_name), regex_score[index])
             elif regex_tags[index] == "IRTag":
-                 remove_results = remove_injection(file_contents, file_name, malware_sig)
-                 return remove_results + '::' + regex_names[index] + '::' + str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)) + '::' + repr(file_name)
+                remove_results = remove_injection(file_contents, file_name, malware_sig)
+                output += '%s::%s::%s::%s::HITSCORE_%d' % (remove_results, regex_names[index], str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)), repr(file_name), regex_score[index])
+
+            if options.remove_score:
+                return output
+            else:
+                output += '\n'
+
+    if output:
+        if score >= 10:
+            confidence = "VERYHIGH"
+        elif score < 10 and score > 5:
+            confidence = "HIGH"
+        elif score == 5:
+            confidence = "MEDIUM"
+        elif score < 5 and score > 0:
+            confidence = "LOW"
+        elif score <= 0:
+            confidence = "LEGITIMATE(INJECTION)"
+
+        output += 'MATCHING-FILE::%s::Score_%d::MALICIOUS_PROB_%s' % (repr(file_name), score, confidence)
+        return output
     logging.debug('Done scanning file: %s', file_name)
 
 
@@ -209,7 +233,6 @@ def print_status(file_queue):
     prev_files_left = file_queue.qsize()
     while file_queue.qsize() > 0:
 
-        time.sleep(3)
         cur_time = time.time()
         delta_time = cur_time - prev_time
 
@@ -227,6 +250,7 @@ def print_status(file_queue):
         print(str(scan_speed)),
         print('\r'),
         sys.stdout.flush()
+        time.sleep(1)
 
 def append_args_from_file(option, opt_str, value, parser):
     args = [arg.strip() for arg in open(value)]
@@ -246,19 +270,21 @@ def parse_args():
     parser.add_option('-x','--exclude-root-owner', action='store_true', dest='exclude_root_owner',
             help='Exclude files owned by root from scanning.')
     parser.add_option('--include-from-file', action='callback', type='string', callback=append_args_from_file, metavar='FILE',
-            help='Include list of directories for scanning from FILE')
+            help='Include list of directory for scanning from FILE')
     parser.add_option('-D', '--debug', action='store_true', dest='debug',
             help='Print debugging info.')
     parser.add_option('-t', '--threads', action='store', type='int', dest='num_threads', metavar='THREADS',
             help='Set number of threads to use for file scanning.')
     parser.add_option('-i','--injection', action='store_true', dest='remove_injections',
             help='Tells the scanner to remove known injections found.')
+    parser.add_option('-s','--score', action='store_true', dest='remove_score',
+            help='Turns off the file scoring engine.')
     parser.set_defaults(include_dir=[], num_threads=num_cpus, exclude_dir=[], debug=False, include_user=[])
     global options
     (options, args) = parser.parse_args()
 
     #Hacky default setting.
-    if not options.include_dir and not options.include_user:
+    if not options.include_dir:
         options.include_dir = [os.getcwd()]
 
 def main(argv):
@@ -298,6 +324,7 @@ def main(argv):
     for pattern in ilerminaty_patterns:
         pattern = pattern.strip()
         logging.debug('Loading Pattern:%s', pattern)
+        regex_score.append('int(5)')
         regex_list.append(pattern.split('|', 1)[1])
         regex_names.append(pattern.split('_-')[1].split('-_')[0])
         regex_tags.append(pattern.split('_-')[0])
@@ -307,6 +334,7 @@ def main(argv):
         pattern = pattern.strip()
         logging.debug('Loading Pattern:%s', pattern)
 
+        regex_score.append(int(pattern.split('|', 1)[0].split('-_')[1].split(':')[1]))
         regex_list.append(pattern.split('|', 1)[1])
         regex_names.append(pattern.split('_-')[1].split('-_')[0])
         regex_tags.append(pattern.split('_-')[0])
@@ -331,10 +359,9 @@ def main(argv):
             else:
                 logging.info('Path %s not found! Skipping..', path)
         for user in  options.include_user:
-            user_path = os.path.expanduser('~' + user) + '/public_html/'
-            if os.path.exists(user_path):
-                logging.info('Scanning %s', user_path)
-                unsearched.put(user_path)
+            if os.path.exists(user):
+                logging.info('Scanning %s', user)
+                unsearched.put(os.path.expanduser('~' + user) + '/public_html/')
             else:
                logging.info('User %s not found! Skipping..', user)
 
