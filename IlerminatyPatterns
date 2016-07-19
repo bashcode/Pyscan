@@ -1,4 +1,3 @@
 IRTag_-INJECTION.PHP.ObfuscatedAssert-_|if..md5....COOKIE.ssid.....f700b6626a2a290299f11a7ac73ad359....error.reporting.0...array.map..a.x73...sert...array....SERVER.HTTP.X....
 IRTag_-INJECTION.PHP.PostDropper-_|if\ \(.empty\(.\_POST\)\)\ \{extract\(.\_POST\)\;\ .h..d\(...\ .f\(.s\(.c..\ ...\ .m\)\)\)\;\ .h\(\)\;\}
 SSTag_-PHP.Shell.Base64_Filesman-_|\$default\_action\ \=\ base64\_decode\(.RmlsZXNNYW4\=.\)\;
-
