@@ -1,12 +1,10 @@
+#!/usr/bin/env python
+
 """Pyscan - A fast malware scanner using ShellScannerPatterns
 
 This version is still in testing/prototype stage.
 
 """
-
-__version__ = '1.17'
-
-#!/usr/bin/env python
 
 import os
 import stat
@@ -32,11 +30,14 @@ try:
 except ImportError:
     pass
 
+__version__ = '1.17'
+
 regex_score = []
 regex_tags = []
 regex_list = []
 regex_names = []
 compiled = []
+
 
 def test_regex(regex_array):
     """Ensures the regex strings are validated for proper syntax.
@@ -58,7 +59,7 @@ def find_all_files(desired_path):
     for (dirpath, _, filenames) in os.walk(desired_path):
         for file_name in filenames:
             fullpath = os.path.join(dirpath, file_name)
-            size = os.lstat(fullpath).st_size # in bytes
+            size = os.lstat(fullpath).st_size  # in bytes
             if size < 2000000:
                 logging.debug('Found file: %s', fullpath)
                 files.append(fullpath)
@@ -81,8 +82,9 @@ def explore_path(dir_queue, file_queue):
         else:
             ep_path = dir_queue_get()
 
-            if ep_path in [ os.path.abspath(x) for x in options.exclude_dir ]:
-                logging.info('Directory %s in excluded list! Skipping...', ep_path)
+            if ep_path in [os.path.abspath(x) for x in options.exclude_dir]:
+                logging.info('Directory %s in excluded list! Skipping...',
+                             ep_path)
                 continue
 
             for file_name in os.listdir(ep_path):
@@ -98,7 +100,8 @@ def explore_path(dir_queue, file_queue):
                     logging.debug('Found file: %s', full_name)
                     if options.exclude_root_owner:
                         if file_stat.st_uid == 0 and file_stat.st_gid == 0:
-                            logging.debug('File %s owned to root. Skipping..', full_name)
+                            logging.debug('File %s owned to root. Skipping..',
+                                          full_name)
                             continue
                     file_queue_put(full_name)
 
@@ -121,21 +124,26 @@ def manager_process(dir_queue, file_queue, out_queue):
     pool.join()
     out_queue.put(StopIteration)
 
+
 def at_exit_main(manager):
-    """Handles keyboard interrupts and ensures the manager process is properly terminated.
+    """Handles keyboard interrupts and ensures the manager process
+       is properly terminated.
 
     """
     print 'Shutting down main process...'
     manager.terminate()
     sys.exit(1)
 
+
 def at_exit_manager(pool):
-    """Handles keyboard interrupts and ensures the scanner processes are properly terminated.
+    """Handles keyboard interrupts and ensures the scanner processes
+       are properly terminated.
 
     """
     print 'Shutting down scanning processes...'
     pool.terminate()
     sys.exit(1)
+
 
 def parallel_scan(file_queue, out_queue):
     """Scans files from input queue and places results in output queue.
@@ -168,7 +176,9 @@ def file_scan(file_name):
         file_contents = f.read()
         f.close()
     except IOError, io_error:
-        return 'I/O error({0}): {1}: File:{2}'.format(io_error.errno, io_error.strerror, file_name)
+        return 'I/O error({0}): {1}: File:{2}'.format(
+            io_error.errno, io_error.strerror, file_name
+        )
     logging.debug('Scanning file: %s', file_name)
     score = 0
     output = ""
@@ -177,20 +187,28 @@ def file_scan(file_name):
         if found_malware:
             index = compiled.index(malware_sig)
             score = score + regex_score[index]
-            if regex_tags[index] == "SSTag":
+            if regex_tags[index] == 'SSTag' and not output:
                 output += 'FOUND::%s::%s::%s::HITSCORE_%d' % (
-                    regex_names[index], 
-                    str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)), 
-                    repr(file_name), 
+                    repr(file_name),
+                    datetime.datetime.fromtimestamp(
+                        os.lstat(file_name).st_ctime
+                    ).strftime('%Y-%m-%d %H:%M:%S'),
+                    regex_names[index],
                     regex_score[index]
                 )
+            elif regex_tags[index] == 'SSTag' and output:
+                output += '::%s::HITSCORE_%d' % (regex_names[index],
+                                                 regex_score[index])
             elif regex_tags[index] == "IRTag":
-                remove_results = remove_injection(file_contents, file_name, malware_sig)
+                remove_results = remove_injection(file_contents, file_name,
+                                                  malware_sig)
                 output += '%s::%s::%s::%s::HITSCORE_%d' % (
-                    remove_results, 
-                    regex_names[index], 
-                    str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)), 
-                    repr(file_name), 
+                    remove_results,
+                    regex_names[index],
+                    datetime.datetime.fromtimestamp(
+                        os.lstat(file_name).st_ctime
+                    ).strftime('%Y-%m-%d %H:%M:%S'),
+                    repr(file_name),
                     regex_score[index]
                 )
 
@@ -199,22 +217,24 @@ def file_scan(file_name):
 
             if options.remove_score:
                 return output
-            else:
-                output += '\n'
 
     if output:
         if score >= 10:
-            confidence = "VERYHIGH"
+            confidence = 'VERYHIGH'
         elif score < 10 and score > 5:
-            confidence = "HIGH"
+            confidence = 'HIGH'
         elif score == 5:
-            confidence = "MEDIUM"
+            confidence = 'MEDIUM'
         elif score < 5 and score > 0:
-            confidence = "LOW"
+            confidence = 'LOW'
         elif score <= 0:
-            confidence = "LEGITIMATE(INJECTION)"
+            confidence = 'LEGITIMATE(INJECTION)'
 
-        output += 'MATCHING-FILE::%s::Score_%d::MALICIOUS_PROB_%s' % (repr(file_name), score, confidence)
+        output += '\nMATCHING-FILE::%s::%s::Score_%d::MALICIOUS_PROB_%s' % (
+            repr(file_name),
+            str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)),
+            score, confidence
+        )
         return output
     logging.debug('Done scanning file: %s', file_name)
 
@@ -247,6 +267,7 @@ def print_status(file_queue):
     prev_files_left = file_queue.qsize()
     while file_queue.qsize() > 0:
 
+        time.sleep(3)
         cur_time = time.time()
         delta_time = cur_time - prev_time
 
@@ -257,49 +278,79 @@ def print_status(file_queue):
         prev_files_left = cur_files_left
         prev_time = cur_time
 
-
         print('Files(remain): '),
         print(str(cur_files_left)),
         print(' Speed(files/s): '),
         print(str(scan_speed)),
         print('\r'),
         sys.stdout.flush()
-        time.sleep(1)
+
 
 def append_args_from_file(option, opt_str, value, parser):
     args = [arg.strip() for arg in open(value)]
     parser.values.include_dir.extend(args)
+
 
 def parse_args():
 
     num_cpus = cpu_count()
 
     parser = optparse.OptionParser(version=__version__)
-    parser.add_option('-p', '--path', action='append', type='string', dest='include_dir', metavar='PATH',
-            help='Include given directory for scanning.')
-    parser.add_option('-u', '--user', action='append', type='string', dest='include_user', metavar='USERNAME',
-            help='Include given user\'s public_html path for scanning.')
-    parser.add_option('--exclude', action='append', type='string', dest='exclude_dir', metavar='PATH',
-            help='Exclude given directory from scanning.')
-    parser.add_option('-x','--exclude-root-owner', action='store_true', dest='exclude_root_owner',
-            help='Exclude files owned by root from scanning.')
-    parser.add_option('--include-from-file', action='callback', type='string', callback=append_args_from_file, metavar='FILE',
-            help='Include list of directory for scanning from FILE')
-    parser.add_option('-D', '--debug', action='store_true', dest='debug',
-            help='Print debugging info.')
-    parser.add_option('-t', '--threads', action='store', type='int', dest='num_threads', metavar='THREADS',
-            help='Set number of threads to use for file scanning.')
-    parser.add_option('-i','--injection', action='store_true', dest='remove_injections',
-            help='Tells the scanner to remove known injections found.')
-    parser.add_option('-s','--score', action='store_true', dest='remove_score',
-            help='Turns off the file scoring engine.')
-    parser.set_defaults(include_dir=[], num_threads=num_cpus, exclude_dir=[], debug=False, include_user=[])
+    parser.add_option(
+        '-p', '--path', action='append', type='string', dest='include_dir',
+        metavar='PATH', help='Include given directory for scanning.'
+    )
+    parser.add_option(
+        '-u', '--user', action='append', type='string', dest='include_user',
+        metavar='USERNAME',
+        help='Include given user\'s public_html path for scanning.'
+    )
+    parser.add_option(
+        '--exclude', action='append', type='string', dest='exclude_dir',
+        metavar='PATH', help='Exclude given directory from scanning.'
+    )
+    parser.add_option(
+        '-x', '--exclude-root-owner', action='store_true',
+        dest='exclude_root_owner',
+        help='Exclude files owned by root from scanning.'
+    )
+    parser.add_option(
+        '--include-from-file', action='callback', type='string',
+        callback=append_args_from_file, metavar='FILE',
+        help='Include list of directories for scanning from FILE'
+    )
+    parser.add_option(
+        '-D', '--debug', action='store_true', dest='debug',
+        help='Print debugging info.'
+    )
+    parser.add_option(
+        '-t', '--threads', action='store', type='int', dest='num_threads',
+        metavar='THREADS',
+        help='Set number of threads to use for file scanning.'
+    )
+    parser.add_option(
+        '-i', '--injection', action='store_true', dest='remove_injections',
+        help='Tells the scanner to remove known injections found.'
+    )
+    parser.add_option(
+        '-s', '--score', action='store_true', dest='remove_score',
+        help='Turns off the file scoring engine.'
+    )
+    parser.add_option(
+        '-l', '--legacy-mode', action='store_true', dest='legacy_mode',
+        help='Start scanner in Single Process(legacy) mode.'
+    )
+    parser.set_defaults(
+        include_dir=[], num_threads=num_cpus, exclude_dir=[],
+        debug=False, include_user=[]
+    )
     global options
     (options, args) = parser.parse_args()
 
-    #Hacky default setting.
-    if not options.include_dir:
+    # Hacky default setting.
+    if not options.include_dir and not options.include_user:
         options.include_dir = [os.getcwd()]
+
 
 def main(argv):
     """Entry point.
@@ -312,9 +363,11 @@ def main(argv):
     else:
         log_level = logging.INFO
 
-    logging.basicConfig(level=log_level
-                        , filename=os.path.expanduser('~') + '/found_shells.log'
-                        , filemode='a')
+    logging.basicConfig(
+        level=log_level,
+        filename=os.path.expanduser('~') + '/found_shells.log',
+        filemode='a'
+    )
 
     # define a Handler which writes INFO messages or higher to the sys.stderr
     console = logging.StreamHandler()
@@ -330,10 +383,13 @@ def main(argv):
     else:
         logging.info('Multiprocessing not loaded!')
     logging.info('Using version %s', __version__)
-    logging.info('For file name extraction, pipe list of detected files into: awk -F"::" \'{print $4}\'')
 
-    patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns')
-    ilerminaty_patterns = urllib2.urlopen('https://raw.githubusercontent.com/bashcode/Pyscan/master/IlerminatyPatterns')
+    patterns = urllib2.urlopen(
+        'https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns'
+    )
+    ilerminaty_patterns = urllib2.urlopen(
+        'https://raw.githubusercontent.com/bashcode/Pyscan/master/IlerminatyPatterns'
+    )
 
     for pattern in ilerminaty_patterns:
         pattern = pattern.strip()
@@ -348,7 +404,9 @@ def main(argv):
         pattern = pattern.strip()
         logging.debug('Loading Pattern:%s', pattern)
 
-        regex_score.append(int(pattern.split('|', 1)[0].split('-_')[1].split(':')[1]))
+        regex_score.append(
+            int(pattern.split('|', 1)[0].split('-_')[1].split(':')[1])
+        )
         regex_list.append(pattern.split('|', 1)[1])
         regex_names.append(pattern.split('_-')[1].split('-_')[0])
         regex_tags.append(pattern.split('_-')[0])
@@ -357,8 +415,38 @@ def main(argv):
     for signature in regex_list:
         compiled.append(re.compile(signature, re.MULTILINE | re.UNICODE))
 
+    # Single process mode
+    if options.legacy_mode or 'multiprocessing' not in sys.modules:
+        logging.info('Using single process...')
+        file_list = []
+        for path in options.include_dir:
+            path = os.path.abspath(path)
+            if os.path.exists(path):
+                logging.info('Scanning %s', path)
+                file_list.extend(find_all_files(path))
+            else:
+                logging.info('Path %s not found! Skipping..', path)
+        for user in options.include_user:
+            user_path = os.path.expanduser('~' + user) + '/public_html/'
+            if os.path.exists(user_path):
+                logging.info('Scanning %s', user_path)
+                file_list.extend(find_all_files(path))
+            else:
+                logging.info('User %s not found! Skipping..', user)
+
+        logging.info('Files collected!')
+        file_list_size = len(file_list)
+        logging.info('Scanning %s total files...', file_list_size)
+        for _, file_name in enumerate(file_list):
+            logging.debug('Scanning %s', file_name)
+
+            file_scan_results = file_scan(file_name)
+            if file_scan_results:
+                logging.info('%s', file_scan_results)
+        logging.info('Account Scan Complete...')
+
     # Parallel mode
-    if 'multiprocessing' in sys.modules:
+    else:
         logging.info('Using parallel processes...')
         resource_manager = Manager()
         unsearched = resource_manager.Queue()
@@ -372,15 +460,18 @@ def main(argv):
                 unsearched.put(path)
             else:
                 logging.info('Path %s not found! Skipping..', path)
-        for user in  options.include_user:
-            if os.path.exists(user):
-                logging.info('Scanning %s', user)
-                unsearched.put(os.path.expanduser('~' + user) + '/public_html/')
+        for user in options.include_user:
+            user_path = os.path.expanduser('~' + user) + '/public_html/'
+            if os.path.exists(user_path):
+                logging.info('Scanning %s', user_path)
+                unsearched.put(user_path)
             else:
-               logging.info('User %s not found! Skipping..', user)
+                logging.info('User %s not found! Skipping..', user)
 
-
-        manager = Process(target=manager_process, args=(unsearched, unscanned, output_queue))
+        manager = Process(
+            target=manager_process, args=(unsearched, unscanned,
+                                          output_queue)
+        )
         manager.start()
         atexit.register(at_exit_main, manager)
         output_queue_get = output_queue.get
@@ -389,29 +480,15 @@ def main(argv):
             if results is StopIteration:
                 break
             else:
-                logging.info('%s', results)
+                results = results.splitlines()
+                for result in results:
+                    logging.info('%s', result)
         print '~' * 79
         print ''
         print 'Account Scan Complete...'
         print 'Exiting...'
         print ''
         print ''
-
-    # Single process mode
-    else:
-        logging.info('Using single process...')
-        file_list = find_all_files(desired_path)
-        logging.info('Files collected!')
-        file_list_size = len(file_list)
-        logging.info('Scanning %s total files...', file_list_size)
-        for _, file_name in enumerate(file_list):
-            logging.debug('Scanning %s', file_name)
-
-            file_scan_results = file_scan(file_name)
-            if file_scan_results:
-                logging.info('%s', file_scan_results)
-        logging.info('Account Scan Complete...')
-
 
 if __name__ == '__main__':
     start_time = time.time()
@@ -422,5 +499,5 @@ if __name__ == '__main__':
             8gICAgIC9fX19fLw==""")
     main(sys.argv[1:])
     time_taken = time.time() - start_time
-    print 'Ran in ' + str(time_taken) +  ' seconds.'
+    print 'Ran in ' + str(time_taken) + ' seconds.'
 
