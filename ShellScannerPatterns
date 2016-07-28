@@ -254,3 +254,4 @@ SSTag_-PHP.Double Base64 Post-_Score:10|stripslashes\(base64_decode\(base64_deco
 IRTag_-INJECTION.Ecommerce.Phishing-_Score:-10|<script>document.location="http://cwcargo\.com/Checkout"</script>
 SSTag_-INJECTION.Ecommerce.Phishing.Generic-_Score:-10|<script>document.location="http://[a-zA-Z0-9./]"</script>
 SSTag_-PHP.Filebox Shell-_Score:10|function autoPatchWordpress\(\$cmsFolder\)|\$payload_upshell_filename\s*=\s*"[A-Za-z0-9]+\.php";
+SSTag_-PHP.Shell.arr2html-_Score:10|arr2html\(\$\_REQUEST\['array'\]\)\;
