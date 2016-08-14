@@ -261,3 +261,5 @@ SSTag_-PHP.preg_replace.Obfuscation-_Score:10|\$[A-Za-z0-9]+\s*=\s*chr\(112\)\.(
 SSTag_-PHP.Malicous.Encoded-_Score:10|\$[A-Za-z0-9]+="Fl1YmASDI8yZejvZqYMIPoLfll6XXxeEtVcbJdhHcCzoIMv";
 SSTag_-PHP.SeverJumper-_Score:10|Server Jumping Finder Version|\(["']/etc/passwd['"],["']r["']\);
 SSTag_-PHP.WordpressInjector-_Score:10|add_action\("\\x61d\\x6d\\x69\\x6e_\\x6d\\x65nu",function\(\)\{add_object_page
+SSTag_-PHP.DisableLogsInjection-_Score:-10|@ini_set\('display_errors','off'\); @ini_set\('log_errors',0\); @ini_set\('error_log',NULL\); error_reporting\(0\);
+
