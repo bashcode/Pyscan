@@ -58,6 +58,12 @@ def find_all_files(desired_path):
     files = []
     for (dirpath, _, filenames) in os.walk(desired_path):
         for file_name in filenames:
+            if options.skip_ext:
+                for extension in options.skip_ext:
+                    if file_name.endswith(extension):
+                        logging.debug('File %s ends with extension %s. Skipping...', 
+                                      file_name, extension)
+                        continue
             fullpath = os.path.join(dirpath, file_name)
             size = os.lstat(fullpath).st_size  # in bytes
             if size < 2000000:
@@ -88,19 +94,29 @@ def explore_path(dir_queue, file_queue):
                 continue
 
             for file_name in os.listdir(ep_path):
+                if options.skip_ext:
+                    ext_found = False
+                    for extension in options.skip_ext:
+                        if file_name.endswith(extension):
+                            logging.debug('File %s ends with extension %s. Skipping...',
+                                          file_name, extension)
+                            ext_found = True
+                            break
+                    if ext_found:
+                        continue
                 full_name = os.path.join(ep_path, file_name)
                 file_stat = os.lstat(full_name)
                 file_mode = file_stat.st_mode
                 if S_ISLNK(file_mode):
-                    logging.info('Symlink:%s. Skipping..', file_name)
+                    logging.info('Symlink::%s. Skipping...', full_name)
                     continue
                 elif S_ISDIR(file_mode):
                     dir_queue_put(full_name)
                 elif (S_ISREG(file_mode) and file_stat.st_size < 2000000):
-                    logging.debug('Found file: %s', full_name)
+                    logging.debug('Found file:: %s', full_name)
                     if options.exclude_root_owner:
                         if file_stat.st_uid == 0 and file_stat.st_gid == 0:
-                            logging.debug('File %s owned to root. Skipping..',
+                            logging.debug('File %s owned by root user. Skipping...',
                                           full_name)
                             continue
                     file_queue_put(full_name)
@@ -115,8 +131,8 @@ def manager_process(dir_queue, file_queue, out_queue):
     logging.info('Gathering Files...')
     pool.apply(explore_path, (dir_queue, file_queue))
     logging.info('Files gathered. Scanning %s files...', file_queue.qsize())
-    logging.info('Starting %s scan processes', options.num_threads)
-    print '~' * 79
+    logging.info('Starting %s scan processes...', options.num_threads)
+    print '~' * 80
     thread.start_new_thread(print_status, (file_queue,))
     for _ in range(options.num_threads):
         pool.apply_async(parallel_scan, (file_queue, out_queue))
@@ -156,13 +172,11 @@ def parallel_scan(file_queue, out_queue):
         if file_queue_empty():
             break
         else:
-            try:
-                file_to_scan = file_queue_get()
-                file_scan_results = file_scan(file_to_scan)
-                if file_scan_results:
-                    out_queue_put(file_scan_results)
-            except IOError:
-                pass
+            file_to_scan = file_queue_get()
+            file_scan_results = file_scan(file_to_scan)
+            if file_scan_results:
+                out_queue_put(file_scan_results)
+
 
 
 def file_scan(file_name):
@@ -173,22 +187,25 @@ def file_scan(file_name):
     try:
         logging.debug('Opening file: %s', file_name)
         f = open(file_name)
+        logging.debug('Reading file: %s', file_name)
         file_contents = f.read()
+        logging.debug('Closing file: %s',  file_name)
         f.close()
-    except IOError, io_error:
+    except (IOError, OSError), io_error:
         return 'I/O error({0}): {1}: File:{2}'.format(
             io_error.errno, io_error.strerror, file_name
         )
     logging.debug('Scanning file: %s', file_name)
+    start_time = time.time()
     score = 0
-    output = ""
+    output = ''
     for malware_sig in compiled:
         found_malware = malware_sig.search(file_contents)
         if found_malware:
             index = compiled.index(malware_sig)
             score = score + regex_score[index]
             if regex_tags[index] == 'SSTag' and not output:
-                output += 'FOUND::%s::%s::%s::HITSCORE_%d' % (
+                output += 'FILE-HITS::%s::%s::%s::S::%d' % (
                     repr(file_name),
                     datetime.datetime.fromtimestamp(
                         os.lstat(file_name).st_ctime
@@ -197,12 +214,12 @@ def file_scan(file_name):
                     regex_score[index]
                 )
             elif regex_tags[index] == 'SSTag' and output:
-                output += '::%s::HITSCORE_%d' % (regex_names[index],
+                output += '::%s::S::%d' % (regex_names[index],
                                                  regex_score[index])
             elif regex_tags[index] == "IRTag":
                 remove_results = remove_injection(file_contents, file_name,
                                                   malware_sig)
-                output += '%s::%s::%s::%s::HITSCORE_%d' % (
+                output += '%s::%s::%s::%s::S::%d' % (
                     remove_results,
                     regex_names[index],
                     datetime.datetime.fromtimestamp(
@@ -213,9 +230,13 @@ def file_scan(file_name):
                 )
 
                 if options.remove_injections:
+                    time_taken = time.time() - start_time
+                    logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
                     return output
 
             if options.remove_score:
+                time_taken = time.time() - start_time
+                logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
                 return output
 
     if output:
@@ -230,14 +251,17 @@ def file_scan(file_name):
         elif score <= 0:
             confidence = 'LEGITIMATE(INJECTION)'
 
-        output += '\nMATCHING-FILE::%s::%s::Score_%d::MALICIOUS_PROB_%s' % (
+        output += '\nFILE-RESULT::%s::%s::MALICIOUS_PROB_%s_%d' % (
             repr(file_name),
-            str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime)),
-            score, confidence
+            str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime
+            ).strftime('%Y-%m-%d %H:%M:%S')),
+            confidence, score
         )
+        time_taken = time.time() - start_time
+        logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
         return output
-    logging.debug('Done scanning file: %s', file_name)
-
+    time_taken = time.time() - start_time
+    logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
 
 def remove_injection(file_contents, file_name, injection):
     """Takes in current file contents, the file name, and the compiled injection.
@@ -267,7 +291,7 @@ def print_status(file_queue):
     prev_files_left = file_queue.qsize()
     while file_queue.qsize() > 0:
 
-        time.sleep(3)
+        time.sleep(1)
         cur_time = time.time()
         delta_time = cur_time - prev_time
 
@@ -287,11 +311,18 @@ def print_status(file_queue):
 
 
 def append_args_from_file(option, opt_str, value, parser):
+    """Callback function to include directory paths from a text file.
+
+    """
+ 
     args = [arg.strip() for arg in open(value)]
     parser.values.include_dir.extend(args)
 
 
 def parse_args():
+    """Parses all arguments passed in from sys args.
+    
+    """
 
     num_cpus = cpu_count()
 
@@ -303,7 +334,7 @@ def parse_args():
     parser.add_option(
         '-u', '--user', action='append', type='string', dest='include_user',
         metavar='USERNAME',
-        help='Include given user\'s public_html path for scanning.'
+        help='Will include given user\'s public_html path for scanning.'
     )
     parser.add_option(
         '--exclude', action='append', type='string', dest='exclude_dir',
@@ -344,6 +375,17 @@ def parse_args():
         include_dir=[], num_threads=num_cpus, exclude_dir=[],
         debug=False, include_user=[]
     )
+    parser.add_option(
+        '--skip-ext', action='append', type='string', dest='skip_ext',
+        metavar='EXTENSION', 
+        help='Skip scanning of all files with the specified extension.'
+    )
+    parser.add_option(
+        '--scan-file', action='append', type='string', dest='scan_file',
+        metavar='FILE',
+        help='Scan a single given file(quick testing).'
+    )
+
     global options
     (options, args) = parser.parse_args()
 
@@ -387,18 +429,6 @@ def main(argv):
     patterns = urllib2.urlopen(
         'https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns'
     )
-    ilerminaty_patterns = urllib2.urlopen(
-        'https://raw.githubusercontent.com/bashcode/Pyscan/master/IlerminatyPatterns'
-    )
-
-    for pattern in ilerminaty_patterns:
-        pattern = pattern.strip()
-        logging.debug('Loading Pattern:%s', pattern)
-        regex_score.append('int(5)')
-        regex_list.append(pattern.split('|', 1)[1])
-        regex_names.append(pattern.split('_-')[1].split('-_')[0])
-        regex_tags.append(pattern.split('_-')[0])
-
     # Reversed pattern order to match the new signatures first.
     for pattern in reversed(patterns.readlines()):
         pattern = pattern.strip()
@@ -414,6 +444,16 @@ def main(argv):
     test_regex(regex_list)
     for signature in regex_list:
         compiled.append(re.compile(signature, re.MULTILINE | re.UNICODE))
+
+    if options.scan_file:
+        for file in options.scan_file:
+            if os.path.exists(file):
+                logging.info('Scanning %s ...', file)
+                file_scan_results = file_scan(file)
+                if file_scan_results:
+                    logging.info('%s', file_scan_results)
+        logging.info('Scan Complete...')
+        sys.exit(0)
 
     # Single process mode
     if options.legacy_mode or 'multiprocessing' not in sys.modules:
@@ -432,7 +472,7 @@ def main(argv):
                 logging.info('Scanning %s', user_path)
                 file_list.extend(find_all_files(path))
             else:
-                logging.info('User %s not found! Skipping..', user)
+                logging.info('User %s not found! Skipping...', user)
 
         logging.info('Files collected!')
         file_list_size = len(file_list)
@@ -443,7 +483,7 @@ def main(argv):
             file_scan_results = file_scan(file_name)
             if file_scan_results:
                 logging.info('%s', file_scan_results)
-        logging.info('Account Scan Complete...')
+        logging.info('Scan Complete...')
 
     # Parallel mode
     else:
@@ -459,14 +499,14 @@ def main(argv):
                 logging.info('Scanning %s', path)
                 unsearched.put(path)
             else:
-                logging.info('Path %s not found! Skipping..', path)
+                logging.info('Path %s not found! Skipping...', path)
         for user in options.include_user:
             user_path = os.path.expanduser('~' + user) + '/public_html/'
             if os.path.exists(user_path):
                 logging.info('Scanning %s', user_path)
                 unsearched.put(user_path)
             else:
-                logging.info('User %s not found! Skipping..', user)
+                logging.info('User %s not found! Skipping...', user)
 
         manager = Process(
             target=manager_process, args=(unsearched, unscanned,
@@ -483,12 +523,9 @@ def main(argv):
                 results = results.splitlines()
                 for result in results:
                     logging.info('%s', result)
-        print '~' * 79
+        print '~' * 80
         print ''
-        print 'Account Scan Complete...'
-        print 'Exiting...'
-        print ''
-        print ''
+        logging.info('Scan Complete... Exiting...')
 
 if __name__ == '__main__':
     start_time = time.time()
@@ -499,5 +536,5 @@ if __name__ == '__main__':
             8gICAgIC9fX19fLw==""")
     main(sys.argv[1:])
     time_taken = time.time() - start_time
-    print 'Ran in ' + str(time_taken) + ' seconds.'
+    print 'Ran in %.2f seconds.' % (time_taken)
 
