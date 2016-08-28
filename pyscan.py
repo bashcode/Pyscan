@@ -23,7 +23,7 @@ from stat import *
 try:
     from hashlib import sha1 as sha
 except ImportError:
-    from sha import sha 
+    from sha import new as sha
 
 try:
     import re2 as re
@@ -207,7 +207,7 @@ def file_scan(file_name):
     for malware_sig in compiled:
         found_malware = malware_sig.search(file_contents)
         if found_malware:
-            sha1_sum = sha.new(file_contents).hexdigest()
+	    sha1_sum = sha(file_contents).hexdigest()
             logging.debug('sha sum: %s file: %s', sha1_sum, file_name)
             if sha1_sum in sha1_whitelist:
                 output = 'FILE-WHITELIST::%s::SHA1::%s' % (file_name, sha1_sum)
