@@ -17,6 +17,7 @@ import datetime
 import thread
 import optparse
 import base64
+import sha
 from threading import Timer
 from stat import *
 
@@ -37,7 +38,7 @@ regex_tags = []
 regex_list = []
 regex_names = []
 compiled = []
-
+sha1_whitelist = []
 
 def test_regex(regex_array):
     """Ensures the regex strings are validated for proper syntax.
@@ -202,6 +203,11 @@ def file_scan(file_name):
     for malware_sig in compiled:
         found_malware = malware_sig.search(file_contents)
         if found_malware:
+            sha1_sum = sha.new(file_contents).hexdigest()
+            logging.debug('sha sum: %s file: %s', sha1_sum, file_name)
+            if sha1_sum in sha1_whitelist:
+                output = 'FILE-WHITELIST::%s::SHA1::%s' % (file_name, sha1_sum)
+                return output
             index = compiled.index(malware_sig)
             score = score + regex_score[index]
             if regex_tags[index] == 'SSTag' and not output:
@@ -429,6 +435,14 @@ def main(argv):
     patterns = urllib2.urlopen(
         'https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns'
     )
+    sha1sums = urllib2.urlopen(
+        'https://raw.githubusercontent.com/bashcode/Pyscan/master/pyscan-sha1.whitelist'
+    )
+
+    for sha1sum in sha1sums:
+        sha1sum = sha1sum.strip()
+        logging.debug('Load whitelisted SHA1:%s', sha1sum)
+        sha1_whitelist.append(sha1sum.split(' ')[0])
     # Reversed pattern order to match the new signatures first.
     for pattern in reversed(patterns.readlines()):
         pattern = pattern.strip()
@@ -452,6 +466,8 @@ def main(argv):
                 file_scan_results = file_scan(file)
                 if file_scan_results:
                     logging.info('%s', file_scan_results)
+            else:
+                logging.info('File %s doesn\'t exist? Please check the path.', file)
         logging.info('Scan Complete...')
         sys.exit(0)
 
@@ -537,4 +553,3 @@ if __name__ == '__main__':
     main(sys.argv[1:])
     time_taken = time.time() - start_time
     print 'Ran in %.2f seconds.' % (time_taken)
-
