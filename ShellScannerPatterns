@@ -268,3 +268,15 @@ SSTag_-PHP.INJECTION.Session.Includer-_Score:-10|error\_reporting\(0\).ini\_set\
 SSTag_-PHP.Archive.Uploader-_Score:10|if\(\ isset\(.\_REQUEST\[.test\_url.\]\)
 SSTag_-PHP.O_0-_Score:5|^\$[O0_]{1,}\=.*?;
 SSTag_-PHP.swapk_dropper-_Score:5|^error_reporting\(0\); \$domain_id = '[a-zA-z0-9]{1,}';
+SSTag_-PHP.Joomla.data-RCE-_Score:10|\$ohx\=chr\(97\)\.\"s\"\.chr\(115\)\.chr\(101\)\.\".x72\"\.\"t\"
+SSTag_-PHP.Wordpress.Akismet-BH-SEO-_Score:10|str_rot13\(gzinflate\(str_rot13\(base64_decode\('LUzVkoZXkn6aiZm9wyX2ih9q15sN3N1s
+SSTag_-PHP.Globals=Server-_Score:10|^\$GLOBALS\['[a-zA-Z0-9]+'\] = \$_SERVER;$
+SSTag_-PHP.DKNEVM-Bot-_Score:10|strrev\(str_ireplace\(\"i\"\,\"\"\,\"ieidioicieidi\_i4i6ieisiaib
+SSTag_-PHP.wp-reload-_Score:10|\$iZo = 'e;fpjbctrdisyl4xzh_kgam6uwvonq';
+SSTag_-PHP.Unknown-BH-SEO-_Score:10|\$strFileBody=str_replace\("\\xEF\\xBB\\xBF","",\$strFileBody\);
+SSTag_-PHP.Fake-Joomla-Redirector-_Score:10|\$_SERVER\['REQUEST_URI'\] = preg_replace\("/Index\.php/", 'index\.php', \$_SERVER\['REQUEST_URI'\]\);
+SSTag_-PHP.YahooBats-_Score:10|\$remote_path="http://yahoobats\.com/";
+SSTag_-PHP.SpamScript-_Score:10|\$arrMail = explode\("@",trim\(\$email\[\$\i\]\)\);
+SSTag_-PHP.jstats-uploader-_Score:10|if\(\$parm===8\|\|\$parm==="FILE_APPEND"\)\{\$fp=fopen\(\$file,"a"\);\}
+SSTag_-PHP.Compromised-Indicator-_Score:10|echo "ZQsdcbVaGS"; unlink\(__FILE__\);
+SSTag_-PHP.Unknown-Malicious-_Score:10|\$[a-zA-Z0-9]+="y8Lj51iRRAEIPXx8PfXgHrE5G91YlCL8rPVYPh9N
