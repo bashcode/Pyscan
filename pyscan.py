@@ -17,9 +17,13 @@ import datetime
 import thread
 import optparse
 import base64
-import sha
 from threading import Timer
 from stat import *
+
+try:
+    from hashlib import sha1 as sha
+except ImportError:
+    from sha import sha 
 
 try:
     import re2 as re
