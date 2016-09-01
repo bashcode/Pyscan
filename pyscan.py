@@ -19,7 +19,6 @@ import optparse
 import base64
 from threading import Timer
 from stat import *
-
 try:
     from hashlib import sha1 as sha
 except ImportError:
@@ -203,19 +202,21 @@ def file_scan(file_name):
     logging.debug('Scanning file: %s', file_name)
     start_time = time.time()
     score = 0
-    output = ''
+    output_hits = ''
+    output_ir = ''
+    output_res = ''
     for malware_sig in compiled:
         found_malware = malware_sig.search(file_contents)
         if found_malware:
-	    sha1_sum = sha(file_contents).hexdigest()
+            sha1_sum = sha(file_contents).hexdigest()
             logging.debug('sha sum: %s file: %s', sha1_sum, file_name)
             if sha1_sum in sha1_whitelist:
-                output = 'FILE-WHITELIST::%s::SHA1::%s' % (file_name, sha1_sum)
-                return output
+                output_wl = 'FILE-WHITELIST::%s::SHA1::%s' % (file_name, sha1_sum)
+                return output_wl
             index = compiled.index(malware_sig)
             score = score + regex_score[index]
-            if regex_tags[index] == 'SSTag' and not output:
-                output += 'FILE-HITS::%s::%s::%s::S::%d' % (
+            if regex_tags[index] == 'SSTag' and not output_hits:
+                output_hits += 'FILE-HITS::%s::%s::%s::S::%d' % (
                     repr(file_name),
                     datetime.datetime.fromtimestamp(
                         os.lstat(file_name).st_ctime
@@ -223,13 +224,14 @@ def file_scan(file_name):
                     regex_names[index],
                     regex_score[index]
                 )
-            elif regex_tags[index] == 'SSTag' and output:
-                output += '::%s::S::%d' % (regex_names[index],
+            elif regex_tags[index] == 'SSTag' and output_hits:
+                output_hits += '::%s::S::%d' % (regex_names[index],
                                                  regex_score[index])
             elif regex_tags[index] == "IRTag":
                 remove_results = remove_injection(file_contents, file_name,
                                                   malware_sig)
-                output += '%s::%s::%s::%s::S::%d' % (
+                score = score + regex_score[index]
+                output_ir += '%s::%s::%s::%s::S::%d\n' % (
                     remove_results,
                     regex_names[index],
                     datetime.datetime.fromtimestamp(
@@ -242,14 +244,17 @@ def file_scan(file_name):
                 if options.remove_injections:
                     time_taken = time.time() - start_time
                     logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
-                    return output
 
             if options.remove_score:
                 time_taken = time.time() - start_time
                 logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
-                return output
-
-    if output:
+                output_final = [output_hits, output_ir]
+                res = ''.join(filter(None, output_final))
+                print str(res)
+                return res
+    
+    if output_hits:
+        output_hits = output_hits + '\n'
         if score >= 10:
             confidence = 'VERYHIGH'
         elif score < 10 and score > 5:
@@ -261,7 +266,7 @@ def file_scan(file_name):
         elif score <= 0:
             confidence = 'LEGITIMATE(INJECTION)'
 
-        output += '\nFILE-RESULT::%s::%s::MALICIOUS_PROB_%s_%d' % (
+        output_res = 'FILE-RESULT::%s::%s::MALICIOUS_PROB_%s_%d' % (
             repr(file_name),
             str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime
             ).strftime('%Y-%m-%d %H:%M:%S')),
@@ -269,7 +274,10 @@ def file_scan(file_name):
         )
         time_taken = time.time() - start_time
         logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
-        return output
+        output_final = [output_hits, output_ir, output_res]
+        res = ''.join(filter(None, output_final))
+        print str(res)
+        return res
     time_taken = time.time() - start_time
     logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
 
@@ -286,11 +294,11 @@ def remove_injection(file_contents, file_name, injection):
             openFile = open(file_name, 'w')
             openFile.write(new_contents)
             openFile.close()
-            return 'INJECTION REMOVED'
+            return 'INJECTION-REMOVED'
         except IOError:
-            return 'INJECTION REMOVAL FAILED'
+            return 'INJECTION-REMOVAL-FAILED'
     else:
-        return 'INJECTION FOUND'
+        return 'INJECTION-FOUND'
 
 
 def print_status(file_queue):
@@ -557,3 +565,4 @@ if __name__ == '__main__':
     main(sys.argv[1:])
     time_taken = time.time() - start_time
     print 'Ran in %.2f seconds.' % (time_taken)
+
