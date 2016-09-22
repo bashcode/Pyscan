@@ -280,6 +280,3 @@ SSTag_-PHP.SpamScript-_Score:10|\$arrMail = explode\("@",trim\(\$email\[\$\i\]\)
 SSTag_-PHP.jstats-uploader-_Score:10|if\(\$parm===8\|\|\$parm==="FILE_APPEND"\)\{\$fp=fopen\(\$file,"a"\);\}
 SSTag_-PHP.Compromised-Indicator-_Score:10|echo "ZQsdcbVaGS"; unlink\(__FILE__\);
 SSTag_-PHP.Unknown-Malicious-_Score:10|\$[a-zA-Z0-9]+="(y8Lj51iRRAEIPXx8PfXgHrE5G91YlCL8rPVYPh9N|lKHByZWdfcmVwbGFjZShhcnJheShdgnL1teXHchd9XhdHhdNdLycsJy9ccy8nKShdwgYhdXJhdyYXkoJychdsJyhdsn)
-SSTag_-PHP.Backdoor-Blob-_Score:10|\(__FILE__\)\),\$match\)\?\(\$match\[1\]\)\:
-SSTag_-PHP.Mass Mailer-_Score:10|if\(@mail\(\$targetEmail, \$subject, \$letter , \$headers\)\)\{
-SSTag_-PHP.Kamuy Mass Mailer-_Score:10|\$results = postdata\(\$mailers\[\(\$i-\$k\)-1\],count\(\$fields\),\$fields_string\);
