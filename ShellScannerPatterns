@@ -178,7 +178,7 @@ SSTag_-Malicious PHP-_Score:10|preg_replace\("\\x23\\50\\x2e\\53\\x29\\43\\x69\\
 SSTag_-File Injector-_Score:10|file_put_contents\(["'].*['"]\s*,\s*base64_decode\(\$_POST\[["'][a-zA-Z0-9]+["']\]\)\s*,\s*LOCK_EX\);
 SSTag_-Malicious PHP-_Score:10|if \(move_uploaded_file\(\$_FILES\['update_plugin'\]\['tmp_name'\],\$_POST\['filename'\]\)\)|move_uploaded_file\/\*;\*\/\(\$_FILES\["filename"\]\["tmp_name"\], \$_FILES\["filename"\]\["name"\]\);
 SSTag_-PHP Shell-_Score:10|print "<input type=\\"hidden\\" name=\\"dofile\\" value=\\"\$fname\\">\\n";
-SSTag_-Hex Globals-_Score:10|\$\{"\\x47LO\\x42\\x41LS"\}
+SSTag_-Hex Globals-_Score:10|\$\{"(\\x47|G)(\\x4c|L)(\\x4f|O)(\\x42|B)(\\x41|A)(\\x4c|L)(\\x53|S)"\}
 SSTag_-Malicious Encoded-_Score:10|\$[a-zA-Z0-9]+\s*=\s*"[^"]+";\$[a-zA-Z0-9]+\s*=\s*\$[a-zA-Z0-9]+\[[0-9]+\]\.\$[a-zA-Z0-9]+\[[0-9]+\]\.\$[a-zA-Z0-9]+\[[0-9]+\]
 SSTag_-PUP: Uploader-_Score:5|\$uploadpath=\$_REQUEST\['uploadpath'\];
 SSTag_-PHP Mailer-_Score:10|(e|chr\(101\)|\\x65)[\."]*(v|chr\(118\)|\\x76)[\."]*(a|chr\(97\)|\\x61)[\."]*(l|chr\(108\)|\\x6c|\\x6C)[\."]*(\(|chr\(40\)|\\x28)[\."]*(b|chr\(98\)|\\x62)[\."]*(a|chr\(97\)|\\x61)[\."]*(s|chr\(115\)|\\x73)[\."]*(e|chr\(101\)|\\x65)[\."]*(6|chr\(54\)|\\x36)[\."]*(4|chr\(52\)|\\x34)[\."]*(_|chr\(95\)|\\x5f|\\x5F)[\."]*(d|chr\(100\)|\\x64)[\."]*(e|chr\(101\)|\\x65)[\."]*(c|chr\(99\)|\\x63)[\."]*(o|chr\(111\)|\\x6f|\\x6F)[\."]*(d|chr\(100\)|\\x64)[\."]*(e|chr\(101\)|\\x65)[\."]*(\(|chr\(40\)|\\x28)[\."]*(\"|chr\(34\)|\\x22)[\."]*(Q|chr\(81\)|\\x51)[\."]*(G|chr\(71\)|\\x47)[\."]*(V|chr\(86\)|\\x56)[\."]*(y|chr\(121\)|\\x79)[\."]*(c|chr\(99\)|\\x63)
@@ -196,7 +196,6 @@ SSTag_-Malicious PHP-_Score:10|\$check\s*=\s*\$ver\{18\}\s*\.\s*\$ver\{19\}\s*\.
 SSTag_-Blackhat SEO Dropper-_Score:10|\$resurl="story\.php\?hl=\{urlkey\}"|\$b=curlOpen\(\$remote_path\.\$param_value\);|\$newPath=\$rootPath\.'/'\.\$folderpath\.'/'\.\$filename;
 SSTag_-Malicious Wordpress Plugin-_Score:10|\$[A-Za-z0-9]+\s*=\s*create_function\(null,\s*hex2asc\(\$[A-Za-z0-9]+\)\);
 SSTag_-INJECTION.Malicious xcalendar Wordpress Plugin-_Score:-10|require_once\(ABSPATH\.'wp-content/plugins/xcalendar/xcalendar\.php'\);|\$instance = xcalendarWPBase::getInstance\(\);
-SSTag_-Malicious PHP-_Score:10|\$\{"\\x47\\x4c\\x4fB\\x41\\x4c\\x53"\}
 SSTag_-Uploader-_Score:10|else if\(\$action=='UploadOne'\)
 SSTag_-Malicious PHP-_Score:10|\$[a-zA-Z0-9]+ = str_replace\("j","","sjtrj_jrjejpljajcje"\);|preg_replace\("\\043\\056\\052\\043\\145"
 SSTag_-Malicious PHP-_Score:10|\$[a-zA-Z0-9]+=\$[a-zA-Z0-9]+\(\$[a-zA-Z0-9]+\[[a-zA-Z0-9]+\]\);\$[a-zA-Z0-9]+=\$[a-zA-Z0-9]+\(\$[a-zA-Z0-9]+\[[a-zA-Z0-9]+\]\);
@@ -313,3 +312,9 @@ SSTag_-PHP.WP File Descriptions-_Score:10|strlen\(\$wp_file_descriptions\[["']md
 SSTag_-PHP.Malicious File Dropper-_Score:10|if \(isset\(\$_GET\['action'\]\) && \$_GET\['action'\]=="test"\) die\("test success"\);
 SSTag_-PHP.Obfuscated-Mailer-_Score:10|\<\?php\ eval\(eval\(..._2a6c021b61c0c987b45ca0cce4bf18e78bcbfccc8d8d86594e1f50cf
 SSTag_-PHP.Obfuscated-FileMan-_Score:10|\{.__funct_b \= strrev\(.edoce.x64.x5f.x34.x36.x65sab.\)\;
+SSTag_-PHP.Obfuscated-Shell-_Score:10|\$\{"\\x47\\x4c\\x4f\\x42\\x41LS"\}
+SSTag_-PHP.INJECTION.saft-_Score:10|.preg\_replace\(..\[pageerror\].e...\_POST\[.handle.\]..saft.\);
+SSTag_-PHP.Joomla.UID-backdoor-_Score:10|if\(isset\(\$\_POST\[\$config\[.UID.\]\]\)\)
+SSTag_-PHP.backdoor.vpsp.001-_Score:10|header\(.X\-VPSP\-VERSION\:\ .\ \.\ vpsp\_version\)\;
+SSTag_-PHP.INJECTION.iHeader-_Score:10|eval\(str\_replace\(array\(.\<\?php.\,.\?\>.\)\,..\,gzinflate\(file\_get\_contents\(.\.\.\/iHeader\.png.\)\)\)\)\;
+SSTag_-PHP.backdoor-izzepes-_Score:10|\<\?php\ \$main\_page\ \=\ .pr...eg\_...rep...l...ace
