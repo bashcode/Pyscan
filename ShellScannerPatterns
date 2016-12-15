@@ -318,3 +318,6 @@ SSTag_-PHP.Joomla.UID-backdoor-_Score:10|if\(isset\(\$\_POST\[\$config\[.UID.\]\
 SSTag_-PHP.backdoor.vpsp.001-_Score:10|header\(.X\-VPSP\-VERSION\:\ .\ \.\ vpsp\_version\)\;
 SSTag_-PHP.INJECTION.iHeader-_Score:10|eval\(str\_replace\(array\(.\<\?php.\,.\?\>.\)\,..\,gzinflate\(file\_get\_contents\(.\.\.\/iHeader\.png.\)\)\)\)\;
 SSTag_-PHP.backdoor-izzepes-_Score:10|\<\?php\ \$main\_page\ \=\ .pr...eg\_...rep...l...ace
+SSTag_-PHP.Symlink Dropper-_Score:10|symlink\("/","sym/root"\);
+SSTag_-PHP.MAILER-_Score:10|\<title\>\:\: MAILER \:\:\<\/title\>\<\/head\>
+SSTag_-PHP.SEO.Pharma-Injector-_Score:10|function\ get_data_ya\(\$url
