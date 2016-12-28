@@ -286,7 +286,7 @@ SSTag_-PHP.Malicious Config Plugin-_Score:10|5m4nbndwfzby6cbj7i7z6w1qfp3veraqala
 SSTag_-PHP.WPCoreSys Plugin-_Score:10|Plugin Name: WPCoreSys|\$data = base64_decode\(rawurldecode\(\$this->m_request\['w_filedata'\]\)\);
 SSTag_-PHP.Unknown Malicious PHP-_Score:10|; eval\("return eval\(\\"\$[A-Za-z0-9_\-]+\\"\);"\)
 SSTag_-PHP.Malicious array_diff-_Score:10|@array_diff_ukey\s*\(@array\s*\(\(string\)\$_REQUEST\['password'\]=>1\),\s*@array \(\(string\)stripslashes\s*\(base64_decode\s*\(\$_REQUEST\s*\['re_password'\]\)\)=>2\),\s*\$_REQUEST\s*\['login'\]\s*\);
-SSTag_-PHP.Unknown Mass Mailer-_Score:10|function SMail\(\$to,\$from,\$message,\$subject,\$replyto,\$from_name(,\$from_host)?\)\{|function smtpmail\(\$host, \$port, \$smtp_login, \$smtp_passw, \$mail_to, \$message, \$SEND\) \{
+SSTag_-PHP.Unknown Mass Mailer-_Score:10|function SMail\(\$to,\$from,\$message,\$subject,\$replyto,\$from_name\)\{|function smtpmail\(\$host, \$port, \$smtp_login, \$smtp_passw, \$mail_to, \$message, \$SEND\) \{
 SSTag_-PHP.Obfuscated Assert-_Score:10|\$a='rt'; \$b='as'; \$b.='se' \. \$a;|\$strings = "as"; \$strings \.= "se";  \$strings \.= "rt"; \$strings2 = "st";
 SSTag_-PHP.abc-rogue-RCE-_Score:10|\<\?php\ \$c\=base64\_decode\(\'YXNzZXI\=\'\)
 SSTag_-WP.Plugin.GroupDocs-Assembly.1-_Score:10|\./nodejs\ index1\.js\ [$]2\ [$]3\ >\ out\ 2>\ err\ &
@@ -321,8 +321,3 @@ SSTag_-PHP.backdoor-izzepes-_Score:10|\<\?php\ \$main\_page\ \=\ .pr...eg\_...re
 SSTag_-PHP.Symlink Dropper-_Score:10|symlink\("/","sym/root"\);
 SSTag_-PHP.MAILER-_Score:10|\<title\>\:\: MAILER \:\:\<\/title\>\<\/head\>
 SSTag_-PHP.SEO.Pharma-Injector-_Score:10|function\ get_data_ya\(\$url
-IRTag_-INJECTION.Request Array Assert-_Score:-10|if \( \$_REQUEST\["array"\] \)\s*\n\{\s*\n\s*\n\s*@assert\(base64_decode\(\$_REQUEST\["array"\]\)\);\s*\n\s*//debug message\s*\n\s*echo "Array sort completed";\s*\n\s*exit\(\);\s*\n\s*\}
-IRTag_-INJECTION.Small Request Shell-_Score:-10|if\(isset\([$]_REQUEST\[\"[a-zA-Z0-9]+\"\]\)\) [$]_REQUEST\[\"[a-zA-Z0-9]+\"\]\([$]_REQUEST\[\"[a-zA-Z0-9]+\"\]\);
-IRTag_-INJECTION.Mail Poet-_Score:-10|<\?php \$[a-zA-Z0-9]+ = '.*?sizeof\(.*?\$[a-zA-Z0-9]+=\$[a-zA-Z0-9]+-1; \?>
-SSTag_-PHP.Small.Upload.Shell-_Score:10|if\(isset\([$]_POST\['[a-zA-Z0-9_]+'\]\)\)\{if\(is_uploaded_file\([$]_FILES\['[a-zA-Z0-9_]+'\]\['[a-zA-Z0-9_]+'\]\)\)\{@copy\([$]_FILES\['[a-zA-Z0-9_]+'\]\['[a-zA-Z0-9_]+'\],[$]_FILES\['[a-zA-Z0-9_]+'\]\['[a-zA-Z0-9_]+'\]\);\}\}exit;\?>
-IRTag_-INJECTION.Large.Global-_Score:-10|<\?php[\s]*[$][a-zA-Z0-9]+ = [0-9]+;[$]GLOBALS\['[a-zA-Z0-9]+'\]=Array\(\);global[$][a-zA-Z0-9]+;[$][a-zA-Z0-9]+=[$]GLOBALS;[$]\{\"[a-z0-9A-Z\\]+\"\}\['[a-zA-Z0-9]+'\]=\"[a-z0-9A-Z\\]+\";.*?\{eval/\*[a-zA-Z0-9]+\*/\([$][a-zA-Z0-9]+\[[$][a-zA-Z0-9]+\['[a-zA-Z0-9]+'\]\[[0-9]+\]\]\);\}exit\(\);\} \?>
