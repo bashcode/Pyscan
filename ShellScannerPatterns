@@ -326,4 +326,3 @@ IRTag_-INJECTION.Small Request Shell-_Score:-10|if\(isset\([$]_REQUEST\[\"[a-zA-
 IRTag_-INJECTION.Mail Poet-_Score:-10|<\?php \$[a-zA-Z0-9]+ = '.*?sizeof\(.*?\$[a-zA-Z0-9]+=\$[a-zA-Z0-9]+-1; \?>
 SSTag_-PHP.Small.Upload.Shell-_Score:10|if\(isset\([$]_POST\['[a-zA-Z0-9_]+'\]\)\)\{if\(is_uploaded_file\([$]_FILES\['[a-zA-Z0-9_]+'\]\['[a-zA-Z0-9_]+'\]\)\)\{@copy\([$]_FILES\['[a-zA-Z0-9_]+'\]\['[a-zA-Z0-9_]+'\],[$]_FILES\['[a-zA-Z0-9_]+'\]\['[a-zA-Z0-9_]+'\]\);\}\}exit;\?>
 IRTag_-INJECTION.Large.Global-_Score:-10|<\?php[\s]*[$][a-zA-Z0-9]+ = [0-9]+;[$]GLOBALS\['[a-zA-Z0-9]+'\]=Array\(\);global[$][a-zA-Z0-9]+;[$][a-zA-Z0-9]+=[$]GLOBALS;[$]\{\"[a-z0-9A-Z\\]+\"\}\['[a-zA-Z0-9]+'\]=\"[a-z0-9A-Z\\]+\";.*?\{eval/\*[a-zA-Z0-9]+\*/\([$][a-zA-Z0-9]+\[[$][a-zA-Z0-9]+\['[a-zA-Z0-9]+'\]\[[0-9]+\]\]\);\}exit\(\);\} \?>
-
