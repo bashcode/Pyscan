@@ -266,3 +266,6 @@ ff410ad8f29fd88c9e92543613101926afcf9599  administrator/components/com_chronofor
 47da7b2a4ec1cd8ba65f50cdd8ab1420aec9e4f4  libraries/gantry/core/gantryjson.class.php
 18417e73d63df431452a7f94d3c30f5bf4460131  libraries/rokcommon/Doctrine/Adapter/Statement/Oracle.php
 6d95c1e7d8068882a39b14b9fc64efd0a39bd0dc  libraries/rokcommon/Doctrine/Adapter/Statement/Oracle.php
+e325d10bbd494ee9c33c06dfcc109143f5a732cf  plugins/sfFormExtraPlugin/lib/validator/sfValidatorReCaptcha.class.php
+211e88278c519f68a11369b76cc2d4695d14f508  lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Connection/Mssql.php
+7ed4acf2ebccb3bedacac3d8d0129f2014d00242  lib/vendor/symfony/lib/vendor/lime/lime.php
