@@ -321,3 +321,18 @@ SSTag_-PHP.backdoor-izzepes-_Score:10|\<\?php\ \$main\_page\ \=\ .pr...eg\_...re
 SSTag_-PHP.Symlink Dropper-_Score:10|symlink\("/","sym/root"\);
 SSTag_-PHP.MAILER-_Score:10|\<title\>\:\: MAILER \:\:\<\/title\>\<\/head\>
 SSTag_-PHP.SEO.Pharma-Injector-_Score:10|function\ get_data_ya\(\$url
+IRTag_-INJECTION.Request Array Assert-_Score:-10|if \( \$_REQUEST\["array"\] \)\s*\n\{\s*\n\s*\n\s*@assert\(base64_decode\(\$_REQUEST\["array"\]\)\);\s*\n\s*//debug message\s*\n\s*echo "Array sort completed";\s*\n\s*exit\(\);\s*\n\s*\}
+IRTag_-INJECTION.Small Request Shell-_Score:-10|if\(isset\([$]_REQUEST\[\"[a-zA-Z0-9]+\"\]\)\) [$]_REQUEST\[\"[a-zA-Z0-9]+\"\]\([$]_REQUEST\[\"[a-zA-Z0-9]+\"\]\);
+IRTag_-INJECTION.Mail Poet-_Score:-10|<\?php \$[a-zA-Z0-9]+ = '.*?sizeof\(.*?\$[a-zA-Z0-9]+=\$[a-zA-Z0-9]+-1; \?>
+SSTag_-PHP.Small.Upload.Shell-_Score:10|if\(isset\([$]_POST\['[a-zA-Z0-9_]+'\]\)\)\{if\(is_uploaded_file\([$]_FILES\['[a-zA-Z0-9_]+'\]\['[a-zA-Z0-9_]+'\]\)\)\{@copy\([$]_FILES\['[a-zA-Z0-9_]+'\]\['[a-zA-Z0-9_]+'\],[$]_FILES\['[a-zA-Z0-9_]+'\]\['[a-zA-Z0-9_]+'\]\);\}\}exit;\?>
+IRTag_-INJECTION.Large.Global-_Score:-10|<\?php[\s]*[$][a-zA-Z0-9]+ = [0-9]+;[$]GLOBALS\['[a-zA-Z0-9]+'\]=Array\(\);global[$][a-zA-Z0-9]+;[$][a-zA-Z0-9]+=[$]GLOBALS;[$]\{\"[a-z0-9A-Z\\]+\"\}\['[a-zA-Z0-9]+'\]=\"[a-z0-9A-Z\\]+\";.*?\{eval/\*[a-zA-Z0-9]+\*/\([$][a-zA-Z0-9]+\[[$][a-zA-Z0-9]+\['[a-zA-Z0-9]+'\]\[[0-9]+\]\]\);\}exit\(\);\} \?>
+SSTag_-PHP.wp-cwo.RCE-_Score:10|\<\?php\ \(\$\_\=\@\$\_GET\[2\]\)\.\@\$\_\(\$\_POST\[1\]\)\?\>
+SSTag_-PHP.story SEO Droper-_Score:10|\$botips\=\"\ \ \"\.\$yourip\.\"\ \"\.\$dopips\.\"\ \"\;
+SSTag_-PHP.Mailer-_Score:10|if \(\$act=="send"\)\{ \$mssgs = urlencode\(\$mssgs\);
+SSTag_-PHP.Robot Dropper-_Score:10|robots.txt -O robots\.txt;perl robots\.txt;perl robots\.txt
+SSTag_-PHP.Errors Proxy-_Score:10|show_report\(array\('which' => 'index', 'category' => 'error', 'group' => 'url', 'type' => 'external', 'error' => 2\)\);
+SSTag_-PHP.Don't Modify-_Score:10|Warning: do not modify this file, otherwise may cause the program to run\.
+SSTag_-PHP.Extract POST-_Score:10|if\s*\s\(\s*.empty\s*\(\s*\$_POST\s*\)\s*\)\s*\{\s*extract\s*\(\s*\$_POST\s*\)
+SSTag_-PHP.Fake Libraries&Licenses-_Score:10|if \(\(file_exists\(PATH \. '/cofiguation\.php'\)|// Installation check, and check on removal of the install directory|\$License\s*=\s*\$_POST\s*\['[A-Za-z0-9]+'\]\s*\(
+SSTag_-PHP.Obfuscated Pregreplace Eval-_Score:10|\$[A-Za-z0-9]+=Array\('[A-Za-z0-9]+','/\(\.\*\)/e','[A-Za-z0-9]+',''\);
+SSTag_-PHP.Malicious Redirect.6-_Score:10|\$lin=\$_GET\["link"\];
