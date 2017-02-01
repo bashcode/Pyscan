@@ -31,7 +31,6 @@ SSTag_-Bypass Script-_Score:7|(PHP )?[Ss]afe-[Mm]ode [Bb]ypass
 SSTag_-Unknown baddie-_Score:10|open_tty[ \t]*\([ \t]*\$[[:alpha:]][[:alnum:]]+[ \t]*\).*
 SSTag_-Windows Shell-_Score:7|net[ \t]*localgroup|&amp;chdir=\$chdirpox
 SSTag_-Infector-_Score:10|Packed BLOB icon data.*Already ifected|\?testorrr=1
-SSTag_-shell dropper-_Score:10|/tmp/(angel_)?[db]a?[cp]k?(\.(pl|c))?
 SSTag_-Remote Includer-_Score:10|include\(\$\_REQUEST\["error"\].*"/errors\.php"\)
 SSTag_-Regular Expression Code Execution-_Score:3|preg_replace[ \t]*\(["']/\.\*/e["'][\t]*,[ \t]*["'].*["'][ \t]*,[ \t]*["']\.["'][ \t]*\)[ \t]*;|preg_replace[ \t]*\(["']/.*/e["'][\t]*,[^,]*(str_rot13|\$)[^,]*,.*\)
 SSTag_-Ganesh Shell-_Score:10|if[ \t]*\([ \t]*\$txtLogName[ \t]*==[ \t]*"ganesh"[ \t]*&&[ \t]*\$txtPass[ \t]*==[ \t]*"ganesh"[ \t]*\)
@@ -144,7 +143,7 @@ SSTag_-Malicious Perl-_Score:7|LocalPort=>\$local_port\) or die "Can't bind port
 SSTag_-Malicious-PHP-_Score:10|^\$__=hex2ascii\(\$___\);$
 SSTag_-Malicious-PHP-_Score:5|\$option\("/438/e",\$[a-zA-Z0-9]+,438\); die\(\);
 SSTag_-Encoded Script2-_Score:3|(eval|include|assert)[ \t]*\([ \t]*((gzinflate|gzuncompress)[ \t]*(\()?[ \t]*)[ \t]*\([ \t]*(.*)([ \t]*\)[ \t]*(\)[ \t]*)?;?)?
-SSTag_-Malicious Redirector-_Score:10|\$u="http:\/\/jiiks\.ru\/r\.txt";
+SSTag_-Malicious Redirect.2-_Score:10|\$u="http:\/\/jiiks\.ru\/r\.txt";
 SSTag_-Malicious-PHP-_Score:5|=@unserialize\(sh_decrypt\(@base64_decode\(
 SSTag_-Malicious-PHP-_Score:5|extract\(\$_POST, 1\);
 SSTag_-Malicious-PHP-_Score:10|<\?(php)?\s*\$GLOBALS\['[a-z0-9A-Z]+'\]\s*=\s*"\\x[0-9a-zA-Z]+\\x[0-9a-zA-Z]+\\x[0-9a-zA-Z]+|\$GLOBALS\['[_a-z0-9A-Z]+'\]=Array\(base64_decode\(
@@ -173,7 +172,7 @@ SSTag_-Blackhat SEO-_Score:10|print '<a href="'\.\$main_url\.get_random_link\(\$
 SSTag_-File Injectory-_Score:7|fwrite\(\$[_a-zA-Z0-9]+,base64_decode\(\$_POST\[['"][_a-z0-9A-Z]+['"]\]\)\);
 SSTag_-Malicious PHP-_Score:10|<\?(php)?\s*\$[_0-9a-zA-Z]+\s*=\s*["']base["']\.\(32\*2\)\.["']_de["']\.["']code';
 SSTag_-Malicious PHP-_Score:10|\$jq\s*=\s*@\$_COOKIE\[["'][_0-9a-zA-Z]+["']\];
-SSTag_-Malicious Redirect-_Score:10|if\(\$_GET\['mode'\]=='config'\)\{echo'\{pkey" value="'\.\$_GET\['key'\]\.'"\}';die\(\);\}
+SSTag_-Malicious Redirect.3-_Score:10|if\(\$_GET\['mode'\]=='config'\)\{echo'\{pkey" value="'\.\$_GET\['key'\]\.'"\}';die\(\);\}
 SSTag_-Malicious PHP-_Score:10|preg_replace\("\\x23\\50\\x2e\\53\\x29\\43\\x69\\145"
 SSTag_-File Injector-_Score:10|file_put_contents\(["'].*['"]\s*,\s*base64_decode\(\$_POST\[["'][a-zA-Z0-9]+["']\]\)\s*,\s*LOCK_EX\);
 SSTag_-Malicious PHP-_Score:10|if \(move_uploaded_file\(\$_FILES\['update_plugin'\]\['tmp_name'\],\$_POST\['filename'\]\)\)|move_uploaded_file\/\*;\*\/\(\$_FILES\["filename"\]\["tmp_name"\], \$_FILES\["filename"\]\["name"\]\);
@@ -213,9 +212,9 @@ SSTag_-INJECTION.JS.Malicious.212-_Score:-10|<script>var a='';setTimeout\([0-9]+
 SSTag_-Encoded var=base64_decode-_Score:10|\$[a-zA-Z0-9]+\s*=\s*(sprintf\(["']\!?)?((["']?e["']?|chr\(101\))\s*\.?\s*(""\.)*(["']?v["']?|chr\(118\))\s*\.?\s*(""\.)*(["']?a["']?|chr\(97\))\s*\.?\s*(""\.)*(["']?l["']?|chr\(108\))\s*\.?\s*(""\.)*(["']?\(["']?|chr\(40\)))?(""\.)*(["']?b["']?|chr\(98\))\s*\.?\s*(""\.)*(["']?a["']?|chr\(97\))\s*\.?\s*(""\.)*(["']?s["']?|chr\(115\))\s*\.?\s*(""\.)*(["']?e["']?|chr\(101\))\s*\.?\s*(""\.)*(["']?6["']?|chr\(54\))\s*\.?\s*(""\.)*(["']?4["']?|chr\(52\))\s*\.?\s*(""\.)*(["']?_["']?|chr\(95\))\s*\.?\s*(""\.)*(["']?d["']?|chr\(100\))\s*\.?\s*(""\.)*(["']?e["']?|chr\(101\))\s*\.?\s*(""\.)*(["']?c["']?|chr\(99\))\s*\.?\s*(""\.)*(["']?o["']?|chr\(111\))\s*\.?\s*(""\.)*(["']?d["']?|chr\(100\))\s*\.?\s*(""\.)*(["']?e["']|chr\(101\))
 SSTag_-PHP Shell-_Score:10|\$shellname=\\''\.\$shellname\.'\\';\$myurl=\\''\.\$myurl\.'\\';
 SSTag_-Malicious File-_Score:5|function WriteToUTF\(\$savefullpath,\$Str,\$CharSet\)
-SSTag_-Malicious Redirect-_Score:10|if\(\$_GET\['mod'\]\)\{if\(\$_GET\['mod'\]=='0XX' OR \$_GET\['mod'\]=='00X'\)\{\$g_sch=file_get_contents
+SSTag_-Malicious Redirect.4-_Score:10|if\(\$_GET\['mod'\]\)\{if\(\$_GET\['mod'\]=='0XX' OR \$_GET\['mod'\]=='00X'\)\{\$g_sch=file_get_contents
 SSTag_-Malicious Base64 String-_Score:10|pTjpdqLY1v/zFMT4tRqjgohDp6mOIuCICOJUXWEBMojIKATprnf/DmpSVirVt\+66\+WHOsKez581NpcLKU
-SSTag_-Malicious Redirector-_Score:10|mycode\(\$lnks_s,\s*\$lnks,\s*\$red_template,\s*\$ip\);
+SSTag_-Malicious Redirect.5-_Score:10|mycode\(\$lnks_s,\s*\$lnks,\s*\$red_template,\s*\$ip\);
 SSTag_-Blackhat SEO Spam-_Score:10|if\s*\(\s*stripos\s*\(\s*\$_SERVER\['HTTP_USER_AGENT'\]\s*,\s*'Googlebot'\)\s*\!==\s*false\)\{
 SSTag_-Malicious Uploader-_Score:10|\$sc\s*=\s*\(empty\(\$_POST\['security_code'\]\)\)\s*\?\s*'\.'\s*:\s*\$_POST\['security_code'\];
 SSTag_-Malicious PHP-_Score:10|eval\(BbblL\("Jb3nrutakq35AAXUOyQu6kcmi
@@ -286,13 +285,13 @@ SSTag_-PHP.Malicious Config Plugin-_Score:10|5m4nbndwfzby6cbj7i7z6w1qfp3veraqala
 SSTag_-PHP.WPCoreSys Plugin-_Score:10|Plugin Name: WPCoreSys|\$data = base64_decode\(rawurldecode\(\$this->m_request\['w_filedata'\]\)\);
 SSTag_-PHP.Unknown Malicious PHP-_Score:10|; eval\("return eval\(\\"\$[A-Za-z0-9_\-]+\\"\);"\)
 SSTag_-PHP.Malicious array_diff-_Score:10|@array_diff_ukey\s*\(@array\s*\(\(string\)\$_REQUEST\['password'\]=>1\),\s*@array \(\(string\)stripslashes\s*\(base64_decode\s*\(\$_REQUEST\s*\['re_password'\]\)\)=>2\),\s*\$_REQUEST\s*\['login'\]\s*\);
-SSTag_-PHP.Unknown Mass Mailer-_Score:10|function SMail\(\$to,\$from,\$message,\$subject,\$replyto,\$from_name\)\{|function smtpmail\(\$host, \$port, \$smtp_login, \$smtp_passw, \$mail_to, \$message, \$SEND\) \{
-SSTag_-PHP.Obfuscated Assert-_Score:10|\$a='rt'; \$b='as'; \$b.='se' \. \$a;|\$strings = "as"; \$strings \.= "se";  \$strings \.= "rt"; \$strings2 = "st";
+SSTag_-PHP.Unknown Mass Mailer-_Score:10|function SMail\(\$to,\$from,\$message,\$subject,\$replyto,\$from_name(,\$from_host)?\)\{|function smtpmail\(\$host, \$port, \$smtp_login, \$smtp_passw, \$mail_to, \$message, \$SEND\) \{
+SSTag_-PHP.Obfuscated Assert-_Score:10|\$a='rt'; \$b='as'; \$b.='se' \. \$a;|\$strings = "as"; \$strings \.= "se";  \$strings \.= "rt"; \$strings2 = "st";|\\x61\\x73\\x73\\x65\\x72\\x74
 SSTag_-PHP.abc-rogue-RCE-_Score:10|\<\?php\ \$c\=base64\_decode\(\'YXNzZXI\=\'\)
 SSTag_-WP.Plugin.GroupDocs-Assembly.1-_Score:10|\./nodejs\ index1\.js\ [$]2\ [$]3\ >\ out\ 2>\ err\ &
 SSTag_-WP.Plugin.GroupDocs-Assembly.2-_Score:10|server\ =\ new\ Server\(homeAddr\.ip,\ homeAddr\.port,\ onMsg\);
 SSTag_-JS.INJECTION.Encoded-_Score:-10|[$]res\ \.=\ chr\(ord\([$]raw\[[$]i\]\)\ \^\ ord\('x'\)\);
-IRTag_-INJECTION.VAR.A.Variant-_Score:-10|\s*<script>var a='';\s*setTimeout\([0-9]+\);function setCookie\(a,b,c\){.*?><' \+ '/script>'\)\)\);</script>
+IRTag_-INJECTION.VAR.A.Variant-_Score:-10|\s*<script>var a='';\s*setTimeout\([0-9]+\);function setCookie\(a,b,c\)\{.*?><' \+ '/script>'\)\)\);</script>
 SSTag_-PHP.Nfiles-uploader-_Score:10|<html><head><\/head><body><\?php if\(empty\(\$\_GET\[.Nfiles.\]\)\)\$Nfiles\=1\;else \$Nfiles
 SSTag_-PHP.wcwc2016-uploader-_Score:10|^\$password=\"wcwc2016\"\;
 SSTag_-PHP.Fake Zip Bot-_Score:10|function __obfuscate_redirect\(\$code\)
@@ -328,11 +327,16 @@ SSTag_-PHP.Small.Upload.Shell-_Score:10|if\(isset\([$]_POST\['[a-zA-Z0-9_]+'\]\)
 IRTag_-INJECTION.Large.Global-_Score:-10|<\?php[\s]*[$][a-zA-Z0-9]+ = [0-9]+;[$]GLOBALS\['[a-zA-Z0-9]+'\]=Array\(\);global[$][a-zA-Z0-9]+;[$][a-zA-Z0-9]+=[$]GLOBALS;[$]\{\"[a-z0-9A-Z\\]+\"\}\['[a-zA-Z0-9]+'\]=\"[a-z0-9A-Z\\]+\";.*?\{eval/\*[a-zA-Z0-9]+\*/\([$][a-zA-Z0-9]+\[[$][a-zA-Z0-9]+\['[a-zA-Z0-9]+'\]\[[0-9]+\]\]\);\}exit\(\);\} \?>
 SSTag_-PHP.wp-cwo.RCE-_Score:10|\<\?php\ \(\$\_\=\@\$\_GET\[2\]\)\.\@\$\_\(\$\_POST\[1\]\)\?\>
 SSTag_-PHP.story SEO Droper-_Score:10|\$botips\=\"\ \ \"\.\$yourip\.\"\ \"\.\$dopips\.\"\ \"\;
-SSTag_-PHP.Mailer-_Score:10|if \(\$act=="send"\)\{ \$mssgs = urlencode\(\$mssgs\);
+SSTag_-PHP.Mailer-_Score:10|if \(\$act=="send"\)\{ \$mssgs = urlencode\(\$mssgs\);|if\(mail\(\$EmailTemporario, \$msgb\.\$codig, \$msga\.\$dataHora, \$headers\)\)
 SSTag_-PHP.Robot Dropper-_Score:10|robots.txt -O robots\.txt;perl robots\.txt;perl robots\.txt
 SSTag_-PHP.Errors Proxy-_Score:10|show_report\(array\('which' => 'index', 'category' => 'error', 'group' => 'url', 'type' => 'external', 'error' => 2\)\);
 SSTag_-PHP.Don't Modify-_Score:10|Warning: do not modify this file, otherwise may cause the program to run\.
 SSTag_-PHP.Extract POST-_Score:10|if\s*\s\(\s*.empty\s*\(\s*\$_POST\s*\)\s*\)\s*\{\s*extract\s*\(\s*\$_POST\s*\)
-SSTag_-PHP.Fake Libraries&Licenses-_Score:10|if \(\(file_exists\(PATH \. '/cofiguation\.php'\)|// Installation check, and check on removal of the install directory|\$License\s*=\s*\$_POST\s*\['[A-Za-z0-9]+'\]\s*\(
+SSTag_-PHP.Fake Libraries&Licenses-_Score:10|if \(\(file_exists\(PATH \. '/cofiguation\.php'\)|\$License\s*=\s*\$_POST\s*\['[A-Za-z0-9]+'\]\s*\(
 SSTag_-PHP.Obfuscated Pregreplace Eval-_Score:10|\$[A-Za-z0-9]+=Array\('[A-Za-z0-9]+','/\(\.\*\)/e','[A-Za-z0-9]+',''\);
 SSTag_-PHP.Malicious Redirect.6-_Score:10|\$lin=\$_GET\["link"\];
+SSTag_-PHP.Malicious Explode/Implode-_Score:10|';\$[A-Za-z0-9]+=explode\(|file_put_contents\(\$[A-Za-z0-9]+,trim\(implode\("\\n",\$[A-Za-z0-9]+\)\)\);
+SSTag_-PHP.Mail.Poet.Dropper-_Score:10|<\?php [$]cookey\ =
+SSTag_-PHP.Malicious Redirect.7-_Score:10|\$url = \( preg_match\('/\^\[a-z2-7\]\+\$/', \$_SERVER\['QUERY_STRING'\]\) \)
+SSTag_-PHP.Mailer.2-_Score:10|if.\(.\_POST\[.p.\].\=\=.995....strpos\(.\_POST\[.s.\]\,.ssl....\)\=\=\=false\)..\_POST\[.s.\].\=..ssl........\_POST\[.s.\].
+SSTag_-PHP.Fake.BBPress.2-_Score:10|ZG9jdW1lbnQud3JpdGUodW5lc2NhcGUoJyUzYyU3MyU2MyU3MiU2OSU3MCU3NCUyMCU3MyU3MiU2MyUzZCUyMiU2OCU3NCU3NCU3MCUzYSUyZiUyZiU2YiU2NSU2OSU3NCUyZSU3MyU3NCU2MSU3NCU2OSU2MyU3NyU2NSU2MiUyZSU3NCU2YiUyZiU3NCUzNiU2ZCU2MyU2ZSUzMSUyMiUzZSUzYyUyZiU3MyU2MyU3MiU2OSU3MCU3NCUzZScpKTs
