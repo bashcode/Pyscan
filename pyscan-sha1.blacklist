@@ -9,5 +9,8 @@ f3a3c659c5291fcc5e2969054c0ffee9  wp-includes/js/jquery/support.php
 c92138293509bbc746b6984b6eae63f2e0617829 coap.zip
 ed74ac8a05761fe8633f9ed9d2c60e9189e59b75 flxo.zip
 6cbd6071060b6abd9fbea8c5ff98d7b0bece2870 wp-includes/js/jquery/support.php
-d6d668b5a915eb9094e986d3abec24b805e66fff  ./wp-content/themes/elemin/syslib.php
-bbf6effaaff86f9e9aeadaa98684858d8ed5c80d  ./wp-content/themes/elemin/checkandall.php
+d6d668b5a915eb9094e986d3abec24b805e66fff wp-content/themes/elemin/syslib.php
+bbf6effaaff86f9e9aeadaa98684858d8ed5c80d wp-content/themes/elemin/checkandall.php
+370034d230f7e7d43f662e19a058e179280e88a0 wp-ss.zip
+17ffd7b3406946aa46e6fd123a6a2cfd0c2cf629 wp-loads.php
+95631b8577bcb4f850284ce0672e2d9630cf2ef2 admin.php
