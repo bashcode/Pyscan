@@ -257,7 +257,6 @@ def file_scan(file_name):
                 logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
                 output_final = [output_hits, output_ir]
                 res = ''.join(filter(None, output_final))
-                print str(res)
                 return res
     
     if output_hits:
@@ -283,7 +282,6 @@ def file_scan(file_name):
         logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
         output_final = [output_hits, output_ir, output_res]
         res = ''.join(filter(None, output_final))
-        print str(res)
         return res
     time_taken = time.time() - start_time
     logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
@@ -343,13 +341,25 @@ def append_args_from_file(option, opt_str, value, parser):
     args = [arg.strip() for arg in open(value)]
     parser.values.include_dir.extend(args)
 
+def available_cpus():
+    try:
+        return cpu_count()
+    except (NotImplementedError, NameError):
+        pass
+    try:
+        res = open('/proc/cpuinfo').read().count('processor\t:')
+
+        if res > 0:
+            return res
+    except IOError:
+        return 1
 
 def parse_args():
     """Parses all arguments passed in from sys args.
     
     """
 
-    num_cpus = cpu_count()
+    num_cpus = available_cpus()
 
     parser = optparse.OptionParser(version=__version__)
     parser.add_option(
