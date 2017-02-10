@@ -42,6 +42,7 @@ regex_list = []
 regex_names = []
 compiled = []
 sha1_whitelist = []
+sha1_blacklist = []
 
 def test_regex(regex_array):
     """Ensures the regex strings are validated for proper syntax.
@@ -205,14 +206,20 @@ def file_scan(file_name):
     output_hits = ''
     output_ir = ''
     output_res = ''
+
+    sha1_sum = sha(file_contents).hexdigest()
+    logging.debug('sha sum: %s file: %s', sha1_sum, file_name)
+
+    if sha1_sum in sha1_whitelist:
+                output_wl = 'FILE-WHITELIST::%s::SHA1_WL::%s' % (file_name, sha1_sum)
+                return output_wl
+    if sha1_sum in sha1_blacklist:
+                output_bl = 'FILE-HITS::%s::SHA1_BL::%s\nFILE-RESULT::%s::SHA1_BL::%s' % (file_name, sha1_sum, file_name, sha1_sum)
+                return output_bl
+
     for malware_sig in compiled:
         found_malware = malware_sig.search(file_contents)
         if found_malware:
-            sha1_sum = sha(file_contents).hexdigest()
-            logging.debug('sha sum: %s file: %s', sha1_sum, file_name)
-            if sha1_sum in sha1_whitelist:
-                output_wl = 'FILE-WHITELIST::%s::SHA1::%s' % (file_name, sha1_sum)
-                return output_wl
             index = compiled.index(malware_sig)
             score = score + regex_score[index]
             if regex_tags[index] == 'SSTag' and not output_hits:
@@ -426,7 +433,9 @@ def main(argv):
     logging.basicConfig(
         level=log_level,
         filename=os.path.expanduser('~') + '/found_shells.log',
-        filemode='a'
+        filemode='a',
+        format='%(asctime)s:%(levelname)s:%(message)s',
+        datefmt='%d/%b/%Y:%H:%M:%S'
     )
 
     # define a Handler which writes INFO messages or higher to the sys.stderr
@@ -447,14 +456,21 @@ def main(argv):
     patterns = urllib2.urlopen(
         'https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns'
     )
-    sha1sums = urllib2.urlopen(
+    sha1sums_whitelist = urllib2.urlopen(
         'https://raw.githubusercontent.com/bashcode/Pyscan/master/pyscan-sha1.whitelist'
     )
+    sha1sums_blacklist = urllib2.urlopen(
+        'https://raw.githubusercontent.com/bashcode/Pyscan/master/pyscan-sha1.blacklist'
+    )
 
-    for sha1sum in sha1sums:
+    for sha1sum in sha1sums_whitelist:
         sha1sum = sha1sum.strip()
         logging.debug('Load whitelisted SHA1:%s', sha1sum)
         sha1_whitelist.append(sha1sum.split(' ')[0])
+    for sha1sum in sha1sums_blacklist:
+        sha1sum = sha1sum.strip()
+        logging.debug('Load blacklisted SHA1:%s', sha1sum)
+        sha1_blacklist.append(sha1sum.split(' ')[0])
     # Reversed pattern order to match the new signatures first.
     for pattern in reversed(patterns.readlines()):
         pattern = pattern.strip()
@@ -565,4 +581,3 @@ if __name__ == '__main__':
     main(sys.argv[1:])
     time_taken = time.time() - start_time
     print 'Ran in %.2f seconds.' % (time_taken)
-
