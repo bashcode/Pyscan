@@ -4,7 +4,8 @@ SSTag_-Mass Mailer-_Score:10|(InboX|KONDAMNE)[ \t]*(BeyOsTaR|Mass)?[ \t]*Maill?e
 SSTag_-Mass Mailer-_Score:10|(INB0X |SerVar.*)?PHP[ -]Mailer|<title>Xsender</title>
 SSTag_-Mass Mailer-_Score:5|M[a4][iI][lL]3r
 SSTag_-Mass Mailer-_Score:10|PHP Send Mails|PHP eMailer is created by Purisangeh
-SSTag_-Shell names-_Score:10|(Loader'z WEB|Xactlysin|ly0kha|[mM]unra( [Ss]imple)?|Ve_cENx|r57|BLaCk|C99|dz)[ \t]*[Ss][Hh][Ee][Ll][Ll](\.SQL)?|.CyBeRz .JavaHack|SimAttacker|HbT Explorer|ConnectBack|ZenCart Pwnage|inQontrol|Killer Hack|w4ck1ng|[yY]ogyacarderlink|webadmin\.php|by oRb|F([\"']\.[\"'])?i([\"']\.[\"'])?l([\"']\.[\"'])?e([\"']\.[\"'])?s([\"']\.[\"'])?M([\"']\.[\"'])?a(\"']\.[\"'])?n|FilesMa\"\.\"n\"|b374k m1n1 1\.01|Cpanel By BLACK Script Name|JooMla serv3r ScaNN3r|Sec4Ever Users Update|SN0X SHELL|SeCret HaCk Privat Sh3ll|Loader'z WEB shell|ZoomB X|PRO Mailer V2|Auto shell Finder Dz H3x|By Noureddine ElmGhreBi|\$s_title = \"b374k \"\.\$s_ver;|Dark Shell|cPanel Bruteforce by MrAtoms|http://code\.google\.com/p/b374k-shell|1337\ Priv8|Da3s\ File\ Manager|HaTRk\ File\ Manager
+SSTag_-Mass Mailer-_Score:10|HACKED\ by\ P5HCY0\ 5P4MM3R
+SSTag_-Shell names-_Score:10|(Loader'z WEB|Xactlysin|ly0kha|[mM]unra( [Ss]imple)?|Ve_cENx|r57|BLaCk|C99|dz)[ \t]*[Ss][Hh][Ee][Ll][Ll](\.SQL)?|.CyBeRz .JavaHack|SimAttacker|HbT Explorer|ConnectBack|ZenCart Pwnage|inQontrol|Killer Hack|w4ck1ng|[yY]ogyacarderlink|webadmin\.php|by oRb|F([\"']\.[\"'])?i([\"']\.[\"'])?l([\"']\.[\"'])?e([\"']\.[\"'])?s([\"']\.[\"'])?M([\"']\.[\"'])?a(\"']\.[\"'])?n|FilesMa\"\.\"n\"|b374k m1n1 1\.01|Cpanel By BLACK Script Name|JooMla serv3r ScaNN3r|Sec4Ever Users Update|SN0X SHELL|SeCret HaCk Privat Sh3ll|Loader'z WEB shell|ZoomB X|PRO Mailer V2|Auto shell Finder Dz H3x|By Noureddine ElmGhreBi|\$s_title = \"b374k \"\.\$s_ver;|Dark Shell|cPanel Bruteforce by MrAtoms|http://code\.google\.com/p/b374k-shell|1337\ Priv8|Da3s\ File\ Manager|HaTRk\ File\ Manager|FALLAGA Priv8 404 Shell
 SSTag_-Flood Scripts-_Score:10|[Ff]lood.*?[Cc]ompleted.*((MB|packets)[ \t]*per[ \t]*second|MB.*?PPS)|FagsIP|name="act" value="phptools"|[uU]sage:?[ \t]*\b<?[Ii][Pp]>?\b.*\b<?[Pp][Oo][Rr][Tt]>?\b|PHP D[oO]S, Coded|fsockopen[ \t]*\([ \t]*["']udp://\$ip['"][ \t]*,[ \t]*['"]80['"]
 SSTag_-Unknown baddie-_Score:7|.21.0.15.0.242.4.0.231.231.231.377.377.377.0.0.0.314.0.0.377.377.377.0.0.0.0.0.0.0.0.0..371.4.1.350.3.4.0
 SSTag_-Generic Micro-shell-_Score:5|\b([Ii][Nn][Cc][Ll][Uu][Dd][Ee]|[Ss][Yy][Ss][Tt][Ee][Mm]|[Ee][Vv][Aa][Ll]|[Aa][Ss][Ss][Ee][Rr][Tt]|[Pp][Aa][Ss][Ss][Tt][Hh][Rr][Oo][Uu][Gg][Hh]|[Ss][Hh][Ee][Ll][Ll]_[Ee][Xx][Ee][Cc])\b.*?\([ \t]*\$_(GET|POST|REQUEST|COOKIE|SESSION)
@@ -76,7 +77,7 @@ SSTag_-Encoded Script-_Score:3|cozmek icin ugrasma bu degisik bir algoritma|eval
 SSTag_-Micro-Shell-_Score:5|print\("_code_\n"\);|passthru\(base64_decode\(\$_SERVER\[HTTP_CMD\]\)\);
 SSTag_-Botnet Mass-Mailer-_Score:10|die\(PHP_OS \. "10\+" \. md5\(0987654321\)\);|preg_match\('\|<(NAME|USER|SUBJ|SBODY)>
 SSTag_-FileDropper-_Score:7|fputs\s*\(\s*\$f\s*,\s*\$shell\s*\)\s*;|header\s*\(\s*['"]Location: \$tmp\.php['"]\s*\)\s*;|\$true\s*=\s*['"]28dd2c7955ce926456240b2ff0100bde['"]\s*;
-SSTag_-phpFileManager-_Score:10|PHP FILE MANAGER|phpFileManager|Fabr.cio Seger Kolling|dulldusk@nho\.com\.br|phpfm\.s(ource)?f(orge)?\.net|Tryag File Manager
+SSTag_-phpFileManager-_Score:10|PHP FILE MANAGER|phpFileManager|Fabr.cio Seger Kolling|dulldusk@nho\.com\.br|phpfm\.s(ource)?f(orge)?\.net|Tryag File Manager|darkshadow\ File\ Manager\ Version
 SSTag_-Perl Shell-_Score:7|WebShell::(Configuration|Templates|Script)
 SSTag_-cPanel Brute Forcer-_Score:10|Cpanel_brute(_input_creator)?|Mozilla/4\.76 \[en\] \(Windows NT 5\.0; U\)
 SSTag_-Mail Flooder-_Score:10|"Fucken Got Pwned"|"Got Hacked|"FUCKEN GOT HACKED ROTFL"|hackedemail
@@ -286,7 +287,7 @@ SSTag_-PHP.WPCoreSys Plugin-_Score:10|Plugin Name: WPCoreSys|\$data = base64_dec
 SSTag_-PHP.Unknown Malicious PHP-_Score:10|; eval\("return eval\(\\"\$[A-Za-z0-9_\-]+\\"\);"\)
 SSTag_-PHP.Malicious array_diff-_Score:10|@array_diff_ukey\s*\(@array\s*\(\(string\)\$_REQUEST\['password'\]=>1\),\s*@array \(\(string\)stripslashes\s*\(base64_decode\s*\(\$_REQUEST\s*\['re_password'\]\)\)=>2\),\s*\$_REQUEST\s*\['login'\]\s*\);
 SSTag_-PHP.Unknown Mass Mailer-_Score:10|function SMail\(\$to,\$from,\$message,\$subject,\$replyto,\$from_name(,\$from_host)?\)\{|function smtpmail\(\$host, \$port, \$smtp_login, \$smtp_passw, \$mail_to, \$message, \$SEND\) \{
-SSTag_-PHP.Obfuscated Assert-_Score:10|\$a='rt'; \$b='as'; \$b.='se' \. \$a;|\$strings = "as"; \$strings \.= "se";  \$strings \.= "rt"; \$strings2 = "st";|\\x61\\x73\\x73\\x65\\x72\\x74
+SSTag_-PHP.Obfuscated Assert-_Score:10|\$a='rt'; \$b='as'; \$b.='se' \. \$a;|\$strings = "as"; \$strings \.= "se";  \$strings \.= "rt"; \$strings2 = "st";|\\x61\\x73\\x73\\x65\\x72\\x74|\$[A-Za-z0-9]+=[\."]*(a|chr\(97\)|\\x61)[\."]*(s|chr\(115\)|\\x73)[\."]*(s|chr\(115\)|\\x73)[\."]*(e|chr\(101\)|\\x65)[\."]*(r|chr\(114\)|\x72)[\."]*(t|chr\(116\)|\\x74)[\."]*;
 SSTag_-PHP.abc-rogue-RCE-_Score:10|\<\?php\ \$c\=base64\_decode\(\'YXNzZXI\=\'\)
 SSTag_-WP.Plugin.GroupDocs-Assembly.1-_Score:10|\./nodejs\ index1\.js\ [$]2\ [$]3\ >\ out\ 2>\ err\ &
 SSTag_-WP.Plugin.GroupDocs-Assembly.2-_Score:10|server\ =\ new\ Server\(homeAddr\.ip,\ homeAddr\.port,\ onMsg\);
@@ -353,3 +354,12 @@ SSTag_-PHP.JM Obfuscator-_Score:5|phpjm\.net
 SSTag_-PHP.INJECTION.Fake Jquery-_Score:-10|<script type="application/javascript">var toggleMenu = function\(\)\{var m = document\.getElementById\('wporg-header-menu'\),c = m.className;
 SSTag_-PHP.Shell Env Checker-_Score:10|echo \$ok\ \?\ \"SHELL\_OK\"\ \:\ \"SHELL\_BAD\"\;
 SSTag_-PHP.Malicious Redirect-_Score:10|\<meta\ http\-equiv\=\"refresh\"\ content\=\"1\;URL\=http\:\/\/targetsale\.name\"\/\>
+SSTag_-PHP.CookieShell-_Score:10|if\(isset\(\$_COOKIE\[['"][A-Za-z0-9]+['"]\]\)\)\{\$_COOKIE\[['"][A-Za-z0-9]+['"]\]\(\$_COOKIE\[['"][A-Za-z0-9]+['"]\]\);
+SSTag_-PHP.RequestShell-_Score:10|\$[A-Za-z0-9]+\(\$\{"_REQUEST"\}\[['"][A-Za-z0-9]+['"]]\);exit;|\$[A-Za-z0-9]+\('//e',\$\{"_R("\.")?E("\.")?Q("\.")?U("\.")?E("\.")?S("\.")?T"\}\[['"][A-Za-z0-9]+['"]],''\);exit;
+SSTag_-INJECTION.JS Theme Injection-_Score:-10|if\(is_object\(\$_SESSION\["__default"\]\["user"\]\) && !\(\$_SESSION\["__default"\]\["user"\]->id\)\) \{echo
+SSTag_-PHP.WordpressJoomla Backdoor-_Score:10|function do_backdoor\(\$root_path, \$status, \$coder, \$include, \$revolution\)
+SSTag_-HTML.Spamvertising Link-_Score:10|\<meta\ name\=\"description\"\ content\=\"ok\ file\ uploaded\"\>
+SSTag_-INJECTION.PHP.Obfuscated Assert-_Score:10|\$alphabet\=\'1\/l9dtu45\.mq\;y\)7pnzoa\*c\_eixrhw3gv68j2\(0sbkf\'\;
+SSTag_-PHP.include injection-_Score:10|^@include "(\\x2f|/)(\\x68|h)(\\x6f|o)(\\x6d|m)(\\x65|e)(\\x2f|/)
+SSTag_-INJECTION.PHP.ssid RCE-_Score:10|error_reporting\(0\)\;\@array_map\(\(\"a\\x73\"\.\"sert
+SSTag_-INJECTION.PHP.joomplaupdateopt session code exec-_Score:10|function\ get\_optionsjoom\(\$option
