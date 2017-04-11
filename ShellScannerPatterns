@@ -5,6 +5,7 @@ SSTag_-Mass Mailer-_Score:10|(INB0X |SerVar.*)?PHP[ -]Mailer|<title>Xsender</tit
 SSTag_-Mass Mailer-_Score:5|M[a4][iI][lL]3r
 SSTag_-Mass Mailer-_Score:10|PHP Send Mails|PHP eMailer is created by Purisangeh
 SSTag_-Mass Mailer-_Score:10|HACKED\ by\ P5HCY0\ 5P4MM3R
+SSTag_-Mass Mailer-_Score:10|ALPHA\-SUPREMO
 SSTag_-Shell names-_Score:10|(Loader'z WEB|Xactlysin|ly0kha|[mM]unra( [Ss]imple)?|Ve_cENx|r57|BLaCk|C99|dz)[ \t]*[Ss][Hh][Ee][Ll][Ll](\.SQL)?|.CyBeRz .JavaHack|SimAttacker|HbT Explorer|ConnectBack|ZenCart Pwnage|inQontrol|Killer Hack|w4ck1ng|[yY]ogyacarderlink|webadmin\.php|by oRb|F([\"']\.[\"'])?i([\"']\.[\"'])?l([\"']\.[\"'])?e([\"']\.[\"'])?s([\"']\.[\"'])?M([\"']\.[\"'])?a(\"']\.[\"'])?n|FilesMa\"\.\"n\"|b374k m1n1 1\.01|Cpanel By BLACK Script Name|JooMla serv3r ScaNN3r|Sec4Ever Users Update|SN0X SHELL|SeCret HaCk Privat Sh3ll|Loader'z WEB shell|ZoomB X|PRO Mailer V2|Auto shell Finder Dz H3x|By Noureddine ElmGhreBi|\$s_title = \"b374k \"\.\$s_ver;|Dark Shell|cPanel Bruteforce by MrAtoms|http://code\.google\.com/p/b374k-shell|1337\ Priv8|Da3s\ File\ Manager|HaTRk\ File\ Manager|FALLAGA Priv8 404 Shell
 SSTag_-Flood Scripts-_Score:10|[Ff]lood.*?[Cc]ompleted.*((MB|packets)[ \t]*per[ \t]*second|MB.*?PPS)|FagsIP|name="act" value="phptools"|[uU]sage:?[ \t]*\b<?[Ii][Pp]>?\b.*\b<?[Pp][Oo][Rr][Tt]>?\b|PHP D[oO]S, Coded|fsockopen[ \t]*\([ \t]*["']udp://\$ip['"][ \t]*,[ \t]*['"]80['"]
 SSTag_-Unknown baddie-_Score:7|.21.0.15.0.242.4.0.231.231.231.377.377.377.0.0.0.314.0.0.377.377.377.0.0.0.0.0.0.0.0.0..371.4.1.350.3.4.0
@@ -363,3 +364,8 @@ SSTag_-INJECTION.PHP.Obfuscated Assert-_Score:10|\$alphabet\=\'1\/l9dtu45\.mq\;y
 SSTag_-PHP.include injection-_Score:10|^@include "(\\x2f|/)(\\x68|h)(\\x6f|o)(\\x6d|m)(\\x65|e)(\\x2f|/)
 SSTag_-INJECTION.PHP.ssid RCE-_Score:10|error_reporting\(0\)\;\@array_map\(\(\"a\\x73\"\.\"sert
 SSTag_-INJECTION.PHP.joomplaupdateopt session code exec-_Score:10|function\ get\_optionsjoom\(\$option
+IRTag_-INJECTION.PHP.ArrayMicroShell-_Score:-10|if\(isset\(\$_REQUEST\["array"\]\)\)\{\s\s\n\s\$array = "as" \. \$_REQUEST\['array'\];\s\n\s\$sort = array\(\$_REQUEST\['sort'\]\);\s\n\s@array_filter\(\$sort, \$array\);\s\n\secho "Array sort completed";\s\n\sexit\(\);\s\n\}
+SSTag_-INJECTION.JS.VarB-_Score:-10|<script>var b='red';c='mod'
+SSTag_-PHP.MicroShellBase64-_Score:10|PD9waHAgaWYoaXNzZXQoJF9SRVFVRVNUWyd4eHgnXSkpe2V2YWwoJF9SRVFVRVNUWyd4eHgnXSk7fQ==
+SSTag_-PHP.MeFilePutContents-_Score:10|function me_file_put_contents\(\$filename, \$content\)\{
+SSTag_-PHP.killme-_Score:10|if\(strpos\(\$url, 'killme'\) > -1\)\{
