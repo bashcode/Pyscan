@@ -251,13 +251,13 @@ def file_scan(file_name):
                 if options.remove_injections:
                     time_taken = time.time() - start_time
                     logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
+                    output_final = [output_hits, output_ir]
+                    res = ''.join(filter(None, output_final))
+                    return res
 
             if options.remove_score:
                 time_taken = time.time() - start_time
                 logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
-                output_final = [output_hits, output_ir]
-                res = ''.join(filter(None, output_final))
-                return res
     
     if output_hits:
         output_hits = output_hits + '\n'
