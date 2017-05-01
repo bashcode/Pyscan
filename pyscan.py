@@ -44,6 +44,9 @@ compiled = []
 sha1_whitelist = []
 sha1_blacklist = []
 
+max_file_size = 2000000
+
+
 def test_regex(regex_array):
     """Ensures the regex strings are validated for proper syntax.
 
@@ -66,7 +69,7 @@ def find_all_files(desired_path):
             if options.skip_ext:
                 for extension in options.skip_ext:
                     if file_name.endswith(extension):
-                        logging.debug('File %s ends with extension %s. Skipping...', 
+                        logging.debug('File %s ends with extension %s. Skipping...',
                                       file_name, extension)
                         continue
             fullpath = os.path.join(dirpath, file_name)
@@ -117,7 +120,7 @@ def explore_path(dir_queue, file_queue):
                     continue
                 elif S_ISDIR(file_mode):
                     dir_queue_put(full_name)
-                elif (S_ISREG(file_mode) and file_stat.st_size < 2000000):
+                elif (S_ISREG(file_mode) and file_stat.st_size < max_file_size):
                     logging.debug('Found file:: %s', full_name)
                     if options.exclude_root_owner:
                         if file_stat.st_uid == 0 and file_stat.st_gid == 0:
@@ -183,24 +186,26 @@ def parallel_scan(file_queue, out_queue):
                 out_queue_put(file_scan_results)
 
 
-
 def file_scan(file_name):
     """Scans a single file and returns the results.
 
     """
     file_name = file_name.lstrip()
+    file_printed = repr(file_name)
+    f = None
     try:
-        logging.debug('Opening file: %s', file_name)
+        logging.debug('Opening file: %s', file_printed)
         f = open(file_name)
-        logging.debug('Reading file: %s', file_name)
+        logging.debug('Reading file: %s', file_printed)
         file_contents = f.read()
-        logging.debug('Closing file: %s',  file_name)
-        f.close()
+        if f is not None:
+            logging.debug('Closing file: %s',  file_printed)
+            f.close()
     except (IOError, OSError), io_error:
         return 'I/O error({0}): {1}: File:{2}'.format(
-            io_error.errno, io_error.strerror, file_name
+            io_error.errno, io_error.strerror, file_printed
         )
-    logging.debug('Scanning file: %s', file_name)
+    logging.debug('Scanning file: %s', file_printed)
     start_time = time.time()
     score = 0
     output_hits = ''
@@ -208,13 +213,22 @@ def file_scan(file_name):
     output_res = ''
 
     sha1_sum = sha(file_contents).hexdigest()
-    logging.debug('sha sum: %s file: %s', sha1_sum, file_name)
+    logging.debug('sha sum: %s file: %s', sha1_sum, file_printed)
 
     if sha1_sum in sha1_whitelist:
-                output_wl = 'FILE-WHITELIST::%s::SHA1_WL::%s' % (file_name, sha1_sum)
+                output_wl = 'FILE-WHITELIST::%s::SHA1_WL::%s' % (file_printed, sha1_sum)
                 return output_wl
     if sha1_sum in sha1_blacklist:
-                output_bl = 'FILE-HITS::%s::SHA1_BL::%s\nFILE-RESULT::%s::SHA1_BL::%s' % (file_name, sha1_sum, file_name, sha1_sum)
+                output_bl = 'FILE-HITS::%s::%s::SHA1_BL::%s\nFILE-RESULT::%s::%s::SHA1_BL::%s' % (
+                    file_printed, datetime.datetime.fromtimestamp(
+                        os.lstat(file_name).st_ctime
+                    ).strftime('%Y-%m-%d %H:%M:%S'),
+                    sha1_sum, file_printed,  
+                    datetime.datetime.fromtimestamp(
+                        os.lstat(file_name).st_ctime
+                    ).strftime('%Y-%m-%d %H:%M:%S'),
+                    sha1_sum
+                )
                 return output_bl
 
     for malware_sig in compiled:
@@ -224,7 +238,7 @@ def file_scan(file_name):
             score = score + regex_score[index]
             if regex_tags[index] == 'SSTag' and not output_hits:
                 output_hits += 'FILE-HITS::%s::%s::%s::S::%d' % (
-                    repr(file_name),
+                    file_printed,
                     datetime.datetime.fromtimestamp(
                         os.lstat(file_name).st_ctime
                     ).strftime('%Y-%m-%d %H:%M:%S'),
@@ -235,30 +249,18 @@ def file_scan(file_name):
                 output_hits += '::%s::S::%d' % (regex_names[index],
                                                  regex_score[index])
             elif regex_tags[index] == "IRTag":
-                remove_results = remove_injection(file_contents, file_name,
-                                                  malware_sig)
+                remove_results = remove_injection(file_name, malware_sig)
                 score = score + regex_score[index]
                 output_ir += '%s::%s::%s::%s::S::%d\n' % (
                     remove_results,
-                    regex_names[index],
+                    file_printed,
                     datetime.datetime.fromtimestamp(
                         os.lstat(file_name).st_ctime
                     ).strftime('%Y-%m-%d %H:%M:%S'),
-                    repr(file_name),
+                    regex_names[index],
                     regex_score[index]
                 )
 
-                if options.remove_injections:
-                    time_taken = time.time() - start_time
-                    logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
-                    output_final = [output_hits, output_ir]
-                    res = ''.join(filter(None, output_final))
-                    return res
-
-            if options.remove_score:
-                time_taken = time.time() - start_time
-                logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
-    
     if output_hits:
         output_hits = output_hits + '\n'
         if score >= 10:
@@ -273,35 +275,45 @@ def file_scan(file_name):
             confidence = 'LEGITIMATE(INJECTION)'
 
         output_res = 'FILE-RESULT::%s::%s::MALICIOUS_PROB_%s_%d' % (
-            repr(file_name),
+            file_printed,
             str(datetime.datetime.fromtimestamp(os.lstat(file_name).st_ctime
             ).strftime('%Y-%m-%d %H:%M:%S')),
             confidence, score
         )
         time_taken = time.time() - start_time
-        logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
+        logging.debug('Finished file %s in %.2f seconds', file_printed, time_taken)
         output_final = [output_hits, output_ir, output_res]
         res = ''.join(filter(None, output_final))
         return res
     time_taken = time.time() - start_time
-    logging.debug('Finished file %s in %.2f seconds', file_name, time_taken)
+    logging.debug('Finished file %s in %.2f seconds', file_printed, time_taken)
 
-def remove_injection(file_contents, file_name, injection):
+def remove_injection(file_name, injection):
     """Takes in current file contents, the file name, and the compiled injection.
        Removes this injection from the file if the '-i' option is being used.
 
     """
     if options.remove_injections:
-        logging.debug('Injection Remover Called: %s', file_name)
-        new_contents = injection.sub('', file_contents)
-
+        file_printed = repr(file_name)
+        logging.debug('Injection Remover Called: %s Injection: %s', file_printed, injection)
         try:
-            openFile = open(file_name, 'w')
-            openFile.write(new_contents)
-            openFile.close()
+            logging.debug('Opening file: %s', file_printed)
+            f = open(file_name, 'r+')
+            file_contents = f.read()
+            new_contents = injection.sub('', file_contents)
+            f.seek(0)
+            f.write(new_contents)
+            f.truncate()
             return 'INJECTION-REMOVED'
-        except IOError:
-            return 'INJECTION-REMOVAL-FAILED'
+            if f is not None:
+                logging.debug('Closing file: %s',  file_printed)
+                f.close()
+
+        except (IOError, OSError), io_error:
+
+            return 'INJECTION-REMOVAL-FAILED:I/O error({0}): {1}: File:{2}'.format(
+                io_error.errno, io_error.strerror, file_printed
+            )
     else:
         return 'INJECTION-FOUND'
 
@@ -337,7 +349,7 @@ def append_args_from_file(option, opt_str, value, parser):
     """Callback function to include directory paths from a text file.
 
     """
- 
+
     args = [arg.strip() for arg in open(value)]
     parser.values.include_dir.extend(args)
 
@@ -397,10 +409,6 @@ def parse_args():
     parser.add_option(
         '-i', '--injection', action='store_true', dest='remove_injections',
         help='Tells the scanner to remove known injections found.'
-    )
-    parser.add_option(
-        '-s', '--score', action='store_true', dest='remove_score',
-        help='Turns off the file scoring engine.'
     )
     parser.add_option(
         '-l', '--legacy-mode', action='store_true', dest='legacy_mode',
@@ -466,6 +474,10 @@ def main(argv):
     patterns = urllib2.urlopen(
         'https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns'
     )
+
+    # Sort alphabetically so IRTags go first. 
+    patterns = sorted(patterns)
+
     sha1sums_whitelist = urllib2.urlopen(
         'https://raw.githubusercontent.com/bashcode/Pyscan/master/pyscan-sha1.whitelist'
     )
@@ -477,12 +489,13 @@ def main(argv):
         sha1sum = sha1sum.strip()
         logging.debug('Load whitelisted SHA1:%s', sha1sum)
         sha1_whitelist.append(sha1sum.split(' ')[0])
+
     for sha1sum in sha1sums_blacklist:
         sha1sum = sha1sum.strip()
         logging.debug('Load blacklisted SHA1:%s', sha1sum)
         sha1_blacklist.append(sha1sum.split(' ')[0])
-    # Reversed pattern order to match the new signatures first.
-    for pattern in reversed(patterns.readlines()):
+
+    for pattern in patterns:
         pattern = pattern.strip()
         logging.debug('Loading Pattern:%s', pattern)
 
