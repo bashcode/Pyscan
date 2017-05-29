@@ -371,3 +371,4 @@ SSTag_-PHP.MeFilePutContents-_Score:10|function me_file_put_contents\(\$filename
 SSTag_-PHP.killme-_Score:10|if\(strpos\(\$url, 'killme'\) > -1\)\{
 IRTag_-INJECTION.PHP.Microshell2-_Score:-10|<\?(php)?\s*\$[A-Za-z0-9]+='[^;]+;if\(isset\(\$\{(\$[A-Za-z0-9]+\[[0-9]+\]\.?)+\}\[(\$[A-Za-z0-9]+\[[0-9]+\]\.?)+\]\)\)\{eval\(\$\{(\$[A-Za-z0-9]+\[[0-9]+\]\.?)+\}\[(\$[A-Za-z0-9]+\[[0-9]+\]\.?)+\]\);\} \?>
 SSTag_-PHP cookie shell-_Score:8|if\(isset\([$]_COOKIE\[\"[a-zA-Z0-9]+\"\]\);exit;}
+SSTag_-javascript redirect malware-_Score:10|<script>\s+if\(document\.cookie\.indexOf\(\"_mauthtoken\"\)==-1\){\(function\(a,b\)\{if\(a.indexOf\(\"ooglebot\"\)==-1\){if\(\/\(android\|bb\\\d\+\|meego\)\.\+mobile.*?window\.opera,'http://.*?'\)\;\}\s+</script>
