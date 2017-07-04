@@ -372,3 +372,7 @@ SSTag_-PHP.killme-_Score:10|if\(strpos\(\$url, 'killme'\) > -1\)\{
 IRTag_-INJECTION.PHP.Microshell2-_Score:-10|<\?(php)?\s*\$[A-Za-z0-9]+='[^;]+;if\(isset\(\$\{(\$[A-Za-z0-9]+\[[0-9]+\]\.?)+\}\[(\$[A-Za-z0-9]+\[[0-9]+\]\.?)+\]\)\)\{eval\(\$\{(\$[A-Za-z0-9]+\[[0-9]+\]\.?)+\}\[(\$[A-Za-z0-9]+\[[0-9]+\]\.?)+\]\);\} \?>
 SSTag_-PHP cookie shell-_Score:8|if\(isset\([$]_COOKIE\[\"[a-zA-Z0-9]+\"\]\);exit;}
 SSTag_-javascript redirect malware-_Score:10|<script>\s+if\(document\.cookie\.indexOf\(\"_mauthtoken\"\)==-1\){\(function\(a,b\)\{if\(a.indexOf\(\"ooglebot\"\)==-1\){if\(\/\(android\|bb\\\d\+\|meego\)\.\+mobile.*?window\.opera,'http://.*?'\)\;\}\s+</script>
+SSTag_-PHP.ceil dropper-_Score:10|function [a-zA-Z]{3,7} \(\$[a-zA-Z]{3,7}, \$[a-zA-Z]{3,7}\) { return \$[a-zA-Z]{3,7} \^ str_repeat \(\$[a-zA-Z]{3,7}, ceil \(strlen \(\$[a-zA-Z]{3,7}\) \/ strlen \(\$[a-zA-Z]{3,7}\)\)\); }
+SSTag_-PHP.Magento CC Stealer-_Score:10|\$headers = \"From: Logger CC Magento <\"\.\$ipboss\.\"\@\"\.\$serverboss\.\">\";
+SSTag_-INJECTION.PHP.reversed create_function-_Score:5|\$a = strrev\(\"noi\"\.\"tcnuf\"\.\"\_eta\"\.\"erc\"\)\;
+SSTag_-PHP.generic redirector-_Score:10|\$links \= explode\(\'\|\|\|\'\, trim\(base64_decode\(\'aHR0cDovL2J1cm5maXRuZXN0bXouY29tLz9hPTQxODU4MiZjPWRpZXQmcz03Nzc=\'\)\, \'\|\'\)\)\;
