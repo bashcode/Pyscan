@@ -379,3 +379,6 @@ SSTag_-PHP.generic redirector-_Score:10|\$links \= explode\(\'\|\|\|\'\, trim\(b
 SSTag_-PHP.Joomla.adapterobserver SEO spam-_Score:10|define\(\'JPATH_ADAPTERSERVER\', dirname\(__FILE__\)\.\'\/joomla\/base\/adapterobserver\.php\'\);
 IRTag_-INJECTION.PHP.Microshell3-_Score:-10|<\?(php)?\s*\$[A-Za-z0-9]+='[^;]+;(\$[A-Za-z0-9]+=\$[A-Za-z0-9]+\[[0-9]+\](\.\$[A-Za-z0-9]+\[[0-9]+\])+;)+if\(isset\(\$\{\$[A-Za-z0-9]+\[[0-9]+\](\.\$[A-Za-z0-9]+\[[0-9]+\])+\}.*?\$[A-Za-z0-9]+\[[0-9]+\](\}\(\);\}|\)\]\);\}|\];\}|\]\)\);\}) \?>
 SSTag_-PHP.ord obfuscation-_Score:10|\$[_A-Za-z0-9]+ \.= sprintf\("%c", \$[_A-Za-z0-9]+ \^ ord\(\$[_A-Za-z0-9]+\[\$i\]\)\);
+SSTag_-PHP.Magento.backdoor-_Score:10|<\?php if\(md5\(@\$_COOKIE\[\'skins\'\]\)==\'
+SSTag_-INJECTION.PHP.Uploader-_Score:-10|<\?php @copy\(@\$_FILES\['x'\]\['tmp_name'\],@\$_FILES\['x'\]\['name'\]\); \?>
+SSTag_-PHP.JiaMi Encoder-_Score:5|PHP Encode by  http\:\/\/Www\.PHPJiaMi\.Com\/
