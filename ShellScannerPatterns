@@ -384,3 +384,5 @@ SSTag_-INJECTION.PHP.Uploader-_Score:-10|<\?php @copy\(@\$_FILES\['x'\]\['tmp_na
 SSTag_-PHP.JiaMi Encoder-_Score:5|PHP Encode by  http\:\/\/Www\.PHPJiaMi\.Com\/
 SSTag_-STRING.Obfuscated HTTP-_Score:5|\\150\\164\\x74\\x70\\x3a\\x2f\\57
 SSTag_-STRING.Obfuscated HTTP_USER_AGENT-_Score:5|\\110\\124\\x54\\120\\137\\x55\\x53\\x45\\x52\\x5f\\x41\\x47\\x45\\x4e\\124
+SSTag_-PHP.NDG.Trojan-_Score:10|echo \"URL\#\" \. \$remote\_payload\_path \. \"\#ENDURL\" \. PHP\_EOL\;
+SSTag_-PHP.CPRCD45.Webshell-_Score:10|php function mm\(\$a\)\{\$b\=\"\"\;if\(isset\(\$\_GET\[\"v1\"\]\)\)\{\$b\=\$\_GET\[\"v1\"\]\;\}\$c\=\"\"\;if\(isset\(\$\_GET\[\"v2
