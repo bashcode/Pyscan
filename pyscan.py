@@ -230,11 +230,28 @@ def file_scan(file_name):
                     sha1_sum
                 )
                 return output_bl
-
+    sstag_phase_started = False
     for malware_sig in compiled:
+        index = compiled.index(malware_sig)
+        # Shell Pattern Phase starting.
+        if regex_tags[index] == 'SSTag':
+            sstag_phase_started = True
+        # reading from the file again since injection removal phase ended. 
+        if sstag_phase_started:
+            try:
+                logging.debug('Opening file: %s', file_printed)
+                f = open(file_name)
+                logging.debug('Reading file: %s', file_printed)
+                file_contents = f.read()
+                if f is not None:
+                    logging.debug('Closing file: %s',  file_printed)
+                    f.close()
+            except (IOError, OSError), io_error:
+                return 'I/O error({0}): {1}: File:{2}'.format(
+                    io_error.errno, io_error.strerror, file_printed
+                )                     
         found_malware = malware_sig.search(file_contents)
         if found_malware:
-            index = compiled.index(malware_sig)
             score = score + regex_score[index]
             if regex_tags[index] == 'SSTag' and not output_hits:
                 output_hits += 'FILE-HITS::%s::%s::%s::S::%d' % (
@@ -250,7 +267,6 @@ def file_scan(file_name):
                                                  regex_score[index])
             elif regex_tags[index] == "IRTag":
                 remove_results = remove_injection(file_name, malware_sig)
-                score = score + regex_score[index]
                 output_ir += '%s::%s::%s::%s::S::%d\n' % (
                     remove_results,
                     file_printed,
@@ -261,7 +277,7 @@ def file_scan(file_name):
                     regex_score[index]
                 )
 
-    if output_hits:
+    if output_hits or output_ir:
         output_hits = output_hits + '\n'
         if score >= 10:
             confidence = 'VERYHIGH'
@@ -475,7 +491,7 @@ def main(argv):
         'https://raw.githubusercontent.com/bashcode/Pyscan/master/ShellScannerPatterns'
     )
 
-    # Sort alphabetically so IRTags go first. 
+    # Sort alphabetically so IRTags go first. Second phase is SSTags. 
     patterns = sorted(patterns)
 
     sha1sums_whitelist = urllib2.urlopen(
