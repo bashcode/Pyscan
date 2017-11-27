@@ -396,3 +396,7 @@ IRTag_-INJECTION.PHP.reversed create_function-_Score:-10|if\(isset\(\$_REQUEST\[
 IRTag_-INJECTION.PHP.edition:2.2-_Score:-10|/\*edition:2.2\*/ \$[A-Za-z0-9]+=.*?extract\(array\('f'=>'create_function','b'=>'convert_uudecode'\)\);\$t=\$f\('',\$b\(\$[A-Za-z0-9]+\)\);\$t\(\);
 SSTag_-INJECTION.PHP.complete_cropped_expiration_va2-_Score:-10|function complete_cropped_expiration_va2\(\) 
 SSTag_-PHP.generic redirector-_Score:10|if \(isset\(\$_GET\['a'\]\) && \$_GET\['a'\] == 'd'\) unlink
+IRTag_-INJECTION.wp_vcd_post-_Score:-10|<[?]php if \(file_exists\(dirname\(__FILE__\) \. '/wp-vcd.php'\)\) include_once\(dirname\(__FILE__\) . '/wp-vcd.php'\); [?]>
+SSTag_-PHP.wp_vcd-_Score:10|extract\(wp_temp_setupx\([$]tmpcontentx\)\);
+SSTag_-PHP.wp_vcd-_Score:10|if \([$]list = scandir\( [$]themes \)\)
+SSTag_-INJECTION.wp_vcd_injection-_Score:-10|[$]div_code_name=\"wp_vcd\";
