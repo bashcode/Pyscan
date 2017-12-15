@@ -350,7 +350,6 @@ SSTag_-PHP.Fake Font.Dropper-_Score:10|file_get_contents\('http://31\.184\.193\.
 SSTag_-PHP.obfuscated.RCE-_Score:10|if\s*?\(\s*?!empty\s*?\(\s*?\$_POST\s*?\)\s*?\)\s*?\{extract\s*?\(\$_POST\)\s*?;\s*?\$h
 SSTag_-PHP.Hex.intval-_Score:10|\\x69\\x6e\\x74\\x76\\x61\\x6c
 SSTag_-PHP.Coder Droper-_Score:10|\$file_name = substr\(md5\(\$_SERVER\['SERVER_ADDR'\]\.'coder'\), 0, 4\)\.'\.php';|\$coder = fetch_url\(chr\(intval\("104"\)\)
-SSTag_-PHP.Russian.Botnet.C2-_Score:10|Обработка группы ботов
 SSTag_-PHP.JM Obfuscator-_Score:5|phpjm\.net
 SSTag_-PHP.INJECTION.Fake Jquery-_Score:-10|<script type="application/javascript">var toggleMenu = function\(\)\{var m = document\.getElementById\('wporg-header-menu'\),c = m.className;
 SSTag_-PHP.Shell Env Checker-_Score:10|echo \$ok\ \?\ \"SHELL\_OK\"\ \:\ \"SHELL\_BAD\"\;
