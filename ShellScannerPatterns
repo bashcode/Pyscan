@@ -400,3 +400,7 @@ IRTag_-INJECTION.wp_vcd_post-_Score:-10|<[?]php if \(file_exists\(dirname\(__FIL
 SSTag_-PHP.wp_vcd-_Score:10|extract\(wp_temp_setupx\([$]tmpcontentx\)\);
 SSTag_-PHP.wp_vcd-_Score:10|if \([$]list = scandir\( [$]themes \)\)
 SSTag_-INJECTION.wp_vcd_injection-_Score:-10|[$]div_code_name=\"wp_vcd\";
+SSTag_-Malicious PHP-_Score:7|[$][a-z]*? \= stripslashes\(base64_decode\([$]_POST\['[a-z]*?'\]\)\)\;
+SSTag_-INJECTION.Cloudflare.Keylogger-_Score:-10|(cloudflare\.solutions|linterkey1|linterkey2)
+SSTag_-Malicious PHP-_Score:7|if \(\!extension_loaded\(\'IonCube_loader\'\)\) \{\$[a-z_]*? \= strtolower\(substr\(php_uname\(\)\,
+SSTag_-Malicious PHP-_Score:8|if \(mail\(stripslashes\(base64_decode\([$][a-z]*?\[[0-9]\]\)\)\, stripslashes\(base64_decode\([$][a-z]*?\[[0-9]\]\)\)
