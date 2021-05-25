@@ -6,7 +6,7 @@ SSTag_-Mass Mailer-_Score:5|M[a4][iI][lL]3r
 SSTag_-Mass Mailer-_Score:10|PHP Send Mails|PHP eMailer is created by Purisangeh
 SSTag_-Mass Mailer-_Score:10|HACKED\ by\ P5HCY0\ 5P4MM3R
 SSTag_-Mass Mailer-_Score:10|ALPHA\-SUPREMO
-SSTag_-Shell names-_Score:10|(Loader'z WEB|Xactlysin|ly0kha|[mM]unra( [Ss]imple)?|Ve_cENx|r57|BLaCk|C99|dz)[ \t]*[Ss][Hh][Ee][Ll][Ll](\.SQL)?|.CyBeRz .JavaHack|SimAttacker|HbT Explorer|ConnectBack|ZenCart Pwnage|inQontrol|Killer Hack|w4ck1ng|[yY]ogyacarderlink|webadmin\.php|by oRb|F([\"']\.[\"'])?i([\"']\.[\"'])?l([\"']\.[\"'])?e([\"']\.[\"'])?s([\"']\.[\"'])?M([\"']\.[\"'])?a(\"']\.[\"'])?n|FilesMa\"\.\"n\"|b374k m1n1 1\.01|Cpanel By BLACK Script Name|JooMla serv3r ScaNN3r|Sec4Ever Users Update|SN0X SHELL|SeCret HaCk Privat Sh3ll|Loader'z WEB shell|ZoomB X|PRO Mailer V2|Auto shell Finder Dz H3x|By Noureddine ElmGhreBi|\$s_title = \"b374k \"\.\$s_ver;|Dark Shell|cPanel Bruteforce by MrAtoms|http://code\.google\.com/p/b374k-shell|1337\ Priv8|Da3s\ File\ Manager|HaTRk\ File\ Manager|FALLAGA Priv8 404 Shell|Sindbad File Manager|Mister Spy|Moroccanwolf
+SSTag_-Shell names-_Score:10|(Loader'z WEB|Xactlysin|ly0kha|[mM]unra( [Ss]imple)?|Ve_cENx|r57|BLaCk|C99|dz)[ \t]*[Ss][Hh][Ee][Ll][Ll](\.SQL)?|.CyBeRz .JavaHack|SimAttacker|HbT Explorer|ConnectBack|ZenCart Pwnage|inQontrol|Killer Hack|w4ck1ng|[yY]ogyacarderlink|webadmin\.php|by oRb|F([\"']\.[\"'])?i([\"']\.[\"'])?l([\"']\.[\"'])?e([\"']\.[\"'])?s([\"']\.[\"'])?M([\"']\.[\"'])?a(\"']\.[\"'])?n|FilesMa\"\.\"n\"|b374k m1n1 1\.01|Cpanel By BLACK Script Name|JooMla serv3r ScaNN3r|Sec4Ever Users Update|SN0X SHELL|SeCret HaCk Privat Sh3ll|Loader'z WEB shell|ZoomB X|PRO Mailer V2|Auto shell Finder Dz H3x|By Noureddine ElmGhreBi|\$s_title = \"b374k \"\.\$s_ver;|Dark Shell|cPanel Bruteforce by MrAtoms|http://code\.google\.com/p/b374k-shell|1337\ Priv8|Da3s\ File\ Manager|HaTRk\ File\ Manager|FALLAGA Priv8 404 Shell|Sindbad File Manager|Mister Spy|Moroccanwolf|WebShellOrb
 SSTag_-Flood Scripts-_Score:10|[Ff]lood.*?[Cc]ompleted.*((MB|packets)[ \t]*per[ \t]*second|MB.*?PPS)|FagsIP|name="act" value="phptools"|[uU]sage:?[ \t]*\b<?[Ii][Pp]>?\b.*\b<?[Pp][Oo][Rr][Tt]>?\b|PHP D[oO]S, Coded|fsockopen[ \t]*\([ \t]*["']udp://\$ip['"][ \t]*,[ \t]*['"]80['"]
 SSTag_-Unknown baddie-_Score:7|.21.0.15.0.242.4.0.231.231.231.377.377.377.0.0.0.314.0.0.377.377.377.0.0.0.0.0.0.0.0.0..371.4.1.350.3.4.0
 SSTag_-Generic Micro-shell-_Score:5|\b([Ii][Nn][Cc][Ll][Uu][Dd][Ee]|[Ss][Yy][Ss][Tt][Ee][Mm]|[Ee][Vv][Aa][Ll]|[Aa][Ss][Ss][Ee][Rr][Tt]|[Pp][Aa][Ss][Ss][Tt][Hh][Rr][Oo][Uu][Gg][Hh]|[Ss][Hh][Ee][Ll][Ll]_[Ee][Xx][Ee][Cc])\b.*?\([ \t]*\$_(GET|POST|REQUEST|COOKIE|SESSION)
@@ -434,6 +434,9 @@ SSTag_-Malware.NVAR-_Score:10|[$]NVAR=gzinflate\(base64_decode\([$]NVAR\)\);
 SSTag_-PHP.Python.Mailmanctl-_Score:10|e\(\"python mailmanctl\"\);
 SSTag_-CryptoMiner.Cryptominer-_Score:10|(?i)coinhive|[$]payload_file\s=\s\"[a-zA-z0-9].*?\"|var\s*?miner\s*?=\s*?new\s*?Client\.Anonymous\(['\"a-z0-9]*?\);\s*?miner\.start\(\);
 SSTag_-PHP.Malware-_Score:10|[$][a-z]*?=\"[a-z0-9_]*?\";.[$][a-z]*?=str_ireplace\(\"[a-z]\",\"\",[$][a-z]*?\);[$][a-z]*?\s=\s\"[A-Za-z0-9].*?=*\";\sfunction\s[a-z]*\([$]errno,[$]errstr,[$]errfile,[$]errline\)
-SSTag_-PHP.Malware.Pastebin-_Score:5|(?i)pastebin\.com
-SSTag_-PHP.Malware.ckbgInjection-_Score:5|(?ms)\/\/ck.*?bg.*?\/\/ck.*?end
+SSTag_-PHP.Malware.Pastebin-_Score:5|(?i)pastebin\.com|ghostbin\.co|hastebin\.com
+SSTag_-PHP.Malware.ckbgInjection-_Score:5|(?ms)\/\/ck.*?bg.*?\/\/ck.*?end|\/\/installbg.*?\/\/installend
 SSTag_-PHP.Malware.0byt3m1n1_shell-_Score:10|(?ms)if\s*\(\([$][a-zA-Z]*\s*&\s*0xC000\)\s*==\s*0xC000\).*?elseif\s*\(\([$][a-zA-Z]*\s*&\s*0xA000\)\s*==\s*0xA000\)
+SSTag_-PHP.uploader-_Score:7|echo \'01024k\';
+SSTag_-PHP.uploader-_Score:7|(?ms)[$]name = trim\([$]_POST\[\'newname\'\]\)\.\'\.php\';\s*[$]lul = file_get_contents\(__FILE__\);\s*[$]lol = fopen\([$]name, \"w\+\"\);\s*fwrite\([$]lol, [$]lul\);\s*fclose\([$]lol\);|echo \'xXsUIssAZ:\'\.[$]name\.\':xXsUIssAZ\';
+SSTag_-INJECTION.PHP-_Score:5|[$][a-zA-Z]{8}=\'[\S]{8,10}.*?[$][A-za-z]{8}\(\);
